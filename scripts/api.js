@@ -25,9 +25,9 @@ function breweryAPI(state){ // still need to instate pagination to create full s
 
 
 
-function filterOutPhoneyPhones(breweriesArray){ // only returns phone numbers 10 digits long, stretch goal to modify 11 digit results (remove "1" to the beginning) and include them in the 10 digit array
+function filterOutPhoneyPhones(breweriesArray){ // stretch goal to modify 9 digit results (add "1" to the beginning) and include them in the 10/11 digit array
     let goodPhones = breweriesArray.filter(function (eachBrewery){
-        return ((eachBrewery["phone"]).length === 10); // get rid of brewery with anything but 10 digit phone #s
+        return (((eachBrewery["phone"]).length === 10) || ((eachBrewery["phone"]).length === 11)); // get rid of brewery with anything but 10 or 11 digit phone #s
     });
     return goodPhones;
 }
@@ -115,7 +115,12 @@ function radiusBreweryRandomizer(localBreweries){
 }
 
 function breweryPhoneNumber(brewery){ // stretch goal of 'if-statementing' in breweries that already have 11 digit # numbers
+    if ((brewery.phone).length === 11){
+        return brewery.phone;
+    }
+    else{ 
     return '1' + (brewery.phone);
+    }
 }
 
 /////////////////////////
