@@ -17,15 +17,21 @@
     <title>Rough Draft Beer</title>
 </head>
 <body>
-   
+
+<div class="background-wrapper">
+    <div class="full-width-background">
+
+        <video autoplay muted loop><source src="img/cola-soda-with-extra-bubbles-background-with-loop_st1fketyg__SB_PM.mp4" type="video/mp4"></video>
+
+    </div>
+</div>
+
+
     <h1 class="title" data-title>Rough Draft</h1>
 <div class="maincontainer" data-maincontainer>
     <div class="leftcolumn" data-leftcolumn>
-        <img src="img/HandyFlakyBunting-max-1mb.gif" alt="beer flowing from tap" class="cutegraphic">
-    </div>
-    <div class="rightcolumn" data-rightcolumn>
         <div class="inputfields" data-inputfields>
-            <div class="inputlocation" data-inputlocation>Atlanta</div>
+            <input class="inputlocation" data-inputlocation TYPE="text" NAME="FirstName" SIZE=30 VALUE="Atlanta">
             <div class="inputradius" data-inputradius>
                 <select name="radius">
                     <option value="1">1 mile</option>
@@ -36,9 +42,11 @@
               </select></div>
             <div class="inputtype" data-inputtype>micro</div>
         </div>
+    </div>
+    <div class="rightcolumn" data-rightcolumn>
         <div class="displaydata" data-displaydata>
             <div class="brewerypicture" data-brewerypicture>
-                <img class=bpictureimg data-bpictureimg src="img/66910_211220355691230_1538184762_n-300x199.jpg" alt="">
+                <!-- <img class=bpictureimg data-bpictureimg src="img/66910_211220355691230_1538184762_n-300x199.jpg" alt=""> -->
             </div>
             <div class="breweryname" data-breweryname>Red Hare Brewary</div>
             <div class="breweryphone" data-breweryphone>6784010600</div>
@@ -51,10 +59,7 @@
     </div>
     
 </div>
-<div class="trialgiv">
-    <img class="pint" src="img/beer-pint.png" alt="">
-    <img class="liquid" src="img/beer-liquid.png" alt="">
-</div>
-
+<script src="scripts/api.js"></script>
+<script src="scripts/dom.js"></script>
 </body>
 </html>
