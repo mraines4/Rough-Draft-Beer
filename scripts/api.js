@@ -22,7 +22,7 @@ function breweryAPI(state){ // still need to instate pagination to create full s
 
 
 
-function filterOutPhoneyPhones(breweriesArray){ // stretch goal to modify 9 digit results (add "1" to the beginning) and include them in the 10/11 digit array
+function filterOutPhoneyPhones(breweriesArray){
     let goodPhones = breweriesArray.filter(function (eachBrewery){
         return (((eachBrewery["phone"]).length === 10) || ((eachBrewery["phone"]).length === 11)); // get rid of brewery with anything but 10 or 11 digit phone #s
     });
@@ -75,30 +75,27 @@ function yelpAPI(phone){
 /////////////////////////
 // OPENCAGE API BEGINS //
 /////////////////////////
-let city = 'Atlanta'; // the "city" should be fed from the city field on input
-let state_1 = 'Georgia'; // the "state" should be fed from the state field on input
+// let city = 'Atlanta'; // the "city" should be fed from the city field on input
+// let state = 'Georgia'; // the "state" should be fed from the state field on input
 // the above are TEMPORARY global variables to feed to this function, otherwise the function should be fed from the above mentioned inputs
-function geoApi(city,state_1){
-    geoKey = '9940fdfbec3c42328da75e23977d75a9';
-    const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state_1},US&key=${geoKey}`;
 
-    fetch(GEO_URL)
+function geoApi(city,state){
+    geoKey = '9940fdfbec3c42328da75e23977d75a9';
+    const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
+
+    return fetch(GEO_URL)
     .then(function (response) {
-        // Start the conversion process.
         return response.json();  // <----- We're returning another Promise.
     })
     .then(function (geoData) {
-        console.log('Inside the function (geoData)');
-        console.log(geoData.results[0].geometry.lat);
-        console.log(geoData.results[0].geometry.lng);
-        return geoData.results[0].geometry;
-    })
-    .then(function (coordinates) {
-        console.log('Inside the function (coordinates)');
-        // Call the other API with yet another fetch
-        console.log(coordinates);
+        console.log(geoData.results[0].geometry); // returns object of user's (city, state) center lat/lngs
+        return geoData.results[0].geometry; // now feed this into a function to come up with a local lat/lng range
     });
 }
+
+
+
+
 
 ////////////////////
 // MISC FUNCTIONS //
@@ -111,7 +108,7 @@ function radiusBreweryRandomizer(localBreweries){
     return localBreweries[randomNumber]; // set that random number as the index for the array for the breweries to return a single random brewery
 }
 
-function breweryPhoneNumber(brewery){ // stretch goal of 'if-statementing' in breweries that already have 11 digit # numbers
+function breweryPhoneNumber(brewery){
     if ((brewery.phone).length === 11){
         return brewery.phone;
     }
@@ -120,14 +117,45 @@ function breweryPhoneNumber(brewery){ // stretch goal of 'if-statementing' in br
     }
 }
 
+function localizeRadiusRange(localLatLngObject, radius){ // WORKING ON IT
+    const lat = parseFloat(localLatLngObject.lat);
+    const long = parseFloat(localLatLngObject.lng);
+    const radiusKM = radius / 0.62137;
+
+}
+
+function haversine(lat1, lng1, lat2, lng2){
+    Number.prototype.toRad = function() {
+        return this * Math.PI / 180;
+    };
+    const R = 6371; // km 
+    //has a problem with the .toRad() method below.
+    let x1 = lat2-lat1;
+    let dLat = x1.toRad();  
+    let x2 = lng2-lng1;
+    let dLon = x2.toRad();  
+    let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+    Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);  
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    let d = (R * c) * 0.62137; // convert to miles
+    
+
+    console.log(d);
+    return (d);
+}
+
 /////////////////////////
 // Testing Environment //
 /////////////////////////
-let state = (document.querySelector('[data-inputstate]')).value; // pulling input from HTML
+// let state = (document.querySelector('[data-inputstate]')).value; // pulling input from HTML
 
-breweryAPI(state).then(function (data){
-    return (breweryPhoneNumber(radiusBreweryRandomizer(data))); // this is the 11 digit number you feed into yelpAPI
-})
-.then(function (phone){
-    return (yelpAPI(phone));
-});
+// console.log(geoApi("Atlanta", "Georgia"));
+haversine(33.7490987, -84.3901849,33.9526,-84.5499);
+
+// breweryAPI(state).then(function (data){
+//     return (breweryPhoneNumber(radiusBreweryRandomizer(data))); // this is the 11 digit number you feed into yelpAPI
+// })
+// .then(function (phone){
+//     return (yelpAPI(phone));
+// });
