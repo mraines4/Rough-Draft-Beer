@@ -119,20 +119,27 @@ let breweryReview = document.querySelector('[data-breweryreview]');
 let breweryHours = document.querySelector('[data-breweryhours]');
 let breweryDistance = document.querySelector('[data-brewerydistance]');
 
-breweryPicture.textContent = 'waiting pic';
+breweryPicture.textContent = dummyYelp.image_url;
 breweryName.textContent = dummyYelp.name;
 breweryPhone.textContent = dummyBrewery.phone;
 breweryAddress.textContent = dummyYelp.location.address1;
 breweryWebsite.textContent = dummyBrewery.website_url;
 breweryReview.textContent = dummyYelp.rating;
-breweryHours.textContent = openOrNot(dummyYelp.hours[0].is_open_now);
+breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
 breweryDistance.textContent = 'waiting distance';
 
 // checks truthiness of open status of brewery
-function openOrNot(status) {
+function closedOrNot(status) {
     if (status) {
-        return 'Open Now';
+        return 'Closed Now';
     } else {
-        return 'Closed';
+        return 'Open Now';
     }
+}
+
+// gets picture of brewery
+function getBrewPic(pic) {
+    // bring in pic
+    // change href of breweryPicture
+    // return
 }
