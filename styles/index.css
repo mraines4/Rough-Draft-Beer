@@ -8,6 +8,8 @@ html {
 
   body {
 
+    font-family:  Montserrat, 'Times New Roman', Times, serif;
+
       }
 
  .background-wrapper .full-width-background {
@@ -45,6 +47,11 @@ html {
 .brewerypicture {
   position: relative;
 }
+.gobutton {
+  font-size: 20px;
+  border: 2px solid brown;
+
+}
 .pictureframe {
   position:relative;
   margin:auto;
@@ -80,13 +87,16 @@ video {
     width:50%;
     border: 2px solid red;
     background-color: white;
-
+    padding:10px;
+    border-radius:20%;
   }
   .rightcolumn {
     background-color: white;
     width :50%;
     border: 2px solid purple;
-    
+    padding: 10px;
+    border-radius:20%;
+
   }
   .inputfields {
     border: 3px solid blue;
@@ -103,7 +113,10 @@ video {
     border: 3px solid purple;
     border-radius: 25%;
   }
+.inputtype {
+  padding:20px;
 
+}
   #micro:checked ~ .microlabel {
     background-color: red;
   }
