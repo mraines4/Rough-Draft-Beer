@@ -13,6 +13,9 @@ html {
     
    
   }
+  img {
+    width:100%;
+  }
   h1 {
     text-align: center;
     color : #FFC24F;
