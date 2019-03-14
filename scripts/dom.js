@@ -123,7 +123,7 @@ let breweryDistance = document.querySelector('[data-brewerydistance]');
 breweryPicture.setAttribute('src', dummyYelp.image_url);
 breweryName.textContent = dummyYelp.name;
 breweryPhone.textContent = dummyYelp.display_phone;
-breweryAddress.textContent = dummyYelp.location.address1;
+breweryAddress.innerHTML = `${dummyYelp.location.address1}<br>${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
 breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
 breweryReview.textContent = dummyYelp.rating;
 breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
