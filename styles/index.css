@@ -1,0 +1,65 @@
+/* paul irish border box styling */
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  body {
+    background-color: #013D8A;
+    background-color: #8A600F;
+    background-color: #2D76D7;
+    
+   
+  }
+  .trialgif {
+    width: 200px;
+    height: 100%;
+    position: relative;
+  }
+  /* .trialgif img {
+    position: absolute;
+  } */
+  .pint {
+    width: 200px;
+    z-index: 5;
+    position: absolute;
+
+  }
+  .liquid {
+    width: 200px;
+    z-index: 1;
+    top:800px;
+    position: absolute;
+    transform: translate(0px,-140px);
+    transition-duration: 4s;
+
+  }
+  img {
+    width:100%;
+  }
+  h1 {
+    text-align: center;
+    color : #FFC24F;
+  }
+
+  .maincontainer {
+    display: flex;
+  }
+
+  .leftcolumn {
+    width:30%;
+    border: 2px solid red;
+  }
+  .rightcolumn {
+    width :65%;
+    border: 2px solid purple;
+    
+  }
+  .inputfields {
+    border: 3px solid blue;
+  }
+  .displaydata {
+    border: 3px solid blue;
+  }
