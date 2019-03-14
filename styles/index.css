@@ -80,3 +80,16 @@ html {
     border: 3px solid purple;
     border-radius: 25%;
   }
+
+  #micro:checked ~ .microlabel {
+    background-color: red;
+  }
+  #brewpub:checked ~ .brewpublabel {
+    background-color: yellow;
+  }
+  #large:checked ~ .largelabel {
+    background-color: yellowgreen;
+  }
+  #bar:checked ~ .barlabel {
+    background-color: orange;
+  }
