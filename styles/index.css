@@ -13,6 +13,29 @@ html {
     
    
   }
+  .trialgif {
+    width: 200px;
+    height: 100%;
+    position: relative;
+  }
+  /* .trialgif img {
+    position: absolute;
+  } */
+  .pint {
+    width: 200px;
+    z-index: 5;
+    position: absolute;
+
+  }
+  .liquid {
+    width: 200px;
+    z-index: 1;
+    top:800px;
+    position: absolute;
+    transform: translate(0px,-140px);
+    transition-duration: 4s;
+
+  }
   img {
     width:100%;
   }
