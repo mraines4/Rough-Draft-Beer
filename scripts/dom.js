@@ -123,7 +123,7 @@ breweryPicture.textContent = dummyYelp.image_url;
 breweryName.textContent = dummyYelp.name;
 breweryPhone.textContent = dummyBrewery.phone;
 breweryAddress.textContent = dummyYelp.location.address1;
-breweryWebsite.textContent = dummyBrewery.website_url;
+breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
 breweryReview.textContent = dummyYelp.rating;
 breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
 breweryDistance.textContent = 'waiting distance';
