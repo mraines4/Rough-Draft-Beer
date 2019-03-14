@@ -110,7 +110,7 @@ let dummyBrewery = {
 
 
 // adds the elements that will be updated from api
-let breweryPicture = document.querySelector('[data-brewerypicture]');
+let breweryPicture = document.querySelector('[data-bpictureimg]');
 let breweryName = document.querySelector('[data-breweryname]');
 let breweryPhone = document.querySelector('[data-breweryphone]');
 let breweryAddress = document.querySelector('[data-breweryaddress]');
@@ -119,7 +119,7 @@ let breweryReview = document.querySelector('[data-breweryreview]');
 let breweryHours = document.querySelector('[data-breweryhours]');
 let breweryDistance = document.querySelector('[data-brewerydistance]');
 
-breweryPicture.textContent = dummyYelp.image_url;
+breweryPicture.setAttribute('src', dummyYelp.image_url);
 breweryName.textContent = dummyYelp.name;
 breweryPhone.textContent = dummyYelp.display_phone;
 breweryAddress.textContent = dummyYelp.location.address1;
