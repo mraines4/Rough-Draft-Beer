@@ -31,10 +31,8 @@
 <div class="maincontainer" data-maincontainer>
     <div class="leftcolumn" data-leftcolumn>
         <div class="inputfields" data-inputfields>
-            <input class="inputcity" data-inputcity TYPE="text" name="city" SIZE=30 VALUE="Atlanta">
-            <!-- <input class="inputstate" data-inputstate TYPE="text" name="city" SIZE=30 VALUE="Georgia"> -->
-            <div class="inputstate" data-inputstate></div>
-            <select name="inputstate" id="inputstate">
+            <div>
+            <select class="inputstate" name="inputstate" id="inputstate" data-inputstate>
                     <option value="Alabama">Alabama</option>
                     <option value="Alaska">Alaska</option>
                     <option value="Arizona">Arizona</option>
@@ -45,7 +43,7 @@
                     <option value="Delaware">Delaware</option>
                     <option value="District of Columbia">District of Columbia</option>
                     <option value="Florida">Florida</option>
-                    <option value="Georgia">Georgia</option>
+                    <option value="Georgia" selected>Georgia</option>
                     <option value="Hawaii">Hawaii</option>
                     <option value="Illinois">Illinois</option>
                     <option value="Indiana">Indiana</option>
@@ -86,6 +84,13 @@
                     <option value="Wisconsin">Wisconsin</option>
                     <option value="Wyoming">Wyoming</option>
                 </select>
+            </div>
+            <div >
+                    <select class="inputcity" name="inputcity" id="inputcity" data-inputcity>
+                            <option value="null">null</option>
+                    </select>
+                    </div>
+        
             <div class="inputradius" data-inputradius>
                 <select name="radius">
                     <option value="1">1 mile</option>
@@ -125,9 +130,9 @@
         </div>
     </div>
     
-</div>
-<script src="scripts/test.js"></script>
-<!-- <script src="scripts/api.js"></script>
-<script src="scripts/dom.js"></script> -->
+<!-- margarets test.js code -->
+<!-- <script src="scripts/test.js"></script> -->
+<script src="scripts/api.js"></script>
+<script src="scripts/dom.js"></script>
 </body>
 </html>
