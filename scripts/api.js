@@ -1,11 +1,8 @@
-/////////////////////////////
-//OPENBREWERYDB API BEGINS //
-/////////////////////////////
+//////////////////////////////
+// OPENBREWERYDB API BEGINS //
+//////////////////////////////
 // let state = "georgia"; // the "state" from the state field on input or geolocate api
 // the above is a TEMPORARY global variable to feed to this function, otherwise the function should be fed from the above mentioned inputs
-
-// let state = document.querySelector('[data-inputstate]'); // pulling input from HTML
-
 function breweryAPI(state){ // still need to instate pagination to create full stateDB to manipulate
     const beerURL = `https://api.openbrewerydb.org/breweries?by_state=${state}`;
     // console.log(`Searching DB for ${state} breweries`);
@@ -57,7 +54,7 @@ function showMeTheBreweryTypes(breweriesArray){ // quick optional function to lo
 /////////////////////
 // YELP API BEGINS //
 /////////////////////
-let phone = '16784010600'; // the "phone" should be fed from breweryAPI
+// let phone = '16784010600'; // the "phone" should be fed from breweryAPI
 // the above is a TEMPORARY global variable to feed to this function, otherwise the function should be fed from the above mentioned inputs
 function yelpAPI(phone){
     fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
@@ -71,7 +68,7 @@ function yelpAPI(phone){
     .then(function (data){
         console.log(data);
         console.log('that was the data');
-        // return cleanDB; // return a workable array of objects of breweries with real phone #s that exist
+        return data;
     });
 }
 
@@ -126,8 +123,9 @@ function breweryPhoneNumber(brewery){ // stretch goal of 'if-statementing' in br
 /////////////////////////
 // Testing Environment //
 /////////////////////////
+let state = (document.querySelector('[data-inputstate]')).value; // pulling input from HTML
 
-breweryAPI("Georgia").then(function (data){
+breweryAPI(state).then(function (data){
     return (breweryPhoneNumber(radiusBreweryRandomizer(data))); // this is the 11 digit number you feed into yelpAPI
 })
 .then(function (phone){
