@@ -5,3 +5,35 @@ html {
   *, *:before, *:after {
     box-sizing: inherit;
   }
+
+  body {
+    background-color: #013D8A;
+    background-color: #8A600F;
+    background-color: #2D76D7;
+    
+   
+  }
+  h1 {
+    text-align: center;
+    color : #FFC24F;
+  }
+
+  .maincontainer {
+    display: flex;
+  }
+
+  .leftcolumn {
+    width:30%;
+    border: 2px solid red;
+  }
+  .rightcolumn {
+    width :65%;
+    border: 2px solid purple;
+    
+  }
+  .inputfields {
+    border: 3px solid blue;
+  }
+  .displaydata {
+    border: 3px solid blue;
+  }
