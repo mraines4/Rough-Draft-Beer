@@ -1,0 +1,7 @@
+/* paul irish border box styling */
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
