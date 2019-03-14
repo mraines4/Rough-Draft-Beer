@@ -108,6 +108,7 @@ let dummyBrewery = {
     "tag_list": []
 }
 
+const dummyCurrentLocation = [33.9526,-84.5499]
 
 // adds the elements that will be updated from api
 let breweryPicture = document.querySelector('[data-bpictureimg]');
@@ -126,7 +127,7 @@ breweryAddress.textContent = dummyYelp.location.address1;
 breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
 breweryReview.textContent = dummyYelp.rating;
 breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
-breweryDistance.textContent = 'waiting distance';
+breweryDistance.textContent = `${convertDistance(dummyCurrentLocation, dummyBrewery)} miles`;
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
@@ -148,3 +149,16 @@ function getBrewPic(pic) {
 // function formatPhoneNumber(number) {
 //     return `(${number.substr(0,3)}) ${number.substr(3,3)}-${number.substr(6,4)}`
 // }
+
+// finds distance from city to brewery
+function convertDistance(current, brew) {
+    // converts lat and long of brewery to numbers
+    let brewLat = parseFloat(brew.latitude);
+    let brewLong = parseFloat(brew.longitude);
+    // does the distance formula
+    let distance = Math.sqrt(Math.pow((current[0] - brewLat),2) + Math.pow((current[1] - brewLong),2));
+    // converts degrees to miles
+    let miles = distance * 68.703
+    // returns with 1 decimal place
+    return Math.round(miles * 10) / 10;
+}
