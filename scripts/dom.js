@@ -115,7 +115,7 @@ const breweryPicture = document.querySelector('[data-bpictureimg]');
 const breweryName = document.querySelector('[data-breweryname]');
 const breweryPhone = document.querySelector('[data-breweryphone]');
 const breweryAddress = document.querySelector('[data-breweryaddress]');
-const breweryWebsite = document.querySelector('[data-brewerywebsite]');
+const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
 const breweryReview = document.querySelector('[data-breweryreview]');
 const breweryHours = document.querySelector('[data-breweryhours]');
 const breweryDistance = document.querySelector('[data-brewerydistance]');
@@ -124,10 +124,11 @@ breweryPicture.setAttribute('src', dummyYelp.image_url);
 breweryName.textContent = dummyYelp.name;
 breweryPhone.textContent = dummyYelp.display_phone;
 breweryAddress.innerHTML = `${dummyYelp.location.address1}<br>${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
+breweryWebsite.textContent = dummyBrewery.website_url;
 breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
 breweryReview.textContent = dummyYelp.rating;
 breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
-breweryDistance.textContent = `${convertDistance(dummyCurrentLocation, dummyBrewery)} miles away`;
+breweryDistance.textContent = `${convertDistance(dummyCurrentLocation, dummyYelp)} miles away`;
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
@@ -153,12 +154,52 @@ function getBrewPic(pic) {
 // finds distance from city to brewery
 function convertDistance(current, brew) {
     // converts lat and long of brewery to numbers
-    let brewLat = parseFloat(brew.latitude);
-    let brewLong = parseFloat(brew.longitude);
+    let brewLat = parseFloat(brew.coordinates.latitude);
+    let brewLong = parseFloat(brew.coordinates.longitude);
     // does the distance formula
     let distance = Math.sqrt(Math.pow((current[0] - brewLat),2) + Math.pow((current[1] - brewLong),2));
     // converts degrees to miles
     let miles = distance * 68.703
     // returns with 1 decimal place
     return Math.round(miles * 10) / 10;
+}
+
+// selectors of states to populate cities******************
+// this stores Object of all states and cities
+let cityArray = {}
+
+// this fetches from json file
+fetch('../data/statecity.json')
+    .then(function (r) {
+        return r.json();
+    })
+    .then(function(data) {
+        console.log(data);
+        cityArray = data;
+        changeState(data);
+    });
+    
+    // this listens to selecting each state and for each clicked, run populateCity
+function changeState(cityArray) {
+    const inputState = document.querySelector('[data-inputstate]');
+    inputState.addEventListener('change', function() {
+        // console.log(inputState.value)
+        populateCity(inputState.value);
+    });
+}
+
+// this will empty the div and populate cities
+function populateCity(state) {
+    const inputCity = document.querySelector('[data-inputcity]');
+    inputCity.textContent = ''
+    console.log(state);
+    // console.log('test')
+    console.log(cityArray[state]);
+    cityArray[state].forEach(function (city) {
+        let option = document.createElement('option');
+        option.setAttribute('value', city);
+        option.textContent = city;
+        inputCity.appendChild(option);
+        console.log(city)
+    })
 }
