@@ -128,7 +128,7 @@ breweryWebsite.textContent = dummyBrewery.website_url;
 breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
 breweryReview.textContent = dummyYelp.rating;
 breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
-breweryDistance.textContent = `${convertDistance(dummyCurrentLocation, dummyYelp)} miles away`;
+breweryDistance.textContent = `${haversine(dummyCurrentLocation, dummyYelp)} miles away`;
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
@@ -139,12 +139,6 @@ function closedOrNot(status) {
     }
 }
 
-// gets picture of brewery
-function getBrewPic(pic) {
-    // bring in pic
-    // change href of breweryPicture
-    // return
-}
 
 // converts phone number to display
 // function formatPhoneNumber(number) {
@@ -152,16 +146,39 @@ function getBrewPic(pic) {
 // }
 
 // finds distance from city to brewery
-function convertDistance(current, brew) {
-    // converts lat and long of brewery to numbers
+// function convertDistance(current, brew) {
+//     // converts lat and long of brewery to numbers
+//     let brewLat = parseFloat(brew.coordinates.latitude);
+//     let brewLong = parseFloat(brew.coordinates.longitude);
+//     // does the distance formula
+//     let distance = Math.sqrt(Math.pow((current[0] - brewLat),2) + Math.pow((current[1] - brewLong),2));
+//     // converts degrees to miles
+//     let miles = distance * 68.703
+//     // returns with 1 decimal place
+//     return Math.round(miles * 10) / 10;
+// }
+
+function haversine(current, brew){
     let brewLat = parseFloat(brew.coordinates.latitude);
     let brewLong = parseFloat(brew.coordinates.longitude);
-    // does the distance formula
-    let distance = Math.sqrt(Math.pow((current[0] - brewLat),2) + Math.pow((current[1] - brewLong),2));
-    // converts degrees to miles
-    let miles = distance * 68.703
-    // returns with 1 decimal place
-    return Math.round(miles * 10) / 10;
+    Number.prototype.toRad = function() {
+        return this * Math.PI / 180;
+    };
+    const R = 6371; // km 
+    //has a problem with the .toRad() method below.
+    let x1 = current[0]-brewLat;
+    let dLat = x1.toRad();  
+    let x2 = current[1]-brewLong;
+    let dLon = x2.toRad();  
+    let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+    Math.cos(brewLat.toRad()) * Math.cos(current[0].toRad()) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);  
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    let d = (R * c) * 0.62137; // convert to miles
+    
+
+    console.log(d);
+    return Math.round(d * 10) / 10;
 }
 
 // selectors of states to populate cities******************
