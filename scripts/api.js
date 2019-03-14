@@ -74,7 +74,7 @@ function yelpAPI(phone){
 let city = 'Atlanta'; // the "city" should be fed from the city field on input
 let state_1 = 'Georgia'; // the "state" should be fed from the state field on input
 // the above are TEMPORARY global variables to feed to this function, otherwise the function should be fed from the above mentioned inputs
-function geoApi(city,state){
+function geoApi(city,state_1){
     geoKey = '9940fdfbec3c42328da75e23977d75a9';
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state_1},US&key=${geoKey}`;
 
