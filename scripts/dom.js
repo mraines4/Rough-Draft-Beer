@@ -108,25 +108,26 @@ let dummyBrewery = {
     "tag_list": []
 }
 
+const dummyCurrentLocation = [33.9526,-84.5499]
 
 // adds the elements that will be updated from api
-let breweryPicture = document.querySelector('[data-brewerypicture]');
-let breweryName = document.querySelector('[data-breweryname]');
-let breweryPhone = document.querySelector('[data-breweryphone]');
-let breweryAddress = document.querySelector('[data-breweryaddress]');
-let breweryWebsite = document.querySelector('[data-brewerywebsite]');
-let breweryReview = document.querySelector('[data-breweryreview]');
-let breweryHours = document.querySelector('[data-breweryhours]');
-let breweryDistance = document.querySelector('[data-brewerydistance]');
+const breweryPicture = document.querySelector('[data-bpictureimg]');
+const breweryName = document.querySelector('[data-breweryname]');
+const breweryPhone = document.querySelector('[data-breweryphone]');
+const breweryAddress = document.querySelector('[data-breweryaddress]');
+const breweryWebsite = document.querySelector('[data-brewerywebsite]');
+const breweryReview = document.querySelector('[data-breweryreview]');
+const breweryHours = document.querySelector('[data-breweryhours]');
+const breweryDistance = document.querySelector('[data-brewerydistance]');
 
-breweryPicture.textContent = dummyYelp.image_url;
+breweryPicture.setAttribute('src', dummyYelp.image_url);
 breweryName.textContent = dummyYelp.name;
-breweryPhone.textContent = dummyBrewery.phone;
-breweryAddress.textContent = dummyYelp.location.address1;
+breweryPhone.textContent = dummyYelp.display_phone;
+breweryAddress.innerHTML = `${dummyYelp.location.address1}<br>${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
 breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
 breweryReview.textContent = dummyYelp.rating;
 breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
-breweryDistance.textContent = 'waiting distance';
+breweryDistance.textContent = `${convertDistance(dummyCurrentLocation, dummyBrewery)} miles away`;
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
@@ -142,4 +143,22 @@ function getBrewPic(pic) {
     // bring in pic
     // change href of breweryPicture
     // return
+}
+
+// converts phone number to display
+// function formatPhoneNumber(number) {
+//     return `(${number.substr(0,3)}) ${number.substr(3,3)}-${number.substr(6,4)}`
+// }
+
+// finds distance from city to brewery
+function convertDistance(current, brew) {
+    // converts lat and long of brewery to numbers
+    let brewLat = parseFloat(brew.latitude);
+    let brewLong = parseFloat(brew.longitude);
+    // does the distance formula
+    let distance = Math.sqrt(Math.pow((current[0] - brewLat),2) + Math.pow((current[1] - brewLong),2));
+    // converts degrees to miles
+    let miles = distance * 68.703
+    // returns with 1 decimal place
+    return Math.round(miles * 10) / 10;
 }
