@@ -54,11 +54,14 @@ html {
   }
 
   .leftcolumn {
-    width:30%;
+    width:50%;
     border: 2px solid red;
+    background-color: white;
+
   }
   .rightcolumn {
-    width :65%;
+    background-color: white;
+    width :50%;
     border: 2px solid purple;
     
   }
@@ -67,4 +70,13 @@ html {
   }
   .displaydata {
     border: 3px solid blue;
+  }
+
+  .checkbox {
+    display:none;
+  }
+  .inputtype label {
+    
+    border: 3px solid purple;
+    border-radius: 25%;
   }
