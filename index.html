@@ -31,7 +31,61 @@
 <div class="maincontainer" data-maincontainer>
     <div class="leftcolumn" data-leftcolumn>
         <div class="inputfields" data-inputfields>
-            <input class="inputlocation" data-inputlocation TYPE="text" NAME="FirstName" SIZE=30 VALUE="Atlanta">
+            <input class="inputcity" data-inputcity TYPE="text" name="city" SIZE=30 VALUE="Atlanta">
+            <!-- <input class="inputstate" data-inputstate TYPE="text" name="city" SIZE=30 VALUE="Georgia"> -->
+            <div class="inputstate" data-inputstate></div>
+            <select name="inputstate" id="inputstate">
+                    <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option>
+                    <option value="California">California</option>
+                    <option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option>
+                    <option value="Delaware">Delaware</option>
+                    <option value="District of Columbia">District of Columbia</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Hawaii">Hawaii</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Indiana">Indiana</option>
+                    <option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option>
+                    <option value="Maryland">Maryland</option>
+                    <option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option>
+                    <option value="Minnesota">Minnesota</option>
+                    <option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Montana">Montana</option>
+                    <option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option>
+                    <option value="New York">New York</option>
+                    <option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
+                    <option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option>
+                    <option value="South Dakota">South Dakota</option>
+                    <option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Utah">Utah</option>
+                    <option value="Vermont">Vermont</option>
+                    <option value="Virginia">Virginia</option>
+                    <option value="Washington">Washington</option>
+                    <option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option>
+                    <option value="Wyoming">Wyoming</option>
+                </select>
             <div class="inputradius" data-inputradius>
                 <select name="radius">
                     <option value="1">1 mile</option>
@@ -44,11 +98,11 @@
             <div class="inputtype" data-inputtype>
                 <input type="checkbox" class="checkbox" data-micro id="micro" name=micro>
                 <label class="microlabel" for="micro">Micro Brewary</label>
-                <input type="checkbox" class="checkbox" data-micro id="brewpub" name=brewpub>
+                <input type="checkbox" class="checkbox" data-brewpub id="brewpub" name=brewpub>
                 <label class="brewpublabel" for="brewpub">Brewpub</label>
-                <input type="checkbox" class="checkbox" data-micro id="large" name=micro>
+                <input type="checkbox" class="checkbox" data-large id="large" name=micro>
                 <label class="largelabel" for="large">Large Brewery</label>
-                <input type="checkbox" class="checkbox" data-micro id="bar" name=micro>
+                <input type="checkbox" class="checkbox" data-bar id="bar" name=micro>
                 <label class="barlabel" for="bar">A Bar</label>
 
             </div>
@@ -57,7 +111,9 @@
     <div class="rightcolumn" data-rightcolumn>
         <div class="displaydata" data-displaydata>
             <div class="brewerypicture" data-brewerypicture>
-                <!-- <img class=bpictureimg data-bpictureimg src="img/66910_211220355691230_1538184762_n-300x199.jpg" alt=""> -->
+                <div class="pictureframe">
+                <img class=bpictureimg data-bpictureimg src="img/66910_211220355691230_1538184762_n-300x199.jpg" alt="">
+                </div>
             </div>
             <div class="breweryname" data-breweryname>Red Hare Brewary</div>
             <div class="breweryphone" data-breweryphone>6784010600</div>
@@ -70,7 +126,8 @@
     </div>
     
 </div>
-<script src="scripts/api.js"></script>
-<script src="scripts/dom.js"></script>
+<script src="scripts/test.js"></script>
+<!-- <script src="scripts/api.js"></script>
+<script src="scripts/dom.js"></script> -->
 </body>
 </html>

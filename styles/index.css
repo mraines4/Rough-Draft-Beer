@@ -42,6 +42,23 @@ html {
     opacity: 50%;
   /* object-fit: cover;     */
 }
+.brewarypicture {
+  position: relative;
+}
+.pictureframe {
+  position:relative;
+  margin:auto;
+  width: 200px;
+  height: 200px;
+  /* object-fit: cover; */
+}
+.pictureframe > img {
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 video {
   /* object-fit: fill; */
 }
