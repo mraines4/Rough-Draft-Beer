@@ -73,6 +73,8 @@ html {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 5%;
+
 }
 
 video {
@@ -102,7 +104,7 @@ video {
     border: 2px solid red;
     background-color: white;
     padding:10px;
-    border-radius:40%;
+    border-radius:10%;
   }
   .rightcolumn {
     position: absolute;
@@ -110,9 +112,10 @@ video {
     right: 20%;
     background-color: white;
     width :400px;
+    height: 500px;
     border: 2px solid purple;
     padding: 10px;
-    border-radius:40%;
+    border-radius:10%;
 
   }
   .inputfields {
