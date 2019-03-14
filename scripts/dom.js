@@ -1,4 +1,4 @@
-let dummyData ={
+let dummyYelp ={
     "id": "-X6YB-qWX-nFqOk8vpoPcQ",
     "alias": "red-hare-brewing-company-marietta",
     "name": "Red Hare Brewing Company",
@@ -91,7 +91,22 @@ let dummyData ={
     "transactions": []
 }
 
-
+let dummyBrewery = {
+    "id": 2183,
+    "name": "Red Hare Brewing Company",
+    "brewery_type": "micro",
+    "street": "1998 Delk Industrial Blvd SE",
+    "city": "Marietta",
+    "state": "Georgia",
+    "postal_code": "30067-8904",
+    "country": "United States",
+    "longitude": "-84.4957563035449",
+    "latitude": "33.92440825",
+    "phone": "6784010600",
+    "website_url": "http://www.redharebrewing.com",
+    "updated_at": "2018-08-24T00:29:23.424Z",
+    "tag_list": []
+}
 
 
 // adds the elements that will be updated from api
@@ -104,3 +119,11 @@ let breweryReview = document.querySelector('[data-breweryreview]');
 let breweryHours = document.querySelector('[data-breweryhours]');
 let breweryDistance = document.querySelector('[data-brewerydistance]');
 
+// breweryPicture.textContent = dummyYelp.image_url;
+breweryName.textContent = dummyYelp.name;
+breweryPhone.textContent = dummyBrewery.phone;
+breweryAddress.textContent = dummyYelp.location.address1;
+breweryWebsite.textContent = dummyBrewery.website_url;
+breweryReview.textContent = dummyYelp.rating;
+breweryHours.textContent = dummyYelp.hours[0].open;
+// breweryDistance.textContent = dummyYelp.notsureyet;
