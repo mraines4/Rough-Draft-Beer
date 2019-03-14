@@ -29,18 +29,36 @@
 /////////////////////
 // YELP API BEGINS //
 /////////////////////
-let phone = '16784010600';
-fetch(`http://localhost:3000/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
-.catch(function (error){
-    console.log('ERROR');
-})
-.then(function (response){
-    console.log(response);
-    return response.json(); // workable data
-    // return response.jsonp(); // "jsonP" alternative for CORS debugging   
-})
-.then(function (data){
-    console.log(data);
-    console.log('that was the data');
-    // return cleanDB; // return a workable array of objects of breweries with real phone #s that exist
-});
+// let phone = '16784010600';
+// fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
+// .catch(function (error){
+//     console.log('ERROR');
+// })
+// .then(function (response){
+//     console.log(response);
+//     return response.json(); // workable data
+//     // return response.jsonp(); // "jsonP" alternative for CORS debugging   
+// })
+// .then(function (data){
+//     console.log(data);
+//     console.log('that was the data');
+//     // return cleanDB; // return a workable array of objects of breweries with real phone #s that exist
+// });
+geoKey = '9940fdfbec3c42328da75e23977d75a9';
+const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=Atlanta,Georgia,US&key=${geoKey}`;
+
+    fetch(GEO_URL)
+        .then(function (response) {
+            // Start the conversion process.
+            return response.json();  // <----- We're returning another Promise.
+        })
+        .then(function (geoData) {
+            console.log('Inside the function (geoData)');
+            console.log(geoData.results[0].geometry.lat);
+            console.log(geoData.results[0].geometry.lng);
+            return geoData.results[0].geometry;
+        })
+        .then(function (coordinates) {
+            console.log('Inside the function (coordinates)');
+            // Call the other API with yet another fetch
+            console.log(coordinates);
