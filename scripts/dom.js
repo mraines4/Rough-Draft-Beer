@@ -121,7 +121,7 @@ let breweryDistance = document.querySelector('[data-brewerydistance]');
 
 breweryPicture.textContent = dummyYelp.image_url;
 breweryName.textContent = dummyYelp.name;
-breweryPhone.textContent = dummyBrewery.phone;
+breweryPhone.textContent = dummyYelp.display_phone;
 breweryAddress.textContent = dummyYelp.location.address1;
 breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
 breweryReview.textContent = dummyYelp.rating;
@@ -143,3 +143,8 @@ function getBrewPic(pic) {
     // change href of breweryPicture
     // return
 }
+
+// converts phone number to display
+// function formatPhoneNumber(number) {
+//     return `(${number.substr(0,3)}) ${number.substr(3,3)}-${number.substr(6,4)}`
+// }
