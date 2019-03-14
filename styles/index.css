@@ -1,3 +1,4 @@
+
 /* paul irish border box styling */
 html {
     box-sizing: border-box;
@@ -7,6 +8,8 @@ html {
   }
 
   body {
+
+    font-family:  Montserrat, 'Times New Roman', Times, serif;
 
       }
 
@@ -29,12 +32,20 @@ html {
 .full-width-background {
   /* width:100%;
   height:100%; */
+  /* min-height: 100vh; */
+  overflow: hidden;
 }
 
 .full-width-background video {
   position: relative;
-  min-width: 100vw;
-  min-height: 100vh;
+  /* min-width: 100vw; */
+  /* use this for full screen */
+  /* min-height: 100vh; */
+
+  /* we have to do this for iphones and devices!!! */
+  min-height:2200px;
+  overflow: hidden;   
+
   /* width:100% */
     /* top: 50%;
     left: 50%;
@@ -42,8 +53,13 @@ html {
     opacity: 50%;
   /* object-fit: cover;     */
 }
-.brewarypicture {
+.brewerypicture {
   position: relative;
+}
+.gobutton {
+  font-size: 20px;
+  border: 2px solid brown;
+
 }
 .pictureframe {
   position:relative;
@@ -57,6 +73,8 @@ html {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 5%;
+
 }
 
 video {
@@ -73,37 +91,60 @@ video {
   }
 
   .maincontainer {
-    display: flex;
+    /* display: flex; */
+    display:block;
+    position: relative;
   }
 
   .leftcolumn {
-    width:50%;
+    position: absolute;
+    width:300px;
+    height:300px;
+    left: 20%;
     border: 2px solid red;
     background-color: white;
-
+    padding:10px;
+    border-radius:10%;
   }
   .rightcolumn {
+    position: absolute;
+    top:30vh;
+    right: 20%;
     background-color: white;
-    width :50%;
+    width :400px;
+    height: 500px;
     border: 2px solid purple;
-    
+    padding: 10px;
+    border-radius:10%;
+
   }
   .inputfields {
-    border: 3px solid blue;
+    /* border: 3px solid blue; */
+    margin:30px;
   }
   .displaydata {
-    border: 3px solid blue;
+    /* border: 3px solid blue; */
   }
-
+  .hidden {
+    display:none;
+  }
   .checkbox {
     display:none;
   }
+  .inputtype {
+    /* display: inline-block; */
+
+  }
   .inputtype label {
-    
+    display: inline-block;
     border: 3px solid purple;
     border-radius: 25%;
+    margin:5px;
   }
+.inputtype * {
+  margin:50px;
 
+}
   #micro:checked ~ .microlabel {
     background-color: red;
   }
@@ -116,3 +157,15 @@ video {
   #bar:checked ~ .barlabel {
     background-color: orange;
   }
+
+  /* change this for larger screens */
+@media only screen 
+and (min-device-width: 800px) {
+  .full-width-background video {
+    min-height: 100vh;
+} }
+@media only screen
+and  (max-device-width: 1200px) {
+}
+
+
