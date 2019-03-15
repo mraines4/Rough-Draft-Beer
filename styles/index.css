@@ -43,8 +43,6 @@ h1 {
   left:50%;
   transform: translate(-50%,0%); 
 
-  
-  
 }
 
 .search, .result, .running {
@@ -61,7 +59,8 @@ h1 {
 }
 
 .cardpictureframe {
-  width:90vh;
+  /* width:90vh; */
+  width:90vw;
   padding-top: 100%;  /*forces square */
   /* position: absolute; */
   /* top: 0;
@@ -203,17 +202,101 @@ img {
   }
 
   /* change this for larger screens */
-  /*
+  
+  /* when the width is larger than the height - the cards should be 90% of the height*/
+  /* when the height is larger than the width - the cards should be 90% of the width */
 @media only screen 
 and (min-device-width: 800px) {
-  .full-width-background video {
-    min-height: 100vh;
-} }
-@media only screen
-and  (max-device-width: 1200px) {
+  .cardpictureframe {
+  width:90vh; 
+  }
+  .maincontainer {
+  }
+ }
+ /* Portrait styles */
+ @media screen and (orientation:portrait) {
+  .cardpictureframe {
+    width:90vw;
+  }
 }
-*/
+/* Landscape */
+@media screen and (orientation:landscape) {
+  .cardpictureframe {
+  width:90vh;
+ }
+}
+/* ----------- iPad Pro 12.9" ----------- */
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1366px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    body {
+      background-size: 1366px 1366px;
+     } 
+}
 
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+    .maincontainer {
+      top:50px;
+    }
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+    .maincontainer {
+      top:50px;
+    }
+
+
+}
 
 /* old stuff for video */
 
