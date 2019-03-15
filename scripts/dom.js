@@ -2,7 +2,8 @@
 /////////////////////// DUMMY DATA ///////////////////////
 //////////////////////////////////////////////////////////
 
-let dummyYelp ={
+
+let yelp ={
     "id": "-X6YB-qWX-nFqOk8vpoPcQ",
     "alias": "red-hare-brewing-company-marietta",
     "name": "Red Hare Brewing Company",
@@ -127,7 +128,7 @@ function goFetch() {
             return r.json();
         })
         .then(function(data) {
-            console.log(data);
+            // console.log(data);
             cityArray = data;
             changeState(data);
         });
@@ -146,26 +147,42 @@ function goFetch() {
 function populateCity(state) {
     const inputCity = document.querySelector('[data-inputcity]');
     inputCity.textContent = ''
-    console.log(state);
+    // console.log(state);
     // console.log('test')
-    console.log(cityArray[state]);
+    // console.log(cityArray[state]);
     cityArray[state].forEach(function (city) {
         let option = document.createElement('option');
         option.setAttribute('value', city);
         option.textContent = city;
         inputCity.appendChild(option);
-        console.log(city)
+        // console.log(city)
     })
 }
 
 goFetch();
 
 //////////////////////////////////////////////////////////
-//////////////// CARD MANIPULATION ///////////////////////
+//////////////////// GIVE API INFO ///////////////////////
 //////////////////////////////////////////////////////////
 
 let goButton = document.querySelector('[data-gobutton]');
-goButton.addEventListener('click', makeBrewery)
+goButton.addEventListener('click', giveApiInfo)
+
+function giveApiInfo(city, state, dist) {
+    let currentCity = document.querySelector('[data-inputcity]');
+    let currentState = document.querySelector('[data-inputstate]')
+    let currentRadius = document.querySelector('[data-radius]')
+    console.log(currentCity.value)
+    console.log(currentState.value)
+    console.log(currentRadius.value)
+    breweryAPI(currentCity.value, currentState.value, currentRadius.value);
+}
+
+
+
+//////////////////////////////////////////////////////////
+///////////////// POPULATE RESULTS ///////////////////////
+//////////////////////////////////////////////////////////
 
 
 function makeBrewery() {
@@ -178,15 +195,15 @@ function makeBrewery() {
     const breweryReview = document.querySelector('[data-breweryreview]');
     const breweryHours = document.querySelector('[data-breweryhours]');
     const breweryDistance = document.querySelector('[data-brewerydistance]');
-    breweryPicture.setAttribute('src', dummyYelp.image_url);
-    breweryName.textContent = dummyYelp.name;
-    breweryPhone.textContent = dummyYelp.display_phone;
-    breweryAddress.textContent = `${dummyYelp.location.address1}\n\r${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
+    breweryPicture.setAttribute('src', yelp.image_url);
+    breweryName.textContent = yelp.name;
+    breweryPhone.textContent = yelp.display_phone;
+    breweryAddress.textContent = `${yelp.location.address1}\n\r${yelp.location.city}, ${yelp.location.state} ${yelp.location.zip_code}`;
     breweryWebsite.textContent = dummyBrewery.website_url;
     breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
-    breweryReview.textContent = dummyYelp.rating;
-    breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
-    breweryDistance.textContent = `${haversine(dummyCurrentLocation, dummyYelp)} miles away`;
+    breweryReview.textContent = yelp.rating;
+    breweryHours.textContent = closedOrNot(yelp.is_closed);
+    breweryDistance.textContent = `${haversine(dummyCurrentLocation, yelp)} miles away`;
 
 }
 
