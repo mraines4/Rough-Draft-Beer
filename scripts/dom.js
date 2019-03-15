@@ -193,8 +193,9 @@ function giveApiInfo(city, state, dist) {
 
     breweryAPI(currentCity.value, currentState.value, currentRadius.value);
 
-    searchDiv.classList.add('hidden');
-    runningDiv.classList.remove('hidden');
+    //// unhide when divs are updated!!!
+    // searchDiv.classList.add('hidden');
+    // runningDiv.classList.remove('hidden');
 
     // jonathan will do this(take out when integrated)
     makeBrewery(dummyYelp);
@@ -206,6 +207,9 @@ function giveApiInfo(city, state, dist) {
 
 
 function makeBrewery(yelp) {
+    //// unhide when divs are updated!!!
+    // runningDiv.classList.add('hidden');
+    // resultDiv.classList.remove('hidden');
     breweryPicture.setAttribute('src', yelp.image_url);
     breweryName.textContent = yelp.name;
     breweryPhone.textContent = yelp.display_phone;
