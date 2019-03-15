@@ -14,7 +14,7 @@ body {
     max-width: 100vw;
     max-height: 100vh;  
     /* hides if it doesn't fit! */
-    /* overflow: hidden;   */
+    overflow: hidden;  
     font-family:  Montserrat, 'Times New Roman', Times, serif;
     font-family: "Architects Daughter";
 
@@ -61,8 +61,8 @@ h1 {
 }
 
 .cardpictureframe {
-  width:800px;
-  padding-top: 800px;  /*forces square */
+  width:80vw;
+  padding-top: 100%;  /*forces square */
   /* position: absolute; */
   /* top: 0;
   left: 50%; */
