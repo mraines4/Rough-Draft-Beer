@@ -107,28 +107,35 @@ let dummyBrewery = {
     "updated_at": "2018-08-24T00:29:23.424Z",
     "tag_list": []
 }
-
 const dummyCurrentLocation = [33.9526,-84.5499]
 
-// adds the elements that will be updated from api
-const breweryPicture = document.querySelector('[data-bpictureimg]');
-const breweryName = document.querySelector('[data-breweryname]');
-const breweryPhone = document.querySelector('[data-breweryphone]');
-const breweryAddress = document.querySelector('[data-breweryaddress]');
-const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
-const breweryReview = document.querySelector('[data-breweryreview]');
-const breweryHours = document.querySelector('[data-breweryhours]');
-const breweryDistance = document.querySelector('[data-brewerydistance]');
 
-breweryPicture.setAttribute('src', dummyYelp.image_url);
-breweryName.textContent = dummyYelp.name;
-breweryPhone.textContent = dummyYelp.display_phone;
-breweryAddress.innerHTML = `${dummyYelp.location.address1}<br>${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
-breweryWebsite.textContent = dummyBrewery.website_url;
-breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
-breweryReview.textContent = dummyYelp.rating;
-breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
-breweryDistance.textContent = `${haversine(dummyCurrentLocation, dummyYelp)} miles away`;
+let goButton = document.querySelector('[data-gobutton]');
+goButton.addEventListener('click', makeBrewery)
+
+function makeBrewery() {
+    // adds the elements that will be updated from api
+    const breweryPicture = document.querySelector('[data-bpictureimg]');
+    const breweryName = document.querySelector('[data-breweryname]');
+    const breweryPhone = document.querySelector('[data-breweryphone]');
+    const breweryAddress = document.querySelector('[data-breweryaddress]');
+    const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
+    const breweryReview = document.querySelector('[data-breweryreview]');
+    const breweryHours = document.querySelector('[data-breweryhours]');
+    const breweryDistance = document.querySelector('[data-brewerydistance]');
+    
+    breweryPicture.setAttribute('src', dummyYelp.image_url);
+    breweryName.textContent = dummyYelp.name;
+    breweryPhone.textContent = dummyYelp.display_phone;
+    breweryAddress.innerHTML = `${dummyYelp.location.address1}<br>${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
+    breweryWebsite.textContent = dummyBrewery.website_url;
+    breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
+    breweryReview.textContent = dummyYelp.rating;
+    breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
+    breweryDistance.textContent = `${haversine(dummyCurrentLocation, dummyYelp)} miles away`;
+
+}
+
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
@@ -181,29 +188,34 @@ function haversine(current, brew){
     return Math.round(d * 10) / 10;
 }
 
-// selectors of states to populate cities******************
-// this stores Object of all states and cities
 let cityArray = {}
 
-// this fetches from json file
-fetch('../data/statecity.json')
-    .then(function (r) {
-        return r.json();
-    })
-    .then(function(data) {
-        console.log(data);
-        cityArray = data;
-        changeState(data);
-    });
+function goFetch() {
+    // selectors of states to populate cities******************
+    // this stores Object of all states and cities
     
-    // this listens to selecting each state and for each clicked, run populateCity
-function changeState(cityArray) {
-    const inputState = document.querySelector('[data-inputstate]');
-    inputState.addEventListener('change', function() {
-        // console.log(inputState.value)
-        populateCity(inputState.value);
-    });
+    // this fetches from json file
+    fetch('../data/statecity.json')
+        .then(function (r) {
+            return r.json();
+        })
+        .then(function(data) {
+            console.log(data);
+            cityArray = data;
+            changeState(data);
+        });
+        
+        // this listens to selecting each state and for each clicked, run populateCity
+    function changeState(cityArray) {
+        const inputState = document.querySelector('[data-inputstate]');
+        inputState.addEventListener('change', function() {
+            // console.log(inputState.value)
+            populateCity(inputState.value);
+        });
+    }
 }
+
+goFetch();
 
 // this will empty the div and populate cities
 function populateCity(state) {
