@@ -1,3 +1,7 @@
+//////////////////////////////////////////////////////////
+/////////////////////// DUMMY DATA ///////////////////////
+//////////////////////////////////////////////////////////
+
 let dummyYelp ={
     "id": "-X6YB-qWX-nFqOk8vpoPcQ",
     "alias": "red-hare-brewing-company-marietta",
@@ -109,9 +113,60 @@ let dummyBrewery = {
 }
 const dummyCurrentLocation = [33.9526,-84.5499]
 
+//////////////////////////////////////////////////////////
+///////////////// CITY/STATE FETCH ///////////////////////
+//////////////////////////////////////////////////////////
+
+let cityArray = {}
+
+// fetches and returns cities from state selected
+function goFetch() {
+    // this fetches from json file
+    fetch('../data/statecity.json')
+        .then(function (r) {
+            return r.json();
+        })
+        .then(function(data) {
+            console.log(data);
+            cityArray = data;
+            changeState(data);
+        });
+        
+        // this listens to selecting each state and for each clicked, run populateCity
+    function changeState(cityArray) {
+        const inputState = document.querySelector('[data-inputstate]');
+        inputState.addEventListener('change', function() {
+            // console.log(inputState.value)
+            populateCity(inputState.value);
+        });
+    }
+}
+
+// this will empty the div and populate cities
+function populateCity(state) {
+    const inputCity = document.querySelector('[data-inputcity]');
+    inputCity.textContent = ''
+    console.log(state);
+    // console.log('test')
+    console.log(cityArray[state]);
+    cityArray[state].forEach(function (city) {
+        let option = document.createElement('option');
+        option.setAttribute('value', city);
+        option.textContent = city;
+        inputCity.appendChild(option);
+        console.log(city)
+    })
+}
+
+goFetch();
+
+//////////////////////////////////////////////////////////
+//////////////// CARD MANIPULATION ///////////////////////
+//////////////////////////////////////////////////////////
 
 let goButton = document.querySelector('[data-gobutton]');
 goButton.addEventListener('click', makeBrewery)
+
 
 function makeBrewery() {
     // adds the elements that will be updated from api
@@ -135,7 +190,6 @@ function makeBrewery() {
     breweryDistance.textContent = `${haversine(dummyCurrentLocation, dummyYelp)} miles away`;
 
 }
-
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
@@ -186,49 +240,4 @@ function haversine(current, brew){
 
     console.log(d);
     return Math.round(d * 10) / 10;
-}
-
-let cityArray = {}
-
-function goFetch() {
-    // selectors of states to populate cities******************
-    // this stores Object of all states and cities
-    
-    // this fetches from json file
-    fetch('../data/statecity.json')
-        .then(function (r) {
-            return r.json();
-        })
-        .then(function(data) {
-            console.log(data);
-            cityArray = data;
-            changeState(data);
-        });
-        
-        // this listens to selecting each state and for each clicked, run populateCity
-    function changeState(cityArray) {
-        const inputState = document.querySelector('[data-inputstate]');
-        inputState.addEventListener('change', function() {
-            // console.log(inputState.value)
-            populateCity(inputState.value);
-        });
-    }
-}
-
-goFetch();
-
-// this will empty the div and populate cities
-function populateCity(state) {
-    const inputCity = document.querySelector('[data-inputcity]');
-    inputCity.textContent = ''
-    console.log(state);
-    // console.log('test')
-    console.log(cityArray[state]);
-    cityArray[state].forEach(function (city) {
-        let option = document.createElement('option');
-        option.setAttribute('value', city);
-        option.textContent = city;
-        inputCity.appendChild(option);
-        console.log(city)
-    })
 }
