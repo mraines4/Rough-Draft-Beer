@@ -9,10 +9,12 @@ html {
 
   body {
 
+      background-image: url("/img/lightwoodplank.jpg");
     font-family:  Montserrat, 'Times New Roman', Times, serif;
     font-family: "Architects Daughter";
 
       }
+
 .title {
   font-size: 48px;
   color: #377872;
