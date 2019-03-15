@@ -61,7 +61,7 @@ h1 {
 }
 
 .cardpictureframe {
-  width:80vw;
+  width:80vh;
   padding-top: 100%;  /*forces square */
   /* position: absolute; */
   /* top: 0;
