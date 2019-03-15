@@ -218,23 +218,23 @@ function closedOrNot(status) {
 //     return Math.round(miles * 10) / 10;
 // }
 
-function haversine(current, brew){
-    let brewLat = parseFloat(brew.coordinates.latitude);
-    let brewLong = parseFloat(brew.coordinates.longitude);
-    Number.prototype.toRad = function() {
-        return this * Math.PI / 180;
-    };
-    const R = 6371; // km 
-    //has a problem with the .toRad() method below.
-    let x1 = current[0]-brewLat;
-    let dLat = x1.toRad();  
-    let x2 = current[1]-brewLong;
-    let dLon = x2.toRad();  
-    let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-    Math.cos(brewLat.toRad()) * Math.cos(current[0].toRad()) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);  
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    let d = (R * c) * 0.62137; // convert to miles
+// function haversine(current, brew){
+//     let brewLat = parseFloat(brew.coordinates.latitude);
+//     let brewLong = parseFloat(brew.coordinates.longitude);
+//     Number.prototype.toRad = function() {
+//         return this * Math.PI / 180;
+//     };
+//     const R = 6371; // km 
+//     //has a problem with the .toRad() method below.
+//     let x1 = current[0]-brewLat;
+//     let dLat = x1.toRad();  
+//     let x2 = current[1]-brewLong;
+//     let dLon = x2.toRad();  
+//     let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+//     Math.cos(brewLat.toRad()) * Math.cos(current[0].toRad()) * 
+//     Math.sin(dLon/2) * Math.sin(dLon/2);  
+//     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+//     let d = (R * c) * 0.62137; // convert to miles
     
 
     console.log(d);
