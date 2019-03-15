@@ -39,9 +39,9 @@ h1 {
   display:flex;
   position: absolute;
   /* border: 2px solid red; */
-  top:70%; 
+  top:70px; 
   left:50%;
-  transform: translate(-50%,-50%); 
+  transform: translate(-50%,0%); 
 
   
   
@@ -61,7 +61,7 @@ h1 {
 }
 
 .cardpictureframe {
-  width:80vh;
+  width:90vh;
   padding-top: 100%;  /*forces square */
   /* position: absolute; */
   /* top: 0;
