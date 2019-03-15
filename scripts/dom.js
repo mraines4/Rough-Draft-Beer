@@ -126,7 +126,7 @@ const breweryName = document.querySelector('[data-breweryname]');
 const breweryPhone = document.querySelector('[data-breweryphone]');
 const breweryAddress = document.querySelector('[data-breweryaddress]');
 const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
-const breweryReview = document.querySelector('[data-breweryreview]');
+const breweryReview = document.querySelector('[data-breweryreviewimg]');
 const breweryHours = document.querySelector('[data-breweryhours]');
 const breweryDistance = document.querySelector('[data-brewerydistance]');
 const goButton = document.querySelector('[data-gobutton]');
@@ -216,7 +216,7 @@ function makeBrewery(yelp) {
     breweryAddress.textContent = `${yelp.location.address1}\n\r${yelp.location.city}, ${yelp.location.state} ${yelp.location.zip_code}`;
     breweryWebsite.textContent = dummyBrewery.website_url;
     breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
-    breweryReview.textContent = yelp.rating;
+    breweryReview.setAttribute('src', `../img/${yelp.rating}pint.png`);
     breweryHours.textContent = closedOrNot(yelp.is_closed);
     breweryDistance.textContent = `${haversine(dummyCurrentLocation, yelp)} miles away`;
 
