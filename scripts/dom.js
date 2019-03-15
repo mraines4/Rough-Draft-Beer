@@ -127,7 +127,7 @@ function goFetch() {
             return r.json();
         })
         .then(function(data) {
-            console.log(data);
+            // console.log(data);
             cityArray = data;
             changeState(data);
         });
@@ -235,8 +235,11 @@ function closedOrNot(status) {
 //     Math.sin(dLon/2) * Math.sin(dLon/2);  
 //     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 //     let d = (R * c) * 0.62137; // convert to miles
-    
+//     console.log(d);
+//     return Math.round(d * 10) / 10;
+// }
 
-    console.log(d);
-    return Math.round(d * 10) / 10;
-}
+
+inputToObject("Atlanta", "Georgia", 50).then(function (results){
+    console.log(results);
+});
