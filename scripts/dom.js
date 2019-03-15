@@ -50,6 +50,49 @@ let dummyYelp ={
     "total": 1
 }
 
+// let dummyYelp = {
+//     "businesses": [
+//         {
+//             "id": "YYw-k-LjkrQt2HkCJ5iFUw",
+//             "alias": "wicked-weed-asheville",
+//             "name": "Wicked Weed",
+//             "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/drTCIycsDpP_KtHchCsnPw/o.jpg",
+//             "is_closed": false,
+//             "url": "https://www.yelp.com/biz/wicked-weed-asheville?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
+//             "review_count": 1767,
+//             "categories": [
+//                 {
+//                     "alias": "brewpubs",
+//                     "title": "Brewpubs"
+//                 }
+//             ],
+//             "rating": 4,
+//             "coordinates": {
+//                 "latitude": 35.591706,
+//                 "longitude": -82.551034
+//             },
+//             "transactions": [],
+//             "price": "$$",
+//             "location": {
+//                 "address1": "91 Biltmore Ave",
+//                 "address2": "",
+//                 "address3": "",
+//                 "city": "Asheville",
+//                 "zip_code": "28801",
+//                 "country": "US",
+//                 "state": "NC",
+//                 "display_address": [
+//                     "91 Biltmore Ave",
+//                     "Asheville, NC 28801"
+//                 ]
+//             },
+//             "phone": "+18285759599",
+//             "display_phone": "(828) 575-9599"
+//         }
+//     ],
+//     "total": 1
+// }
+
 let dummyBrewery = {
     "id": 2183,
     "name": "Red Hare Brewing Company",
@@ -78,7 +121,7 @@ const currentRadius = document.querySelector('[data-radius]')
 const breweryPicture = document.querySelector('[data-bpictureimg]');
 const breweryName = document.querySelector('[data-breweryname]');
 const breweryPhone = document.querySelector('[data-breweryphone]');
-const breweryAddress = document.querySelector('[data-breweryaddress]');
+const breweryAddress = document.querySelector('[data-breweryaddressatag]');
 const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
 const breweryReview = document.querySelector('[data-breweryreviewimg]');
 const breweryHours = document.querySelector('[data-breweryhours]');
@@ -140,20 +183,23 @@ goFetch();
 
 goButton.addEventListener('click', giveApiInfo)
 
-function giveApiInfo(city, state, dist) {
+function giveApiInfo() {
     // console.log(currentCity.value)
     // console.log(currentState.value)
     // console.log(currentRadius.value)
-
-    breweryAPI(currentCity.value, currentState.value, currentRadius.value);
 
     //// unhide when divs are updated!!!
     // searchDiv.classList.add('hidden');
     // runningDiv.classList.remove('hidden');
 
-    // jonathan will do this(take out when integrated)
-    makeBrewery(dummyYelp);
+    // inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
+    //     makeBrewery(result);
+    // });
+
+    makeBrewery(dummyYelp)
 }
+
+
 
 //////////////////////////////////////////////////////////
 ///////////////// POPULATE RESULTS ///////////////////////
@@ -168,6 +214,7 @@ function makeBrewery(yelp) {
     breweryName.textContent = yelp.businesses[0].name;
     breweryPhone.textContent = yelp.businesses[0].display_phone;
     breweryAddress.textContent = `${yelp.businesses[0].location.address1}\n\r${yelp.businesses[0].location.city}, ${yelp.businesses[0].location.state} ${yelp.businesses[0].location.zip_code}`;
+    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${yelp.businesses[0].coordinates.latitude},${yelp.businesses[0].coordinates.longitude}`)
     breweryWebsite.textContent = dummyBrewery.website_url;
     breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
     breweryReview.setAttribute('src', `../img/${yelp.businesses[0].rating}pint.png`);
