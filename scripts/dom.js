@@ -251,6 +251,7 @@ function closedOrNot(status) {
 //     return Math.round(miles * 10) / 10;
 // }
 
+
 function haversine(current, brew){
     let brewLat = parseFloat(brew.businesses[0].coordinates.latitude);
     let brewLong = parseFloat(brew.businesses[0].coordinates.longitude);
@@ -273,3 +274,4 @@ function haversine(current, brew){
     // console.log(d);
     return Math.round(d * 10) / 10;
 }
+
