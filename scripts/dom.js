@@ -2,98 +2,96 @@
 /////////////////////// DUMMY DATA ///////////////////////
 //////////////////////////////////////////////////////////
 
+
 let dummyYelp ={
-    "id": "-X6YB-qWX-nFqOk8vpoPcQ",
-    "alias": "red-hare-brewing-company-marietta",
-    "name": "Red Hare Brewing Company",
-    "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
-    "is_claimed": true,
-    "is_closed": false,
-    "url": "https://www.yelp.com/biz/red-hare-brewing-company-marietta?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=MvuodG5DKzjWVXYRja2GlA",
-    "phone": "+16784010600",
-    "display_phone": "(678) 401-0600",
-    "review_count": 82,
-    "categories": [
+    "businesses": [
         {
-            "alias": "breweries",
-            "title": "Breweries"
-        },
-        {
-            "alias": "brewingsupplies",
-            "title": "Brewing Supplies"
-        }
-    ],
-    "rating": 4,
-    "location": {
-        "address1": "1998 Delk Industrial Blvd",
-        "address2": "",
-        "address3": "",
-        "city": "Marietta",
-        "zip_code": "30067",
-        "country": "US",
-        "state": "GA",
-        "display_address": [
-            "1998 Delk Industrial Blvd",
-            "Marietta, GA 30067"
-        ],
-        "cross_streets": ""
-    },
-    "coordinates": {
-        "latitude": 33.92434,
-        "longitude": -84.49576
-    },
-    "photos": [
-        "https://s3-media2.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
-        "https://s3-media2.fl.yelpcdn.com/bphoto/fmou0E3vDCU5SgtJ38G0yg/o.jpg",
-        "https://s3-media2.fl.yelpcdn.com/bphoto/cujTXoLs6teXI5-sUyEWEQ/o.jpg"
-    ],
-    "price": "$",
-    "hours": [
-        {
-            "open": [
+            "id": "-X6YB-qWX-nFqOk8vpoPcQ",
+            "alias": "red-hare-brewing-company-marietta",
+            "name": "Red Hare Brewing Company",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
+            "is_closed": false,
+            "url": "https://www.yelp.com/biz/red-hare-brewing-company-marietta?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
+            "review_count": 82,
+            "categories": [
                 {
-                    "is_overnight": false,
-                    "start": "1500",
-                    "end": "2100",
-                    "day": 1
+                    "alias": "breweries",
+                    "title": "Breweries"
                 },
                 {
-                    "is_overnight": false,
-                    "start": "1500",
-                    "end": "2100",
-                    "day": 2
-                },
-                {
-                    "is_overnight": false,
-                    "start": "1500",
-                    "end": "2100",
-                    "day": 3
-                },
-                {
-                    "is_overnight": false,
-                    "start": "1500",
-                    "end": "2100",
-                    "day": 4
-                },
-                {
-                    "is_overnight": false,
-                    "start": "1200",
-                    "end": "2100",
-                    "day": 5
-                },
-                {
-                    "is_overnight": false,
-                    "start": "1230",
-                    "end": "1800",
-                    "day": 6
+                    "alias": "brewingsupplies",
+                    "title": "Brewing Supplies"
                 }
             ],
-            "hours_type": "REGULAR",
-            "is_open_now": true
+            "rating": 4,
+            "coordinates": {
+                "latitude": 33.92434,
+                "longitude": -84.49576
+            },
+            "transactions": [],
+            "price": "$",
+            "location": {
+                "address1": "1998 Delk Industrial Blvd",
+                "address2": "",
+                "address3": "",
+                "city": "Marietta",
+                "zip_code": "30067",
+                "country": "US",
+                "state": "GA",
+                "display_address": [
+                    "1998 Delk Industrial Blvd",
+                    "Marietta, GA 30067"
+                ]
+            },
+            "phone": "+16784010600",
+            "display_phone": "(678) 401-0600"
         }
     ],
-    "transactions": []
+    "total": 1
 }
+
+// let dummyYelp = {
+//     "businesses": [
+//         {
+//             "id": "YYw-k-LjkrQt2HkCJ5iFUw",
+//             "alias": "wicked-weed-asheville",
+//             "name": "Wicked Weed",
+//             "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/drTCIycsDpP_KtHchCsnPw/o.jpg",
+//             "is_closed": false,
+//             "url": "https://www.yelp.com/biz/wicked-weed-asheville?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
+//             "review_count": 1767,
+//             "categories": [
+//                 {
+//                     "alias": "brewpubs",
+//                     "title": "Brewpubs"
+//                 }
+//             ],
+//             "rating": 4,
+//             "coordinates": {
+//                 "latitude": 35.591706,
+//                 "longitude": -82.551034
+//             },
+//             "transactions": [],
+//             "price": "$$",
+//             "location": {
+//                 "address1": "91 Biltmore Ave",
+//                 "address2": "",
+//                 "address3": "",
+//                 "city": "Asheville",
+//                 "zip_code": "28801",
+//                 "country": "US",
+//                 "state": "NC",
+//                 "display_address": [
+//                     "91 Biltmore Ave",
+//                     "Asheville, NC 28801"
+//                 ]
+//             },
+//             "phone": "+18285759599",
+//             "display_phone": "(828) 575-9599"
+//         }
+//     ],
+//     "total": 1
+// }
 
 let dummyBrewery = {
     "id": 2183,
@@ -114,6 +112,27 @@ let dummyBrewery = {
 const dummyCurrentLocation = [33.9526,-84.5499]
 
 //////////////////////////////////////////////////////////
+////////////////////// SELECTORS /////////////////////////
+//////////////////////////////////////////////////////////
+
+const currentCity = document.querySelector('[data-inputcity]');
+const currentState = document.querySelector('[data-inputstate]')
+const currentRadius = document.querySelector('[data-radius]')
+const breweryPicture = document.querySelector('[data-bpictureimg]');
+const breweryName = document.querySelector('[data-breweryname]');
+const breweryPhone = document.querySelector('[data-breweryphone]');
+const breweryAddress = document.querySelector('[data-breweryaddressatag]');
+const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
+const breweryReview = document.querySelector('[data-breweryreviewimg]');
+const breweryHours = document.querySelector('[data-breweryhours]');
+const breweryDistance = document.querySelector('[data-brewerydistance]');
+const goButton = document.querySelector('[data-gobutton]');
+const searchDiv = document.querySelector('[data-search]');
+const runningDiv = document.querySelector('[data-running]');
+const resultDiv = document.querySelector('[data-result]');
+
+
+//////////////////////////////////////////////////////////
 ///////////////// CITY/STATE FETCH ///////////////////////
 //////////////////////////////////////////////////////////
 
@@ -127,66 +146,80 @@ function goFetch() {
             return r.json();
         })
         .then(function(data) {
-            console.log(data);
+            // console.log(data);
             cityArray = data;
             changeState(data);
         });
         
         // this listens to selecting each state and for each clicked, run populateCity
     function changeState(cityArray) {
-        const inputState = document.querySelector('[data-inputstate]');
-        inputState.addEventListener('change', function() {
-            // console.log(inputState.value)
-            populateCity(inputState.value);
+        currentState.addEventListener('change', function() {
+            // console.log(currentState.value)
+            populateCity(currentState.value);
         });
     }
 }
 
 // this will empty the div and populate cities
 function populateCity(state) {
-    const inputCity = document.querySelector('[data-inputcity]');
-    inputCity.textContent = ''
-    console.log(state);
+    currentCity.textContent = ''
+    // console.log(state);
     // console.log('test')
-    console.log(cityArray[state]);
+    // console.log(cityArray[state]);
     cityArray[state].forEach(function (city) {
         let option = document.createElement('option');
         option.setAttribute('value', city);
         option.textContent = city;
-        inputCity.appendChild(option);
-        console.log(city)
+        currentCity.appendChild(option);
+        // console.log(city)
     })
 }
 
 goFetch();
 
 //////////////////////////////////////////////////////////
-//////////////// CARD MANIPULATION ///////////////////////
+//////////////////// GIVE API INFO ///////////////////////
 //////////////////////////////////////////////////////////
 
-let goButton = document.querySelector('[data-gobutton]');
-goButton.addEventListener('click', makeBrewery)
+goButton.addEventListener('click', giveApiInfo)
+
+function giveApiInfo() {
+    // console.log(currentCity.value)
+    // console.log(currentState.value)
+    // console.log(currentRadius.value)
+
+    //// unhide when divs are updated!!!
+    // searchDiv.classList.add('hidden');
+    // runningDiv.classList.remove('hidden');
+
+    // inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
+    //     makeBrewery(result);
+    // });
+
+    makeBrewery(dummyYelp)
+}
 
 
-function makeBrewery() {
-    // adds the elements that will be updated from api
-    const breweryPicture = document.querySelector('[data-bpictureimg]');
-    const breweryName = document.querySelector('[data-breweryname]');
-    const breweryPhone = document.querySelector('[data-breweryphone]');
-    const breweryAddress = document.querySelector('[data-breweryaddress]');
-    const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
-    const breweryReview = document.querySelector('[data-breweryreview]');
-    const breweryHours = document.querySelector('[data-breweryhours]');
-    const breweryDistance = document.querySelector('[data-brewerydistance]');
-    breweryPicture.setAttribute('src', dummyYelp.image_url);
-    breweryName.textContent = dummyYelp.name;
-    breweryPhone.textContent = dummyYelp.display_phone;
-    breweryAddress.textContent = `${dummyYelp.location.address1}\n\r${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
+
+//////////////////////////////////////////////////////////
+///////////////// POPULATE RESULTS ///////////////////////
+//////////////////////////////////////////////////////////
+
+
+function makeBrewery(yelp) {
+    //// unhide when divs are updated!!!
+    // runningDiv.classList.add('hidden');
+    // resultDiv.classList.remove('hidden');
+    breweryPicture.setAttribute('src', yelp.businesses[0].image_url);
+    breweryName.textContent = yelp.businesses[0].name;
+    breweryPhone.textContent = yelp.businesses[0].display_phone;
+    breweryAddress.textContent = `${yelp.businesses[0].location.address1}\n\r${yelp.businesses[0].location.city}, ${yelp.businesses[0].location.state} ${yelp.businesses[0].location.zip_code}`;
+    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
     breweryWebsite.textContent = dummyBrewery.website_url;
     breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
-    breweryReview.textContent = dummyYelp.rating;
-    breweryHours.textContent = closedOrNot(dummyYelp.is_closed);
-    breweryDistance.textContent = `${haversine(dummyCurrentLocation, dummyYelp)} miles away`;
+    breweryReview.setAttribute('src', `../img/${yelp.businesses[0].rating}pint.png`);
+    breweryHours.textContent = closedOrNot(yelp.businesses[0].is_closed);
+    breweryDistance.textContent = `${haversine(dummyCurrentLocation, yelp)} miles away`;
 
 }
 
@@ -219,8 +252,8 @@ function closedOrNot(status) {
 // }
 
 function haversine(current, brew){
-    let brewLat = parseFloat(brew.coordinates.latitude);
-    let brewLong = parseFloat(brew.coordinates.longitude);
+    let brewLat = parseFloat(brew.businesses[0].coordinates.latitude);
+    let brewLong = parseFloat(brew.businesses[0].coordinates.longitude);
     Number.prototype.toRad = function() {
         return this * Math.PI / 180;
     };
@@ -237,6 +270,6 @@ function haversine(current, brew){
     let d = (R * c) * 0.62137; // convert to miles
     
 
-    console.log(d);
+    // console.log(d);
     return Math.round(d * 10) / 10;
 }
