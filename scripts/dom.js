@@ -141,7 +141,7 @@ let cityArray = {}
 // fetches and returns cities from state selected
 function goFetch() {
     // this fetches from json file
-    fetch('../data/statecity.json')
+    fetch('data/statecity.json')
         .then(function (r) {
             return r.json();
         })
