@@ -40,10 +40,10 @@ html {
   position: relative;
   /* min-width: 100vw; */
   /* use this for full screen */
-  /* min-height: 100vh; */
+  min-height: 120vh;
 
   /* we have to do this for iphones and devices!!! */
-  min-height:2200px;
+  /* min-height:2200px; */
   overflow: hidden;   
 
   /* width:100% */
@@ -159,6 +159,7 @@ video {
   }
 
   /* change this for larger screens */
+  /*
 @media only screen 
 and (min-device-width: 800px) {
   .full-width-background video {
@@ -167,5 +168,6 @@ and (min-device-width: 800px) {
 @media only screen
 and  (max-device-width: 1200px) {
 }
+*/
 
 
