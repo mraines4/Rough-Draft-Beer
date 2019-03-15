@@ -3,63 +3,133 @@
 html {
     box-sizing: border-box;
   }
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
 
-  body {
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+body {
 
+    background-image: url("/img/lightwoodplank.jpg");
+    background-repeat: no-repeat;
+    max-width: 100vw;
+    max-height: 100vh;  
+    /* hides if it doesn't fit! */
+    overflow: hidden;  
     font-family:  Montserrat, 'Times New Roman', Times, serif;
+    font-family: "Architects Daughter";
 
-      }
+    }
+.temp{
+  position: absolute;
+  display: none;
+}
+h1 {
+  text-align: center;
+  color : #FFC24F;
+}
+   
 .title {
   font-size: 48px;
   color: #377872;
   font-weight: bold;
+  positon: absolute;
 }
- .background-wrapper .full-width-background {
-    background-color: #252525;
-    left: 50%;
-    overflow: hidden;
+
+.maincontainer {
+  display:flex;
+  position: absolute;
+  /* border: 2px solid red; */
+  top:70%; 
+  left:50%;
+  transform: translate(-50%,-50%); 
+
+  
+  
+}
+
+.search, .result, .running {
+
+  /* display:flex; */
+  /* width:max-content; */
+  /* height:max-content; */
+  /* position: absolute; */
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translate(-50%,-50%);  */
+  /* border: 2px solid blue; */
+
+}
+
+.cardpictureframe {
+  width:80vw;
+  padding-top: 100%;  /*forces square */
+  /* position: absolute; */
+  /* top: 0;
+  left: 50%; */
+  /* top: 50%;
+  right: 50%;*/
+  /* transform: translate(0,-50%);   */
+  /* border: 2px solid green; */
+
+
+}
+.cardbackgroundpic {
+  position: absolute;
+  top: 0;
+}
+.cardbackgroundpic img{
+  /* position: absolute; */
+  /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
+  /* background-repeat: no-repeat; */
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  /* top: 50%; */
+  /* right: 50%; */
+  /* transform: translate(-50%,-50%);  */
+  /* border: 2px solid purple; */
+
+
+}
+      .search {
+    /* width:300px; */
+    /* height:300px; */
+    /* border: 2px solid red; */
+    /* background-color: #119e6a; */
+    /* background-color: #377872; */
+    padding:10px;
+    border-radius:10%;
+  }
+
+  .search:hover {
+    opacity: 1;
+    z-index: 3;
+  }
+  
+  .result {
+    /* top:30vh;
+    right: 20%; */
+    /* background-color: #119e6a;
+    background-color: #377872; */
+
+    /* width :400px; */
+    /* height: 500px; */
+    /* border: 2px solid purple; */
+    padding: 10px;
+    border-radius:5%;
+    line-height: 1.7em;  /*keep here?*/
+
+  }
+  .inputfields , .displaydata {
+    /* border: 3px solid blue; */
+    margin:30px;
     position: absolute;
     top: 50%;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    -webkit-transform: translate(-50%,-50%);
-    transition: none;
-    /* width: 1200px; */
-    /* object-fit: cover; */
-    /* height: 700px; */
-    z-index: -1;
-}
-
-.full-width-background {
-  /* width:100%;
-  height:100%; */
-  /* min-height: 100vh; */
-  overflow: hidden;
-}
-
-.full-width-background video {
-  position: relative;
-  /* min-width: 100vw; */
-  /* use this for full screen */
-  min-height: 120vh;
-
-  /* we have to do this for iphones and devices!!! */
-  /* min-height:2200px; */
-  overflow: hidden;   
-
-  /* width:100% */
-    /* top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%); */
-    opacity: 50%;
-  /* object-fit: cover;     */
-}
-.brewerypicture {
-  position: relative;
-}
+    transform: translate(-50%,-50%);
+  }
+
+
 .gobutton {
   font-size: 20px;
   border: 2px solid brown;
@@ -67,7 +137,7 @@ html {
   padding:5px;
   /* position: absolute;
   right: 10%; */
-
+  
 }
 .pictureframe {
   position:relative;
@@ -82,72 +152,21 @@ html {
   height: 100%;
   object-fit: cover;
   border-radius: 5%;
-
+  
+}
+.brewerypicture {
+  position: relative;
 }
 
-video {
-  /* object-fit: fill; */
+img {
+  /* width:100%; */
 }
 
-
-  img {
-    /* width:100%; */
-  }
-  h1 {
-    text-align: center;
-    color : #FFC24F;
-  }
-
-  .maincontainer {
-    /* display: flex; */
-    display:block;
-    position: relative;
-  }
-
-  .leftcolumn {
-    position: absolute;
-    width:300px;
-    /* height:300px; */
-    left: 20%;
-    /* border: 2px solid red; */
-    /* background-color: #119e6a; */
-    background-color: #377872;
-    padding:10px;
-    border-radius:10%;
-  }
-  .rightcolumn {
-    position: absolute;
-    top:30vh;
-    right: 20%;
-    background-color: #119e6a;
-    background-color: #377872;
-
-    width :400px;
-    /* height: 500px; */
-    /* border: 2px solid purple; */
-    padding: 10px;
-    border-radius:5%;
-
-    line-height: 1.7em;
-
-
-  }
-  .inputfields {
-    /* border: 3px solid blue; */
-    margin:30px;
-  }
-  .displaydata {
-    /* border: 3px solid blue; */
-  }
   .hidden {
     display:none;
   }
   .checkbox {
     display:none;
-  }
-  .inputtype {
-    /* display: inline-block; */
-
   }
   .inputtype label {
     display: inline-block;
@@ -165,10 +184,8 @@ video {
   opacity: .5;
   z-index:-1;
 }
-.leftcolumn:hover {
-  opacity: 1;
-  z-index: 3;
-}
+
+
   #micro:checked ~ .microlabel {
     background-color: #d1b97f;
   }
@@ -180,6 +197,9 @@ video {
   }
   #bar:checked ~ .barlabel {
     background-color:#d1b97f
+  }
+  .breweryaddress, .breweryhours {
+    white-space: pre-line;
   }
 
   /* change this for larger screens */
@@ -195,6 +215,49 @@ and  (max-device-width: 1200px) {
 */
 
 
-.breweryaddress, .breweryhours {
-  white-space: pre-line;
-}
+/* old stuff for video */
+
+/* video { */
+  /* object-fit: fill; */
+/* } */
+      /* .background-wrapper .full-width-background {
+        background-color: #252525;
+        left: 50%;
+        overflow: hidden;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%,-50%);
+        transition: none; */
+        /* width: 1200px; */
+        /* object-fit: cover; */
+        /* height: 700px; */
+        /* z-index: -1; */
+      /* } */
+      
+      /* .full-width-background { */
+        /* width:100%;
+        height:100%; */
+        /* min-height: 100vh; */
+        /* overflow: hidden; */
+      /* } */
+      
+      /* .full-width-background video { */
+        /* position: relative; */
+        /* min-width: 100vw; */
+        /* use this for full screen */
+        /* min-height: 120vh; */
+        
+        /* we have to do this for iphones and devices!!! */
+        /* min-height:2200px; */
+        /* overflow: hidden;    */
+        
+        /* width:100% */
+        /* top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%); */
+        /* opacity: 50%; */
+        /* object-fit: cover;     */
+      /* } */
+
