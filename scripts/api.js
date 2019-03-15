@@ -117,11 +117,37 @@ function breweryPhoneNumber(brewery){
     }
 }
 
-function localizeRadiusRange(localLatLngObject, radius){ // WORKING ON IT
-    const lat = parseFloat(localLatLngObject.lat);
-    const long = parseFloat(localLatLngObject.lng);
-    const radiusKM = radius / 0.62137;
+// The below function still needs to sort out the breweries whose distance are less that the radius
+async function locateBreweriesWithinRange(localLatLngObject, radius, stateBrewereriesArray){ // produce an object whose keys are brewery names and whose values are the distance (miles) from selected city/state
+    const lat1 = parseFloat(localLatLngObject.lat); // start setting selected city/state's lat and lng
+    const lng1 = parseFloat(localLatLngObject.lng);
+    let distancesArrayOfObjects = [];
+    let breweriesDistanceFromCityArray = [];
+    stateBrewereriesArray.forEach(async function (brewery){ // need to pull the lat2/lng2 for each brewery
+        if (brewery["latitude"]){ // check that they have supplied values for lat/long
+        let lat2 = brewery["latitude"];
+        let lng2 = brewery["longitude"];
+        breweriesDistanceFromCityArray.push([brewery.name,(haversine(lat1, lng1, lat2, lng2))]);
+        }
+        else{ // uh oh, product nearby lat/long by passing the brewery city/state to OpenCage API!
+            let city = brewery["city"];
+            let state = brewery["state"]
+            geoApi(city,state)
+            .then(function (breweryCoordinatesObject){
+                let lat2 = breweryCoordinatesObject["lat"];
+                let lng2 = breweryCoordinatesObject["lng"];
+                breweriesDistanceFromCityArray.push([brewery.name,(haversine(lat1, lng1, lat2, lng2))]);
+            });
+        }
+    return await breweriesDistanceFromCityArray;
+    });
+    // BEGIN FILTERING BY RADIUS
+    let localBreweries = breweriesDistanceFromCityArray.filter(function (brewery){ // filter over the breweries by distance
+        return brewery[1] <= radius; // compare them to the inputted radius
+    });
 
+    console.log(localBreweries);
+    return (localBreweries);
 }
 
 function haversine(lat1, lng1, lat2, lng2){
@@ -135,7 +161,7 @@ function haversine(lat1, lng1, lat2, lng2){
     let x2 = lng2-lng1;
     let dLon = x2.toRad();  
     let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-    Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+    Math.cos(lat1.toRad()) * Math.cos(lat2* Math.PI / 180) * 
     Math.sin(dLon/2) * Math.sin(dLon/2);  
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     let d = (R * c) * 0.62137; // convert to miles
@@ -151,7 +177,9 @@ function haversine(lat1, lng1, lat2, lng2){
 // let state = (document.querySelector('[data-inputstate]')).value; // pulling input from HTML
 
 // console.log(geoApi("Atlanta", "Georgia"));
-haversine(33.7490987, -84.3901849,33.9526,-84.5499);
+// haversine(33.7490987, -84.3901849,33.9526,-84.5499);
+
+// locateBreweriesWithinRange(localLatLngObject, radius, stateBrewereriesArray);
 
 // breweryAPI(state).then(function (data){
 //     return (breweryPhoneNumber(radiusBreweryRandomizer(data))); // this is the 11 digit number you feed into yelpAPI
@@ -159,3 +187,15 @@ haversine(33.7490987, -84.3901849,33.9526,-84.5499);
 // .then(function (phone){
 //     return (yelpAPI(phone));
 // });
+
+
+// breweryAPI("Georgia").then(function (data){ // returns array of breweries w/in 50 miles of Atlanta
+//     console.log(data);
+//     console.log(locateBreweriesWithinRange({lat : 33.7490987, lng : -84.3901849}, 50, data)); // this is the 11 digit number you feed into yelpAPI
+//     return (locateBreweriesWithinRange({lat : 33.7490987, lng : -84.3901849}, 50, data)); // this is the 11 digit number you feed into yelpAPI
+// })
+// .then(function (phone){
+//     console.log(phone);
+//     return (phone);
+// });
+
