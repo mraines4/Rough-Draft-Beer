@@ -14,6 +14,12 @@ html {
     font-family: "Architects Daughter";
 
       }
+  .temp {
+    background-image: url("/img/napkinwatermarkdropshadow.png");
+    width:1000px;
+    height:800px;
+
+  }
 
 .title {
   font-size: 48px;
@@ -107,7 +113,7 @@ video {
     position: relative;
   }
 
-  .leftcolumn {
+  .search {
     position: absolute;
     width:300px;
     /* height:300px; */
@@ -118,7 +124,7 @@ video {
     padding:10px;
     border-radius:10%;
   }
-  .rightcolumn {
+  .result {
     position: absolute;
     top:30vh;
     right: 20%;
@@ -168,7 +174,7 @@ video {
   opacity: .5;
   z-index:-1;
 }
-.leftcolumn:hover {
+.search:hover {
   opacity: 1;
   z-index: 3;
 }
