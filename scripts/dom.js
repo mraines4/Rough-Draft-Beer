@@ -178,11 +178,10 @@ function makeBrewery() {
     const breweryReview = document.querySelector('[data-breweryreview]');
     const breweryHours = document.querySelector('[data-breweryhours]');
     const breweryDistance = document.querySelector('[data-brewerydistance]');
-    
     breweryPicture.setAttribute('src', dummyYelp.image_url);
     breweryName.textContent = dummyYelp.name;
     breweryPhone.textContent = dummyYelp.display_phone;
-    breweryAddress.innerHTML = `${dummyYelp.location.address1}<br>${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
+    breweryAddress.textContent = `${dummyYelp.location.address1}\n\r${dummyYelp.location.city}, ${dummyYelp.location.state} ${dummyYelp.location.zip_code}`;
     breweryWebsite.textContent = dummyBrewery.website_url;
     breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
     breweryReview.textContent = dummyYelp.rating;

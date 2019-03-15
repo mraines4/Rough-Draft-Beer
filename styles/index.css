@@ -169,3 +169,6 @@ and  (max-device-width: 1200px) {
 }
 
 
+.breweryaddress, .breweryhours {
+  white-space: pre-line;
+}
