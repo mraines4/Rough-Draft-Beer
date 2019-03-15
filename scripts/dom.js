@@ -146,7 +146,7 @@ function closedOrNot(status) {
     }
 }
 
-
+// unused functions****************
 // converts phone number to display
 // function formatPhoneNumber(number) {
 //     return `(${number.substr(0,3)}) ${number.substr(3,3)}-${number.substr(6,4)}`
