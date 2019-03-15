@@ -4,96 +4,50 @@
 
 
 let dummyYelp ={
-    "id": "-X6YB-qWX-nFqOk8vpoPcQ",
-    "alias": "red-hare-brewing-company-marietta",
-    "name": "Red Hare Brewing Company",
-    "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
-    "is_claimed": true,
-    "is_closed": false,
-    "url": "https://www.yelp.com/biz/red-hare-brewing-company-marietta?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=MvuodG5DKzjWVXYRja2GlA",
-    "phone": "+16784010600",
-    "display_phone": "(678) 401-0600",
-    "review_count": 82,
-    "categories": [
+    "businesses": [
         {
-            "alias": "breweries",
-            "title": "Breweries"
-        },
-        {
-            "alias": "brewingsupplies",
-            "title": "Brewing Supplies"
-        }
-    ],
-    "rating": 4,
-    "location": {
-        "address1": "1998 Delk Industrial Blvd",
-        "address2": "",
-        "address3": "",
-        "city": "Marietta",
-        "zip_code": "30067",
-        "country": "US",
-        "state": "GA",
-        "display_address": [
-            "1998 Delk Industrial Blvd",
-            "Marietta, GA 30067"
-        ],
-        "cross_streets": ""
-    },
-    "coordinates": {
-        "latitude": 33.92434,
-        "longitude": -84.49576
-    },
-    "photos": [
-        "https://s3-media2.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
-        "https://s3-media2.fl.yelpcdn.com/bphoto/fmou0E3vDCU5SgtJ38G0yg/o.jpg",
-        "https://s3-media2.fl.yelpcdn.com/bphoto/cujTXoLs6teXI5-sUyEWEQ/o.jpg"
-    ],
-    "price": "$",
-    "hours": [
-        {
-            "open": [
+            "id": "-X6YB-qWX-nFqOk8vpoPcQ",
+            "alias": "red-hare-brewing-company-marietta",
+            "name": "Red Hare Brewing Company",
+            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
+            "is_closed": false,
+            "url": "https://www.yelp.com/biz/red-hare-brewing-company-marietta?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
+            "review_count": 82,
+            "categories": [
                 {
-                    "is_overnight": false,
-                    "start": "1500",
-                    "end": "2100",
-                    "day": 1
+                    "alias": "breweries",
+                    "title": "Breweries"
                 },
                 {
-                    "is_overnight": false,
-                    "start": "1500",
-                    "end": "2100",
-                    "day": 2
-                },
-                {
-                    "is_overnight": false,
-                    "start": "1500",
-                    "end": "2100",
-                    "day": 3
-                },
-                {
-                    "is_overnight": false,
-                    "start": "1500",
-                    "end": "2100",
-                    "day": 4
-                },
-                {
-                    "is_overnight": false,
-                    "start": "1200",
-                    "end": "2100",
-                    "day": 5
-                },
-                {
-                    "is_overnight": false,
-                    "start": "1230",
-                    "end": "1800",
-                    "day": 6
+                    "alias": "brewingsupplies",
+                    "title": "Brewing Supplies"
                 }
             ],
-            "hours_type": "REGULAR",
-            "is_open_now": true
+            "rating": 4,
+            "coordinates": {
+                "latitude": 33.92434,
+                "longitude": -84.49576
+            },
+            "transactions": [],
+            "price": "$",
+            "location": {
+                "address1": "1998 Delk Industrial Blvd",
+                "address2": "",
+                "address3": "",
+                "city": "Marietta",
+                "zip_code": "30067",
+                "country": "US",
+                "state": "GA",
+                "display_address": [
+                    "1998 Delk Industrial Blvd",
+                    "Marietta, GA 30067"
+                ]
+            },
+            "phone": "+16784010600",
+            "display_phone": "(678) 401-0600"
         }
     ],
-    "transactions": []
+    "total": 1
 }
 
 let dummyBrewery = {
@@ -210,14 +164,14 @@ function makeBrewery(yelp) {
     //// unhide when divs are updated!!!
     // runningDiv.classList.add('hidden');
     // resultDiv.classList.remove('hidden');
-    breweryPicture.setAttribute('src', yelp.image_url);
-    breweryName.textContent = yelp.name;
-    breweryPhone.textContent = yelp.display_phone;
-    breweryAddress.textContent = `${yelp.location.address1}\n\r${yelp.location.city}, ${yelp.location.state} ${yelp.location.zip_code}`;
+    breweryPicture.setAttribute('src', yelp.businesses[0].image_url);
+    breweryName.textContent = yelp.businesses[0].name;
+    breweryPhone.textContent = yelp.businesses[0].display_phone;
+    breweryAddress.textContent = `${yelp.businesses[0].location.address1}\n\r${yelp.businesses[0].location.city}, ${yelp.businesses[0].location.state} ${yelp.businesses[0].location.zip_code}`;
     breweryWebsite.textContent = dummyBrewery.website_url;
     breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
-    breweryReview.setAttribute('src', `../img/${yelp.rating}pint.png`);
-    breweryHours.textContent = closedOrNot(yelp.is_closed);
+    breweryReview.setAttribute('src', `../img/${yelp.businesses[0].rating}pint.png`);
+    breweryHours.textContent = closedOrNot(yelp.businesses[0].is_closed);
     breweryDistance.textContent = `${haversine(dummyCurrentLocation, yelp)} miles away`;
 
 }
@@ -251,8 +205,8 @@ function closedOrNot(status) {
 // }
 
 function haversine(current, brew){
-    let brewLat = parseFloat(brew.coordinates.latitude);
-    let brewLong = parseFloat(brew.coordinates.longitude);
+    let brewLat = parseFloat(brew.businesses[0].coordinates.latitude);
+    let brewLong = parseFloat(brew.businesses[0].coordinates.longitude);
     Number.prototype.toRad = function() {
         return this * Math.PI / 180;
     };
