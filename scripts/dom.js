@@ -214,7 +214,7 @@ function makeBrewery(yelp) {
     breweryName.textContent = yelp.businesses[0].name;
     breweryPhone.textContent = yelp.businesses[0].display_phone;
     breweryAddress.textContent = `${yelp.businesses[0].location.address1}\n\r${yelp.businesses[0].location.city}, ${yelp.businesses[0].location.state} ${yelp.businesses[0].location.zip_code}`;
-    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${yelp.businesses[0].coordinates.latitude},${yelp.businesses[0].coordinates.longitude}`)
+    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
     breweryWebsite.textContent = dummyBrewery.website_url;
     breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
     breweryReview.setAttribute('src', `../img/${yelp.businesses[0].rating}pint.png`);
