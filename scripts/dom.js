@@ -130,7 +130,9 @@ const breweryReview = document.querySelector('[data-breweryreview]');
 const breweryHours = document.querySelector('[data-breweryhours]');
 const breweryDistance = document.querySelector('[data-brewerydistance]');
 const goButton = document.querySelector('[data-gobutton]');
-
+const searchDiv = document.querySelector('[data-search]');
+const runningDiv = document.querySelector('[data-running]');
+const resultDiv = document.querySelector('[data-result]');
 
 
 //////////////////////////////////////////////////////////
@@ -190,11 +192,13 @@ function giveApiInfo(city, state, dist) {
     // console.log(currentRadius.value)
 
     breweryAPI(currentCity.value, currentState.value, currentRadius.value);
+
+    searchDiv.classList.add('hidden');
+    runningDiv.classList.remove('hidden');
+
     // jonathan will do this(take out when integrated)
     makeBrewery(dummyYelp);
 }
-
-
 
 //////////////////////////////////////////////////////////
 ///////////////// POPULATE RESULTS ///////////////////////
