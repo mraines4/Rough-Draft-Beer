@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////
 
 
-let yelp ={
+let dummyYelp ={
     "id": "-X6YB-qWX-nFqOk8vpoPcQ",
     "alias": "red-hare-brewing-company-marietta",
     "name": "Red Hare Brewing Company",
@@ -115,6 +115,25 @@ let dummyBrewery = {
 const dummyCurrentLocation = [33.9526,-84.5499]
 
 //////////////////////////////////////////////////////////
+////////////////////// SELECTORS /////////////////////////
+//////////////////////////////////////////////////////////
+
+const currentCity = document.querySelector('[data-inputcity]');
+const currentState = document.querySelector('[data-inputstate]')
+const currentRadius = document.querySelector('[data-radius]')
+const breweryPicture = document.querySelector('[data-bpictureimg]');
+const breweryName = document.querySelector('[data-breweryname]');
+const breweryPhone = document.querySelector('[data-breweryphone]');
+const breweryAddress = document.querySelector('[data-breweryaddress]');
+const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
+const breweryReview = document.querySelector('[data-breweryreview]');
+const breweryHours = document.querySelector('[data-breweryhours]');
+const breweryDistance = document.querySelector('[data-brewerydistance]');
+const goButton = document.querySelector('[data-gobutton]');
+
+
+
+//////////////////////////////////////////////////////////
 ///////////////// CITY/STATE FETCH ///////////////////////
 //////////////////////////////////////////////////////////
 
@@ -135,18 +154,16 @@ function goFetch() {
         
         // this listens to selecting each state and for each clicked, run populateCity
     function changeState(cityArray) {
-        const inputState = document.querySelector('[data-inputstate]');
-        inputState.addEventListener('change', function() {
-            // console.log(inputState.value)
-            populateCity(inputState.value);
+        currentState.addEventListener('change', function() {
+            // console.log(currentState.value)
+            populateCity(currentState.value);
         });
     }
 }
 
 // this will empty the div and populate cities
 function populateCity(state) {
-    const inputCity = document.querySelector('[data-inputcity]');
-    inputCity.textContent = ''
+    currentCity.textContent = ''
     // console.log(state);
     // console.log('test')
     // console.log(cityArray[state]);
@@ -154,7 +171,7 @@ function populateCity(state) {
         let option = document.createElement('option');
         option.setAttribute('value', city);
         option.textContent = city;
-        inputCity.appendChild(option);
+        currentCity.appendChild(option);
         // console.log(city)
     })
 }
@@ -165,17 +182,15 @@ goFetch();
 //////////////////// GIVE API INFO ///////////////////////
 //////////////////////////////////////////////////////////
 
-let goButton = document.querySelector('[data-gobutton]');
 goButton.addEventListener('click', giveApiInfo)
 
 function giveApiInfo(city, state, dist) {
-    let currentCity = document.querySelector('[data-inputcity]');
-    let currentState = document.querySelector('[data-inputstate]')
-    let currentRadius = document.querySelector('[data-radius]')
-    console.log(currentCity.value)
-    console.log(currentState.value)
-    console.log(currentRadius.value)
+    // console.log(currentCity.value)
+    // console.log(currentState.value)
+    // console.log(currentRadius.value)
+
     breweryAPI(currentCity.value, currentState.value, currentRadius.value);
+    makeBrewery(dummyYelp);
 }
 
 
@@ -185,16 +200,7 @@ function giveApiInfo(city, state, dist) {
 //////////////////////////////////////////////////////////
 
 
-function makeBrewery() {
-    // adds the elements that will be updated from api
-    const breweryPicture = document.querySelector('[data-bpictureimg]');
-    const breweryName = document.querySelector('[data-breweryname]');
-    const breweryPhone = document.querySelector('[data-breweryphone]');
-    const breweryAddress = document.querySelector('[data-breweryaddress]');
-    const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
-    const breweryReview = document.querySelector('[data-breweryreview]');
-    const breweryHours = document.querySelector('[data-breweryhours]');
-    const breweryDistance = document.querySelector('[data-brewerydistance]');
+function makeBrewery(yelp) {
     breweryPicture.setAttribute('src', yelp.image_url);
     breweryName.textContent = yelp.name;
     breweryPhone.textContent = yelp.display_phone;
@@ -254,6 +260,6 @@ function haversine(current, brew){
     let d = (R * c) * 0.62137; // convert to miles
     
 
-    console.log(d);
+    // console.log(d);
     return Math.round(d * 10) / 10;
 }
