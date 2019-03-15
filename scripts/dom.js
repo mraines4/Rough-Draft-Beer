@@ -190,6 +190,7 @@ function giveApiInfo(city, state, dist) {
     // console.log(currentRadius.value)
 
     breweryAPI(currentCity.value, currentState.value, currentRadius.value);
+    // jonathan will do this(take out when integrated)
     makeBrewery(dummyYelp);
 }
 
