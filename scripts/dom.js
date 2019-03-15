@@ -3,52 +3,52 @@
 //////////////////////////////////////////////////////////
 
 
-let dummyYelp ={
-    "businesses": [
-        {
-            "id": "-X6YB-qWX-nFqOk8vpoPcQ",
-            "alias": "red-hare-brewing-company-marietta",
-            "name": "Red Hare Brewing Company",
-            "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
-            "is_closed": false,
-            "url": "https://www.yelp.com/biz/red-hare-brewing-company-marietta?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
-            "review_count": 82,
-            "categories": [
-                {
-                    "alias": "breweries",
-                    "title": "Breweries"
-                },
-                {
-                    "alias": "brewingsupplies",
-                    "title": "Brewing Supplies"
-                }
-            ],
-            "rating": 4,
-            "coordinates": {
-                "latitude": 33.92434,
-                "longitude": -84.49576
-            },
-            "transactions": [],
-            "price": "$",
-            "location": {
-                "address1": "1998 Delk Industrial Blvd",
-                "address2": "",
-                "address3": "",
-                "city": "Marietta",
-                "zip_code": "30067",
-                "country": "US",
-                "state": "GA",
-                "display_address": [
-                    "1998 Delk Industrial Blvd",
-                    "Marietta, GA 30067"
-                ]
-            },
-            "phone": "+16784010600",
-            "display_phone": "(678) 401-0600"
-        }
-    ],
-    "total": 1
-}
+// let dummyYelp ={
+//     "businesses": [
+//         {
+//             "id": "-X6YB-qWX-nFqOk8vpoPcQ",
+//             "alias": "red-hare-brewing-company-marietta",
+//             "name": "Red Hare Brewing Company",
+//             "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
+//             "is_closed": false,
+//             "url": "https://www.yelp.com/biz/red-hare-brewing-company-marietta?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
+//             "review_count": 82,
+//             "categories": [
+//                 {
+//                     "alias": "breweries",
+//                     "title": "Breweries"
+//                 },
+//                 {
+//                     "alias": "brewingsupplies",
+//                     "title": "Brewing Supplies"
+//                 }
+//             ],
+//             "rating": 4,
+//             "coordinates": {
+//                 "latitude": 33.92434,
+//                 "longitude": -84.49576
+//             },
+//             "transactions": [],
+//             "price": "$",
+//             "location": {
+//                 "address1": "1998 Delk Industrial Blvd",
+//                 "address2": "",
+//                 "address3": "",
+//                 "city": "Marietta",
+//                 "zip_code": "30067",
+//                 "country": "US",
+//                 "state": "GA",
+//                 "display_address": [
+//                     "1998 Delk Industrial Blvd",
+//                     "Marietta, GA 30067"
+//                 ]
+//             },
+//             "phone": "+16784010600",
+//             "display_phone": "(678) 401-0600"
+//         }
+//     ],
+//     "total": 1
+// }
 
 // let dummyYelp = {
 //     "businesses": [
@@ -189,14 +189,15 @@ function giveApiInfo() {
     // console.log(currentRadius.value)
 
     //// unhide when divs are updated!!!
-    // searchDiv.classList.add('hidden');
-    // runningDiv.classList.remove('hidden');
+    searchDiv.classList.add('hidden');
+    runningDiv.classList.remove('hidden');
 
-    // inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
-    //     makeBrewery(result);
-    // });
+    inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
+        // console.log(result)
+        makeBrewery(result);
+    });
 
-    makeBrewery(dummyYelp)
+    // makeBrewery(dummyYelp)
 }
 
 
@@ -208,18 +209,18 @@ function giveApiInfo() {
 
 function makeBrewery(yelp) {
     //// unhide when divs are updated!!!
-    // runningDiv.classList.add('hidden');
-    // resultDiv.classList.remove('hidden');
-    breweryPicture.setAttribute('src', yelp.businesses[0].image_url);
-    breweryName.textContent = yelp.businesses[0].name;
-    breweryPhone.textContent = yelp.businesses[0].display_phone;
-    breweryAddress.textContent = `${yelp.businesses[0].location.address1}\n\r${yelp.businesses[0].location.city}, ${yelp.businesses[0].location.state} ${yelp.businesses[0].location.zip_code}`;
+    runningDiv.classList.add('hidden');
+    resultDiv.classList.remove('hidden');
+    breweryPicture.setAttribute('src', yelp.image_url);
+    breweryName.textContent = yelp.name;
+    breweryPhone.textContent = yelp.display_phone;
+    breweryAddress.textContent = `${yelp.location.address1}\n\r${yelp.location.city}, ${yelp.location.state} ${yelp.location.zip_code}`;
     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
     breweryWebsite.textContent = dummyBrewery.website_url;
     breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
-    breweryReview.setAttribute('src', `../img/${yelp.businesses[0].rating}pint.png`);
-    breweryHours.textContent = closedOrNot(yelp.businesses[0].is_closed);
-    breweryDistance.textContent = `${haversine(dummyCurrentLocation, yelp)} miles away`;
+    breweryReview.setAttribute('src', `../img/${yelp.rating}pint.png`);
+    breweryHours.textContent = closedOrNot(yelp.is_closed);
+    breweryDistance.textContent = `${distForm(dummyCurrentLocation, yelp)} miles away`;
 
 }
 
@@ -252,9 +253,9 @@ function closedOrNot(status) {
 // }
 
 
-function haversine(current, brew){
-    let brewLat = parseFloat(brew.businesses[0].coordinates.latitude);
-    let brewLong = parseFloat(brew.businesses[0].coordinates.longitude);
+function distForm(current, brew){
+    let brewLat = parseFloat(brew.coordinates.latitude);
+    let brewLong = parseFloat(brew.coordinates.longitude);
     Number.prototype.toRad = function() {
         return this * Math.PI / 180;
     };
