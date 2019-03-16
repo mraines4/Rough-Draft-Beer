@@ -1,115 +1,4 @@
-//////////////////////////////////////////////////////////
-/////////////////////// DUMMY DATA ///////////////////////
-//////////////////////////////////////////////////////////
 
-
-// let dummyYelp ={
-//     "businesses": [
-//         {
-//             "id": "-X6YB-qWX-nFqOk8vpoPcQ",
-//             "alias": "red-hare-brewing-company-marietta",
-//             "name": "Red Hare Brewing Company",
-//             "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
-//             "is_closed": false,
-//             "url": "https://www.yelp.com/biz/red-hare-brewing-company-marietta?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
-//             "review_count": 82,
-//             "categories": [
-//                 {
-//                     "alias": "breweries",
-//                     "title": "Breweries"
-//                 },
-//                 {
-//                     "alias": "brewingsupplies",
-//                     "title": "Brewing Supplies"
-//                 }
-//             ],
-//             "rating": 4,
-//             "coordinates": {
-//                 "latitude": 33.92434,
-//                 "longitude": -84.49576
-//             },
-//             "transactions": [],
-//             "price": "$",
-//             "location": {
-//                 "address1": "1998 Delk Industrial Blvd",
-//                 "address2": "",
-//                 "address3": "",
-//                 "city": "Marietta",
-//                 "zip_code": "30067",
-//                 "country": "US",
-//                 "state": "GA",
-//                 "display_address": [
-//                     "1998 Delk Industrial Blvd",
-//                     "Marietta, GA 30067"
-//                 ]
-//             },
-//             "phone": "+16784010600",
-//             "display_phone": "(678) 401-0600"
-//         }
-//     ],
-//     "total": 1
-// }
-
-// let dummyYelp = {
-//     "businesses": [
-//         {
-//             "id": "YYw-k-LjkrQt2HkCJ5iFUw",
-//             "alias": "wicked-weed-asheville",
-//             "name": "Wicked Weed",
-//             "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/drTCIycsDpP_KtHchCsnPw/o.jpg",
-//             "is_closed": false,
-//             "url": "https://www.yelp.com/biz/wicked-weed-asheville?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
-//             "review_count": 1767,
-//             "categories": [
-//                 {
-//                     "alias": "brewpubs",
-//                     "title": "Brewpubs"
-//                 }
-//             ],
-//             "rating": 4,
-//             "coordinates": {
-//                 "latitude": 35.591706,
-//                 "longitude": -82.551034
-//             },
-//             "transactions": [],
-//             "price": "$$",
-//             "location": {
-//                 "address1": "91 Biltmore Ave",
-//                 "address2": "",
-//                 "address3": "",
-//                 "city": "Asheville",
-//                 "zip_code": "28801",
-//                 "country": "US",
-//                 "state": "NC",
-//                 "display_address": [
-//                     "91 Biltmore Ave",
-//                     "Asheville, NC 28801"
-//                 ]
-//             },
-//             "phone": "+18285759599",
-//             "display_phone": "(828) 575-9599"
-//         }
-//     ],
-//     "total": 1
-// }
-
-let dummyBrewery = {
-    "id": 2183,
-    "name": "Red Hare Brewing Company",
-    "brewery_type": "micro",
-    "street": "1998 Delk Industrial Blvd SE",
-    "city": "Marietta",
-    "state": "Georgia",
-    "postal_code": "30067-8904",
-    "country": "United States",
-    "longitude": "-84.4957563035449",
-    "latitude": "33.92440825",
-    "phone": "6784010600",
-    "website_url": "http://www.redharebrewing.com",
-    "updated_at": "2018-08-24T00:29:23.424Z",
-    "tag_list": []
-}
-const dummyCurrentLocation = [33.9526,-84.5499]
 
 //////////////////////////////////////////////////////////
 ////////////////////// SELECTORS /////////////////////////
@@ -212,22 +101,21 @@ function giveApiInfo() {
 //////////////////////////////////////////////////////////
 
 
-function makeBrewery(brewInfo) {
-    //// unhide when divs are updated!!!
-    runningDiv.classList.add('hidden');
-    resultDiv.classList.remove('hidden');
-    breweryPicture.setAttribute('src', brewInfo[0].image_url);
-    breweryName.textContent = brewInfo[0].name;
-    breweryPhone.textContent = brewInfo[0].display_phone;
-    breweryAddress.textContent = `${brewInfo[0].location.address1}\n\r${brewInfo[0].location.city}, ${brewInfo[0].location.state} ${brewInfo[0].location.zip_code}`;
-    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
-    breweryWebsite.textContent = brewInfo[2];
-    breweryWebsite.setAttribute('href' ,brewInfo[2].website_url);
-    breweryReview.setAttribute('src', `./../img/${brewInfo[0].rating}pint.png`);
-    breweryHours.textContent = closedOrNot(brewInfo[0].is_closed);
-    breweryDistance.textContent = `${brewInfo[1]} miles away`;
-
-}
+// function makeBrewery(brewInfo) {
+//     //// unhide when divs are updated!!!
+//     runningDiv.classList.add('hidden');
+//     resultDiv.classList.remove('hidden');
+//     breweryPicture.setAttribute('src', brewInfo[0].image_url);
+//     breweryName.textContent = brewInfo[0].name;
+//     breweryPhone.textContent = brewInfo[0].display_phone;
+//     breweryAddress.textContent = `${brewInfo[0].location.address1}\n\r${brewInfo[0].location.city}, ${brewInfo[0].location.state} ${brewInfo[0].location.zip_code}`;
+//     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
+//     breweryWebsite.textContent = brewInfo[2];
+//     breweryWebsite.setAttribute('href' ,brewInfo[2].website_url);
+//     breweryReview.setAttribute('src', `./../img/${brewInfo[0].rating}pint.png`);
+//     breweryHours.textContent = closedOrNot(brewInfo[0].is_closed);
+//     breweryDistance.textContent = `${brewInfo[1]} miles away`;
+// }
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
