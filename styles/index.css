@@ -284,7 +284,12 @@ img {
   .breweryaddress, .breweryhours {
     white-space: pre-line;
   }
-
+.currentweathericon {
+  float:left;
+}
+  .weatherpng {
+    /* width:20px; */
+  }
   /* change this for larger screens */
   
   /* when the width is larger than the height - the cards should be 90% of the height*/
