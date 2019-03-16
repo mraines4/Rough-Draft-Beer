@@ -86,6 +86,7 @@ async function breweryAPI(state){
             return data;
         })
         .then(function (data){
+            showMeTheBreweryTypes(data);
             return data; // once more, for good luck
         });
     }
@@ -114,7 +115,9 @@ function showMeTheBreweryTypes(breweriesArray){ // quick optional function to lo
         else{
         }
     });
-    return breweryTypesArray;
+    console.log("breweryTypesArray:");
+    console.log(breweryTypesArray);
+    // return breweryTypesArray;
 }
 
 /////////////////////
@@ -221,15 +224,17 @@ async function inputToObject(city = "Atlanta", state = "Georgia", radius = 50){ 
         }
     });
     const localBreweriesArrayofObjects_1 = localBreweriesArrayofObjects;
-    const phone = (breweryPhoneNumber(radiusBreweryRandomizer(localBreweriesArrayofObjects_1)));
+    const randomBreweryObject = (radiusBreweryRandomizer(localBreweriesArrayofObjects_1));
+    const phone = breweryPhoneNumber(randomBreweryObject);
     const yelpInfo = await yelpAPI(phone);
-    // first we do math to give the resultsArray[1] the distance between the user and the brewery
+    // now we do math to give the resultsArray[1] the distance between the user and the brewery
     const lat1 = parseFloat(localCoordinatesObjects.lat); // start setting selected city/state's lat and lng
     const lng1 = parseFloat(localCoordinatesObjects.lng);
     let lat2 = (yelpInfo.coordinates.latitude);
     let lng2 = (yelpInfo.coordinates.longitude);
     let distanceFromUserToBrewery = (haversine(lat1, lng1, lat2, lng2));
-    let resultsArray = [yelpInfo, distanceFromUserToBrewery];
+    const breweryWebsite = randomBreweryObject.website_url;
+    let resultsArray = [yelpInfo, distanceFromUserToBrewery, breweryWebsite];
     return resultsArray;
 }
 

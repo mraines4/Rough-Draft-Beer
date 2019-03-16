@@ -193,7 +193,12 @@ function giveApiInfo() {
     runningDiv.classList.remove('hidden');
 
     inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
-        console.log(result[1]);
+                    /////////////////
+                    // Cheat Sheet //
+                    /////////////////
+        // result[0] is the yelpObject about the brewery
+        // result[1] is the user distance from the brewery
+        // result[2] is the brewery website
         makeBrewery(result[0]);
     });
 
