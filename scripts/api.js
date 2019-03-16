@@ -3,20 +3,223 @@
 //////////////////////////////
 // let state = "georgia"; // the "state" from the state field on input or geolocate api
 // the above is a TEMPORARY global variable to feed to this function, otherwise the function should be fed from the above mentioned inputs
-function breweryAPI(state){ // still need to instate pagination to create full stateDB to manipulate
-    const beerURL = `https://api.openbrewerydb.org/breweries?by_state=${state}`;
-    // console.log(`Searching DB for ${state} breweries`);
 
-    return fetch(beerURL) // getting the database data
+// function breweryAPI(state){ // still need to instate pagination to create full stateDB to manipulate
+//     const beerURL = `https://api.openbrewerydb.org/breweries?by_state=${state}`;
+//     // console.log(`Searching DB for ${state} breweries`);
+
+//     return fetch(beerURL) // getting the database data
+//     .then(function (response){
+//         return response.json(); // workable data
+//     })
+//     .then(function (data){
+//         let cleanedStateDB = filterOutPhoneyPhones(filterOutPlanners(data)); // start calling functions
+//         // console.log(`Here are all the breweries in the state of ${state}`);
+//         // console.log(cleanedStateDB);
+//         return cleanedStateDB; // return a workable array of objects of breweries with real phone #s that exist per state
+//     });
+// }
+
+// // What a FAILURE! SetTimeout issues led to undefined values which caused the whole thing to fail :(
+// function breweryAPI(state){ // still need to instate pagination to create full stateDB to manipulate
+//     // const beerURL = `https://api.openbrewerydb.org/breweries?by_state=${state}`;
+//     console.log(`Searching DB for ${state} breweries`);
+    
+//     // STEP 1
+//     function paginate(state){
+//         for (let pageNumber=1; pageNumber<5; pageNumber++) {
+//             console.log(`Page number: ${pageNumber}`);
+//             let delay = pageNumber * 500;
+//             state = state;
+//             setTimeout(function () {
+//                 console.log("setTimeout fired off a request!");
+//                 retrievePageOfBreweries(state, pageNumber);
+//                 }, 500);
+//             console.log("Requests sent out.");
+//         }
+//     }
+//     // STEP 2
+//     function retrievePageOfBreweries(state, pageNumber) {
+//         console.log(`About to fetch page #: ${pageNumber}`);
+//         fetch(urlForPage(state, pageNumber)) // step2a
+//         .catch(function (error){
+//             console.log(error);
+//         })
+//         .then(function (response) {
+//             console.log("Response from the API: ");
+//             console.log(response);
+//             return response.json(); // clean it up
+//         })
+//         .then(accumulateBreweries) // step2b
+//         .then(function () {
+//             console.log(`Done with page ${pageNumber}`); // let us know where we are with the call
+
+//         });   
+//     }
+
+//     // STEP 2a
+//     function urlForPage(state = "Georgia", pageNumber = 1) {
+//         console.log(`Serving up the URL!`);
+//         console.log(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=${pageNumber}&per_page=50`);
+//         return `https://api.openbrewerydb.org/breweries?by_state=${state}&page=${pageNumber}&per_page=50`;
+//     }
+
+//     let allBreweriesArray = [];
+
+//     // STEP 2b
+//     function accumulateBreweries(theActualData) { 
+//         allBreweriesArray = [ // copy the existing data and add latest page to it
+//             ...allBreweriesArray,
+//             ...theActualData
+//         ];
+//         storeBreweries(allBreweriesArray); // step2b1 put it in localStorage
+
+//         // We know that there are no more Breweries
+//         // to load if the API is sending us empty arrays.
+//         if (theActualData.length === 0) {
+//             // This is a terrible, but useful hack
+//             // reload the page
+//             // location.reload();
+
+//             // Really, though...when we have
+//             // loaded all the data from the API,
+//             // just call the main function again!
+//             console.log(allBreweriesArray);
+//             return allBreweriesArray;
+//         }
+//     }
+
+//     // const storageKey = `${state}`;
+
+//     // STEP 2b1
+//     function storeBreweries(arrayOfBreweries) {
+//         // convert the array to a JSON string
+//         const jsonBreweries = JSON.stringify(arrayOfBreweries); // lock this data in carbonite
+//         console.log(`saving ${arrayOfBreweries.length} Breweries`);
+//         // set that string in localStorage
+//         localStorage.setItem(`${state}`, jsonBreweries);
+//     }
+
+//     function loadBreweries() {
+//         // get the JSON string from localStorage
+//         const jsonBreweries = localStorage.getItem(`${state}`);
+
+//         // convert it back into an array
+//         const arrayOfBreweries = JSON.parse(jsonBreweries);
+//         if (arrayOfBreweries) {
+//             console.log(`loaded ${arrayOfBreweries.length} Breweries`);
+//         } else {
+//             console.log('No Breweries in localStorage');
+//         }
+
+//         // return it
+//         return arrayOfBreweries;
+//     }
+//     // return paginate()
+//     paginate()
+//     .then(function (data){
+//         let cleanedStateDB = filterOutPhoneyPhones(filterOutPlanners(data)); // start calling functions
+//         // console.log(`Here are all the breweries in the state of ${state}`);
+//         // console.log(cleanedStateDB);
+//         return cleanedStateDB; // return a workable array of objects of breweries with real phone #s that exist per state
+//     });
+// }
+
+function page1(state){
+    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=1&per_page=50`)
     .then(function (response){
         return response.json(); // workable data
+    })
+    .then(function (data){
+        return data;
+        });
+}
+function page2(state){
+    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=2&per_page=50`)
+    .then(function (response){
+        return response.json(); // workable data
+    })
+    .then(function (data){
+        return data;
+        });
+}
+function page3(state){
+    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=3&per_page=50`)
+    .then(function (response){
+        return response.json(); // workable data
+    })
+    .then(function (data){
+        return data;
+        });
+}
+function page4(state){
+    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=4&per_page=50`)
+    .then(function (response){
+        return response.json(); // workable data
+    })
+    .then(function (data){
+        return data;
+        });
+}
+
+
+function breweryAPI(state){
+    // stagger the fetches
+    let prom1 = page1(state);
+    let prom2 = page2(state);
+    let prom3 = page3(state);
+    let prom4 = page4(state);
+    // // for whatever reason, timeouts below don't work
+    // let prom2 = setTimeout(function (){
+    //     page2(state);
+    // }, 250);
+    // let prom3 = setTimeout(function (){
+    //     page3(state);
+    // }, 500);
+    // let prom4 = setTimeout(function (){
+    //     page4(state);
+    // }, 750);
+
+    return Promise.all([prom1,prom2,prom3,prom4]) // wait for them to come back
+    .then((arrayOfArraysOfObjects) => {
+        let array1 = arrayOfArraysOfObjects[0];
+        let array2 = arrayOfArraysOfObjects[1];
+        let array3 = arrayOfArraysOfObjects[2];
+        let array4 = arrayOfArraysOfObjects[3];
+
+        let arrayOfObjects = [ // put all the results into a single array
+            ... array1,
+            ... array2,
+            ... array3,
+            ... array4,
+        ];
+        // console.log(arrayOfObjects);
+        return (arrayOfObjects);
     })
     .then(function (data){
         let cleanedStateDB = filterOutPhoneyPhones(filterOutPlanners(data)); // start calling functions
         // console.log(`Here are all the breweries in the state of ${state}`);
         // console.log(cleanedStateDB);
         return cleanedStateDB; // return a workable array of objects of breweries with real phone #s that exist per state
+    })
+    .then(function (results){
+        console.log(results);
+        return results;
+        });
+}
+
+function filterOutPhoneyPhones(breweriesArray){
+    let goodPhones = breweriesArray.filter(function (eachBrewery){
+        return (((eachBrewery["phone"]).length === 10) || ((eachBrewery["phone"]).length === 11)); // get rid of brewery with anything but 10 or 11 digit phone #s
     });
+    return goodPhones;
+}
+
+function filterOutPlanners(breweriesArray){ // only open/operational breweries, please
+    const existingBreweries = breweriesArray.filter(function (eachBrewery){
+        return ((eachBrewery["brewery_type"]) !== "planning"); // get rid of any brewery still in planning
+    });
+    return existingBreweries;
 }
 
 function filterOutPhoneyPhones(breweriesArray){

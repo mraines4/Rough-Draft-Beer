@@ -181,7 +181,7 @@ goFetch();
 //////////////////// GIVE API INFO ///////////////////////
 //////////////////////////////////////////////////////////
 
-goButton.addEventListener('click', giveApiInfo)
+goButton.addEventListener('click', giveApiInfo);
 
 function giveApiInfo() {
     // console.log(currentCity.value)
