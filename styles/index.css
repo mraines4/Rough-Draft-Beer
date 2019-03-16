@@ -45,7 +45,7 @@ h1 {
 
 }
 
-.search, .result, .running {
+.search, .result, .running , .mapall{
 
   /* display:flex; */
   /* width:max-content; */
