@@ -147,7 +147,8 @@ function yelpAPI(phone){
 // OPENCAGE API BEGINS //
 /////////////////////////
 function geoApi(city,state){
-    geoKey = '9940fdfbec3c42328da75e23977d75a9';
+    // geoKey = '9940fdfbec3c42328da75e23977d75a9'; jonathan
+    geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
 
     return fetch(GEO_URL)
@@ -253,7 +254,7 @@ function haversine(lat1, lng1, lat2, lng2){
     Math.sin(dLon/2) * Math.sin(dLon/2);  
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     let d = (R * c) * 0.62137; // convert to miles
-    return (d);
+    return Math.round(d * 10) / 10;
 }
 
 /////////////////////////
