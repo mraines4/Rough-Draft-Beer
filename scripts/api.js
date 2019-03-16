@@ -86,7 +86,7 @@ async function breweryAPI(state){
             return data;
         })
         .then(function (data){
-            showMeTheBreweryTypes(data);
+            // showMeTheBreweryTypes(data);
             return data; // once more, for good luck
         });
     }
