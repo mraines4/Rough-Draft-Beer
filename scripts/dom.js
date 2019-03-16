@@ -199,7 +199,7 @@ function giveApiInfo() {
         // result[0] is the yelpObject about the brewery
         // result[1] is the user distance from the brewery
         // result[2] is the brewery website
-        makeBrewery(result[0]);
+        makeBrewery(result);
     });
 
     // makeBrewery(dummyYelp)
@@ -212,20 +212,20 @@ function giveApiInfo() {
 //////////////////////////////////////////////////////////
 
 
-function makeBrewery(yelp) {
+function makeBrewery(brewInfo) {
     //// unhide when divs are updated!!!
     runningDiv.classList.add('hidden');
     resultDiv.classList.remove('hidden');
-    breweryPicture.setAttribute('src', yelp.image_url);
-    breweryName.textContent = yelp.name;
-    breweryPhone.textContent = yelp.display_phone;
-    breweryAddress.textContent = `${yelp.location.address1}\n\r${yelp.location.city}, ${yelp.location.state} ${yelp.location.zip_code}`;
+    breweryPicture.setAttribute('src', brewInfo[0].image_url);
+    breweryName.textContent = brewInfo[0].name;
+    breweryPhone.textContent = brewInfo[0].display_phone;
+    breweryAddress.textContent = `${brewInfo[0].location.address1}\n\r${brewInfo[0].location.city}, ${brewInfo[0].location.state} ${brewInfo[0].location.zip_code}`;
     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
-    breweryWebsite.textContent = dummyBrewery.website_url;
-    breweryWebsite.setAttribute('href' ,dummyBrewery.website_url);
-    breweryReview.setAttribute('src', `../img/${yelp.rating}pint.png`);
-    breweryHours.textContent = closedOrNot(yelp.is_closed);
-    breweryDistance.textContent = `${distForm(dummyCurrentLocation, yelp)} miles away`;
+    breweryWebsite.textContent = brewInfo[2];
+    breweryWebsite.setAttribute('href' ,brewInfo[2].website_url);
+    breweryReview.setAttribute('src', `./../img/${brewInfo[0].rating}pint.png`);
+    breweryHours.textContent = closedOrNot(brewInfo[0].is_closed);
+    breweryDistance.textContent = `${brewInfo[1]} miles away`;
 
 }
 
@@ -258,26 +258,26 @@ function closedOrNot(status) {
 // }
 
 
-function distForm(current, brew){
-    let brewLat = parseFloat(brew.coordinates.latitude);
-    let brewLong = parseFloat(brew.coordinates.longitude);
-    Number.prototype.toRad = function() {
-        return this * Math.PI / 180;
-    };
-    const R = 6371; // km 
-    //has a problem with the .toRad() method below.
-    let x1 = current[0]-brewLat;
-    let dLat = x1.toRad();  
-    let x2 = current[1]-brewLong;
-    let dLon = x2.toRad();  
-    let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-    Math.cos(brewLat.toRad()) * Math.cos(current[0].toRad()) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);  
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    let d = (R * c) * 0.62137; // convert to miles
+// function distForm(current, brew){
+//     let brewLat = parseFloat(brew.coordinates.latitude);
+//     let brewLong = parseFloat(brew.coordinates.longitude);
+//     Number.prototype.toRad = function() {
+//         return this * Math.PI / 180;
+//     };
+//     const R = 6371; // km 
+//     //has a problem with the .toRad() method below.
+//     let x1 = current[0]-brewLat;
+//     let dLat = x1.toRad();  
+//     let x2 = current[1]-brewLong;
+//     let dLon = x2.toRad();  
+//     let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+//     Math.cos(brewLat.toRad()) * Math.cos(current[0].toRad()) * 
+//     Math.sin(dLon/2) * Math.sin(dLon/2);  
+//     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+//     let d = (R * c) * 0.62137; // convert to miles
     
 
-    // console.log(d);
-    return Math.round(d * 10) / 10;
-}
+//     // console.log(d);
+//     return Math.round(d * 10) / 10;
+// }
 
