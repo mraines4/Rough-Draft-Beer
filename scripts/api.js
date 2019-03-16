@@ -1,7 +1,6 @@
 //////////////////////////////
 // OPENBREWERYDB API BEGINS //
 //////////////////////////////
-
 function page1(state){
     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=1&per_page=50`)
     .then(function (response){
@@ -39,7 +38,6 @@ function page4(state){
         });
 }
 
-
 async function breweryAPI(state){
     if (localStorage.getItem(state)) {
         breweryData = JSON.parse(localStorage.getItem(state));
@@ -48,9 +46,9 @@ async function breweryAPI(state){
         console.log(breweryData);
         return breweryData;
     }
-    else {      //data doesn't exist in local - get it from API
+    else { // data doesn't exist in local - get it from API
 
-        // stagger the fetches
+        // stagger the fetches // Whelp, we tried to...
         let prom1 = page1(state);
         let prom2 = page2(state);
         let prom3 = page3(state);
@@ -66,8 +64,6 @@ async function breweryAPI(state){
         //     page4(state);
         // }, 750);
 
-        // const arrayOfArraysOfObjects = await Promise.all([prom1, prom2, prom3, prom4])// wait for them to come back;
-        let arrayOfArraysOfObjects;
         return arrayOfArraysOfObjects = await Promise.all([prom1, prom2, prom3, prom4])// wait for them to come back;
         .then(function (arrayOfArraysOfObjects){ 
         let array1 = arrayOfArraysOfObjects[0];
@@ -83,18 +79,14 @@ async function breweryAPI(state){
         const data = (arrayOfObjects);
         let cleanedStateDB = filterOutPhoneyPhones(filterOutPlanners(data)); // start calling functions
         const results = cleanedStateDB;
-        console.log(results);
         return results;
         })
         .then(function (data){
             localStorage.setItem(state,JSON.stringify(data));// write it to local storage
-            // console.log(data);
             return data;
         })
         .then(function (data){
-            console.log("last step in creating array of states for first time");
-            console.log(data);
-            return data;
+            return data; // once more, for good luck
         });
     }
 }
@@ -113,21 +105,6 @@ function filterOutPlanners(breweriesArray){ // only open/operational breweries, 
     return existingBreweries;
 }
 
-function filterOutPhoneyPhones(breweriesArray){
-    let goodPhones = breweriesArray.filter(function (eachBrewery){
-        return (((eachBrewery["phone"]).length === 10) || ((eachBrewery["phone"]).length === 11)); // get rid of brewery with anything but 10 or 11 digit phone #s
-    });
-    return goodPhones;
-}
-
-function filterOutPlanners(breweriesArray){ // only open/operational breweries, please
-    const existingBreweries = breweriesArray.filter(function (eachBrewery){
-        return ((eachBrewery["brewery_type"]) !== "planning"); // get rid of any brewery still in planning
-    });
-    // console.log(existingBreweries);
-    return existingBreweries;
-}
-
 function showMeTheBreweryTypes(breweriesArray){ // quick optional function to look at the different types of breweries
     let breweryTypesArray =[];
     breweriesArray.forEach(function (eachBrewery){
@@ -137,23 +114,23 @@ function showMeTheBreweryTypes(breweriesArray){ // quick optional function to lo
         else{
         }
     });
-    // console.log('here are your brewery types!');
-    // console.log(breweryTypesArray);
     return breweryTypesArray;
 }
 
 /////////////////////
 // YELP API BEGINS //
 /////////////////////
-// let phone = '16784010600'; // the "phone" should be fed from breweryAPI
-// the above is a TEMPORARY global variable to feed to this function, otherwise the function should be fed from the above mentioned inputs
 function yelpAPI(phone){
     return fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
     .catch(function (error){
         console.log('ERROR');
     })
     .then(function (response){
-        // console.log(response);
+        // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
+        // If you just got a Syntax Error, don't worry.
+        // This is one of those cases where the database 
+        // didn't have a brewery that the critea and so it fails out
+        // We'll be putting in a Chili's fix soon.
         return response.json(); // workable data
     })
     .then(function (data){
@@ -166,20 +143,15 @@ function yelpAPI(phone){
 /////////////////////////
 // OPENCAGE API BEGINS //
 /////////////////////////
-// let city = 'Atlanta'; // the "city" should be fed from the city field on input
-// let state = 'Georgia'; // the "state" should be fed from the state field on input
-// the above are TEMPORARY global variables to feed to this function, otherwise the function should be fed from the above mentioned inputs
-
 function geoApi(city,state){
     geoKey = '9940fdfbec3c42328da75e23977d75a9';
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
 
     return fetch(GEO_URL)
     .then(function (response) {
-        return response.json();  // <----- We're returning another Promise.
+        return response.json();
     })
     .then(function (geoData) {
-        // console.log(geoData.results[0].geometry); // returns object of user's (city, state) center lat/lngs
         return geoData.results[0].geometry; // now feed this into a function to come up with a local lat/lng range
     });
 }
@@ -187,14 +159,17 @@ function geoApi(city,state){
 ////////////////////
 // MISC FUNCTIONS //
 ////////////////////
-
 function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 1 phone number to query Yelp
     let randomNumber = (parseInt(Math.random() * (localBreweries.length))); // get a random number from the length of the array
-    // console.log(`This is your random number: ${randomNumber}`);
     return localBreweries[randomNumber]; // set that random number as the index for the array for the breweries to return a single random brewery
 }
 
 function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
+    // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
+    // If you just got a Syntax Error, don't worry.
+    // This is one of those cases where the database 
+    // didn't have a brewery that the critea and so it fails out
+    // We'll be putting in a Chili's fix soon.
     if ((brewery.phone).length === 11){
         return brewery.phone;
     }
@@ -210,7 +185,6 @@ async function inputToObject(city = "Atlanta", state = "Georgia", radius = 50){ 
     let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
     let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
     let breweriesDistanceFromCityArray = [];
-    // debugger;
     arrayOfStateBreweriesObjects.forEach(function (brewery) {
         const lat1 = parseFloat(localCoordinatesObjects.lat); // start setting selected city/state's lat and lng
         const lng1 = parseFloat(localCoordinatesObjects.lng);
@@ -220,13 +194,13 @@ async function inputToObject(city = "Atlanta", state = "Georgia", radius = 50){ 
             breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, lat2, lng2))]);
         }
         else { // uh oh, product nearby lat/long by passing the brewery city/state to OpenCage API!
-            let city_1 = brewery["city"];
-            let state_1 = brewery["state"];
-            geoApi(city_1, state_1) // getting the brewery's lat/long given their city,state
+            let breweryCity = brewery["city"];
+            let breweryState = brewery["state"];
+            geoApi(breweryCity, breweryState) // getting the brewery's lat/long given their city,state
                 .then(function (breweryCoordinatesObject) {
-                    let lat2_1 = breweryCoordinatesObject["lat"];
-                    let lng2_1 = breweryCoordinatesObject["lng"];
-                    breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, lat2_1, lng2_1))]);
+                    let lat2 = breweryCoordinatesObject["lat"];
+                    let lng2 = breweryCoordinatesObject["lng"];
+                    breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, lat2, lng2))]);
                 });
         }
     });
@@ -248,9 +222,15 @@ async function inputToObject(city = "Atlanta", state = "Georgia", radius = 50){ 
     });
     const localBreweriesArrayofObjects_1 = localBreweriesArrayofObjects;
     const phone = (breweryPhoneNumber(radiusBreweryRandomizer(localBreweriesArrayofObjects_1)));
-    const results = await yelpAPI(phone);
-    // console.log(results);
-    return results;
+    const yelpInfo = await yelpAPI(phone);
+    // first we do math to give the resultsArray[1] the distance between the user and the brewery
+    const lat1 = parseFloat(localCoordinatesObjects.lat); // start setting selected city/state's lat and lng
+    const lng1 = parseFloat(localCoordinatesObjects.lng);
+    let lat2 = (yelpInfo.coordinates.latitude);
+    let lng2 = (yelpInfo.coordinates.longitude);
+    let distanceFromUserToBrewery = (haversine(lat1, lng1, lat2, lng2));
+    let resultsArray = [yelpInfo, distanceFromUserToBrewery];
+    return resultsArray;
 }
 
 function haversine(lat1, lng1, lat2, lng2){
@@ -268,7 +248,6 @@ function haversine(lat1, lng1, lat2, lng2){
     Math.sin(dLon/2) * Math.sin(dLon/2);  
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     let d = (R * c) * 0.62137; // convert to miles
-    // console.log(d);
     return (d);
 }
 

@@ -193,8 +193,8 @@ function giveApiInfo() {
     runningDiv.classList.remove('hidden');
 
     inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
-        // console.log(result)
-        makeBrewery(result);
+        console.log(result[1]);
+        makeBrewery(result[0]);
     });
 
     // makeBrewery(dummyYelp)
