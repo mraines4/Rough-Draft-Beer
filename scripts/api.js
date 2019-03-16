@@ -169,7 +169,7 @@ function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 
 
 function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
     // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
-    // If you just got a Syntax Error, don't worry.
+    // If you just got a Syntax or Type Error, don't worry.
     // This is one of those cases where the database 
     // didn't have a brewery that the critea and so it fails out
     // We'll be putting in a Chili's fix soon.
