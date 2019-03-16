@@ -101,22 +101,21 @@ function giveApiInfo() {
 //////////////////////////////////////////////////////////
 
 
-function makeBrewery(brewInfo) {
-    //// unhide when divs are updated!!!
-    runningDiv.classList.add('hidden');
-    resultDiv.classList.remove('hidden');
-    breweryPicture.setAttribute('src', brewInfo[0].image_url);
-    breweryName.textContent = brewInfo[0].name;
-    breweryPhone.textContent = brewInfo[0].display_phone;
-    breweryAddress.textContent = `${brewInfo[0].location.address1}\n\r${brewInfo[0].location.city}, ${brewInfo[0].location.state} ${brewInfo[0].location.zip_code}`;
-    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
-    breweryWebsite.textContent = brewInfo[2];
-    breweryWebsite.setAttribute('href' ,brewInfo[2].website_url);
-    breweryReview.setAttribute('src', `./../img/${brewInfo[0].rating}pint.png`);
-    breweryHours.textContent = closedOrNot(brewInfo[0].is_closed);
-    breweryDistance.textContent = `${brewInfo[1]} miles away`;
-
-}
+// function makeBrewery(brewInfo) {
+//     //// unhide when divs are updated!!!
+//     runningDiv.classList.add('hidden');
+//     resultDiv.classList.remove('hidden');
+//     breweryPicture.setAttribute('src', brewInfo[0].image_url);
+//     breweryName.textContent = brewInfo[0].name;
+//     breweryPhone.textContent = brewInfo[0].display_phone;
+//     breweryAddress.textContent = `${brewInfo[0].location.address1}\n\r${brewInfo[0].location.city}, ${brewInfo[0].location.state} ${brewInfo[0].location.zip_code}`;
+//     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
+//     breweryWebsite.textContent = brewInfo[2];
+//     breweryWebsite.setAttribute('href' ,brewInfo[2].website_url);
+//     breweryReview.setAttribute('src', `./../img/${brewInfo[0].rating}pint.png`);
+//     breweryHours.textContent = closedOrNot(brewInfo[0].is_closed);
+//     breweryDistance.textContent = `${brewInfo[1]} miles away`;
+// }
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
