@@ -41,7 +41,7 @@ h1 {
   display:flex;
   position: absolute;
   /* border: 2px solid red; */
-  top:70px; 
+  top:40px; 
   left:50%;
   transform: translate(-50%,0%); 
 
@@ -52,18 +52,12 @@ h1 {
   /* this rotates the napkin - and all the text */
   /* transform: rotatez(-8deg); */
   /* this does a tilt - so napkin appears flat on slanted table */
-  transform: perspective(400px) rotatex(9deg);
+  transform: perspective(324px) rotatex(7deg);
 
-  font-size:4vh;  /* works for landscapes */
-  font-size:3.8vw;  /* works for portrait */
-  /* display:flex; */
-  /* width:max-content; */
-  /* height:max-content; */
-  /* position: absolute; */
-  /* top: 50%; */
-  /* left: 50%; */
-  /* transform: translate(-50%,-50%);  */
-  /* border: 2px solid blue; */
+/* works for landscapes */
+  /* font-size:4vh;   */
+  /* works for portrait */
+  /* font-size:3.8vw;   */
 
 }
 
@@ -123,26 +117,68 @@ h1 {
     /* width :400px; */
     /* height: 500px; */
     /* border: 2px solid purple; */
-    padding: 10px;
-    border-radius:5%;
-    line-height: 1.7em;  /*keep here?*/
+    /* padding: 10px; */
+    /* border-radius:5%; */
+    /*keep here?*/
+    /* line-height: 1.7em;   */
 
   }
+  
   .inputfields , .displaydata {
     /* border: 3px solid blue; */
-    margin:30px;
+    /* margin:30px; */
+    width: 100%; /* of container*/
+    height: 100%; /* of container */
     position: absolute;
     top: 10%;
     left: 10%;
     /* transform: translate(-50%,-50%); */
   }
+  .displaydata {
+    display: flex;
+  }
+.resultsgrid {
+  display:grid;
+  min-width: 85%;
+  max-width: 85%;
+  grid-template-columns: 2% 47% 2% 47% 2%;
+  grid-template-rows: 2% 47% 2% 47% 2%;
+  /* max-height: 100vh; */
+  
+  grid-auto-rows: minmax(100%, 100%);
+  grid-auto-columns: minmax(100%, 100%);
+}
 
+.topleft {
+  grid-column-start: 2;
+  grid-column-end:3;
+  grid-row-start:2;
+  grid-row-end:3;
+}
+.topright {
+  grid-column-start: 4;
+  grid-column-end:5;
+  grid-row-start:2;
+  grid-row-end:3;
+}
+.bottom {
+  grid-column-start: 2;
+  grid-column-end:5;
+  grid-row-start:4;
+  grid-row-end:5;
+  text-align: center;
+
+}
 
 .gobutton {
-  font-size: 20px;
+  position: absolute;
+  bottom:25%;
+  right:25%;
+  font-size: 25px;
   border: 2px solid brown;
   float:right;
-  padding:5px;
+  padding:10px;
+  border-radius: 5px;
   /* position: absolute;
   right: 10%; */
   
@@ -150,12 +186,14 @@ h1 {
 .pictureframe {
   position:relative;
   margin:auto;
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  padding-top:100%
+  /* height: 100%; */
   /* object-fit: cover; */
 }
 .pictureframe > img {
-  /* position: absolute; */
+  position: absolute;
+  top:0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -185,7 +223,7 @@ img {
     margin:5px;
   }
 .inputtype * {
-  margin:50px;
+  /* margin:50px; */
 
 }
 .transparent {
@@ -222,7 +260,8 @@ and (min-device-width: 800px) {
   .maincontainer {
   }
   .search, .result, .running , .mapall{  
-    font-size:3.8vh;  /* works for landscapes */
+     /* works for landscapes */
+    /* font-size:3.8vh;  */
   }
   
  }
@@ -232,7 +271,8 @@ and (min-device-width: 800px) {
     width:90vw;
   }
   .search, .result, .running , .mapall{  
-    font-size:3.8vw;  /* works for portrait */
+     /* works for portrait */
+    /* font-size:3.8vw;  */
   }
 
 }
@@ -242,7 +282,8 @@ and (min-device-width: 800px) {
   width:90vh;
  }
  .search, .result, .running , .mapall{  
-  font-size:3.8vh;  /* works for landscapes */
+   /* works for landscapes */
+  font-size:3.8vh;  
 }
 
 }
