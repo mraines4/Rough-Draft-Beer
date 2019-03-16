@@ -48,12 +48,14 @@ h1 {
 }
 
 .search, .result, .running , .mapall{
-  
+
   /* this rotates the napkin - and all the text */
   /* transform: rotatez(-8deg); */
   /* this does a tilt - so napkin appears flat on slanted table */
   transform: perspective(400px) rotatex(9deg);
 
+  font-size:4vh;  /* works for landscapes */
+  font-size:3.8vw;  /* works for portrait */
   /* display:flex; */
   /* width:max-content; */
   /* height:max-content; */
@@ -219,18 +221,30 @@ and (min-device-width: 800px) {
   }
   .maincontainer {
   }
+  .search, .result, .running , .mapall{  
+    font-size:3.8vh;  /* works for landscapes */
+  }
+  
  }
  /* Portrait styles */
  @media screen and (orientation:portrait) {
   .cardpictureframe {
     width:90vw;
   }
+  .search, .result, .running , .mapall{  
+    font-size:3.8vw;  /* works for portrait */
+  }
+
 }
 /* Landscape */
 @media screen and (orientation:landscape) {
   .cardpictureframe {
   width:90vh;
  }
+ .search, .result, .running , .mapall{  
+  font-size:3.8vh;  /* works for landscapes */
+}
+
 }
 /* ----------- iPad Pro 12.9" ----------- */
 /* Portrait and Landscape */
