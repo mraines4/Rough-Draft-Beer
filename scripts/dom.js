@@ -206,12 +206,16 @@ function giveApiInfo() {
         let infoWindow;
         let breweryName = result[0].name;
         initMap(breweryName);
+
     });
 
     // makeBrewery(dummyYelp)
 }
 
 
+function test(event) {
+console.log(event)
+}
 
 //////////////////////////////////////////////////////////
 ///////////////// POPULATE RESULTS ///////////////////////

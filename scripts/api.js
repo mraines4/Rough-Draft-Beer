@@ -155,8 +155,10 @@ function yelpAPI(phone){
 // OPENCAGE API BEGINS //
 /////////////////////////
 function geoApi(city,state){
-    // geoKey = '9940fdfbec3c42328da75e23977d75a9'; jonathan
-    geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
+    // geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan
+    // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
+    geoKey = '1e1a5ca33b17441e848d7f47354a2236' //margaret
+
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
 
     return fetch(GEO_URL)
@@ -299,17 +301,30 @@ function initMap(breweryName) {
 function createMarker(place) {
             let marker = new google.maps.Marker({
                 map: map,
-                position: place.geometry.location
+                position: place.geometry.location,
+                icon: './../img/Beermap.png'
             });
             
             google.maps.event.addListener(marker, 'click', function() {
                 console.log(place);
-                infowindow.setContent(place.name);
+                infowindow.setContent(`<strong>${place.name}</strong><br><div class=testy >Double click icon for more info</div>`);
                 infowindow.open(map, this);
+                // infowindow.classList.add('testclass');
+                // let bubble = document.querySelector('testclass');
+                // bubble.addEventListener('click', test);
             });
 }
+
+
+function eventfind (e) {
+    console.log(e)
+}
+
 
 
 /////////////////////////
 // Testing Environment //
 /////////////////////////
+
+
+
