@@ -237,6 +237,9 @@ h1 {
     border-color: rgb(166, 166, 166);
     border-image: initial;
 }
+select:hover  {
+  background-color: #d6d0ba;
+}
   .displaydata {
     display: flex;
   }
