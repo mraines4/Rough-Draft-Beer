@@ -178,7 +178,7 @@ h1 {
   /* right: 50%; */
   /* transform: translate(-50%,-50%);  */
   /* border: 2px solid purple; */
-
+  position: relative;  /* DOES THIS BREAK ANYTHING ELSE */
 
 }
       .search {
@@ -555,6 +555,41 @@ and (min-device-width: 800px) {
   height: 100%;
   width: 100%;
   /* z-index: 1000; */
+}
+.mapbackgroundpic {
+  position: absolute !important;
+  overflow:visible !important;
+  top: 0px;
+display:flex;
+align-content: space-around;
+justify-content: space-around;
+}
+
+.mapbackgroundpic img{
+  /* position: absolute; */
+  /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
+  /* background-repeat: no-repeat; */
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  /* top: 50%; */
+  /* right: 50%; */
+  /* transform: translate(-50%,-50%);  */
+  /* border: 2px solid purple; */
+  position: relative;  /* DOES THIS BREAK ANYTHING ELSE */
+
+}
+
+#map > * {
+  width:80vh !important;
+  height:80vh !important;
+  position: absolute !important;;
+    top: 50% !important;
+  right: 50% !important;;
+  transform: translate(-50%,-50%) !important;; 
+  overflow: hidden;
+
+
 }
 
 /* old stuff for video */
