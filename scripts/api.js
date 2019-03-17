@@ -155,6 +155,8 @@ function yelpAPI(phone){
 // OPENCAGE API BEGINS //
 /////////////////////////
 function geoApi(city,state){
+
+
     // geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan
     // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
     // geoKey = '1e1a5ca33b17441e848d7f47354a2236' //margaret

@@ -32,7 +32,7 @@
 
 <div class="titlename">
         <img class="titlecoaster" src="../img/torn-coaster-left-top.png">
-        <h1 class="title" data-title>Rough Draft
+        <h1 class="title" data-title> Rough Draft
         </h1>
 </div>
 
@@ -116,7 +116,7 @@
                         </select>
                     </div>
 
-                     <div class="inputtype" data-inputtype>Narrow search options, if you like:<br/>
+                     <div class="inputtype hidden" data-inputtype>Narrow search options, if you like:<br/>
                         <input type="checkbox" class="checkbox" data-micro id="micro" name=micro>
                         <label class="microlabel" for="micro">Micro Brewery</label>
                         <br/>
@@ -152,18 +152,30 @@
 
     <!-- A container that can be used to display a map with all possible breweries-->
     <div class="mapall hidden " data-mapall>
-            <div id="map" class="cardpictureframe">
-                <div class="cardbackgroundpic">
-                        <!-- <img src="img/napkinours.png" alt=""> -->
-                        <img src="../img/square-coaster.png" alt="">
-                    
-                    </div>
-            </div>        
+        <div class="cardpictureframe">
+            <!-- <div  class="cardbackgroundpic"> -->
+            <div  class="mapbackgroundpic">
+                    <!-- <img src="img/napkinours.png" alt=""> -->
+                    <img src="../img/square-coaster.png" alt="">
+                    <div id="map" class="googlemap"></div>
+                
+                </div>
+        </div>        
     </div>
+    <!-- A container that can be used to display about information for the project-->
+    <div class="aboutdetail hidden " data-mapall>
+        <div class="cardpictureframe">
+            <div class="cardbackgroundpic">
+                    <img src="../img/square-coaster.png" alt="">
+                    <h2 class="aboutinfo">This project was built by Margaret ONeill, Matt Raines, and Jonathon Ray.  It allows a user to find breweries in a given location.  The initial source of information is Open Brewery DB.  We also use Open Cage API to get lattitude and longitude location information.  Finally the Yelp API is used for detailed brewery information, ratings, and photos.</h2>
+                </div>
+        </div>        
+    </div>
+    
     
     <!-- Div for the results-->
     <!-- add the hidden class here to start-->
-    <div class="result  hidden" data-result>
+    <div class="result hidden " data-result>
         <div class="cardpictureframe">
             <div class="cardbackgroundpic">
                 <!-- <img src="img/napkinours.png" alt=""> -->
@@ -225,8 +237,10 @@
 </div>
 
     <div class="aboutsearchdiv" >
+        <div class="aboutpictureframe">
             <img class="aboutcoaster" src="../img/torn-coasters-bottom-right.png">
             <h1 class="aboutorsearch" data-aboutsearch>About</h1>
+            <div></div>
         </div>
 
 <!-- margarets test.js code -->

@@ -35,8 +35,9 @@ h1 {
   top:0px;
   left:0px;
   width:60vh;
-  height:100%;
-  transform: translate(0%,-29%);
+  height:60vh;  /* it is square
+  /* height:100%; */
+  /* transform: translate(0%,-29%); */
 
 }
 .titlecoaster {
@@ -52,9 +53,9 @@ h1 {
 .title {
   float:left;
   position: absolute;
-  top:29%;
+  /* top:29%; */
   left: 2%;
-  font-size: 48px;
+  font-size: 8vh;
   color: #377872;
   font-weight: bold;
   position: absolute;
@@ -62,30 +63,54 @@ h1 {
 }
 
 .aboutsearchdiv {
-  float: left;
+  /* float: right; */
+  display:flex;
+
   position: absolute;
-  bottom:0px;
-  right:0px;
-  width:60vh;
+  top: 100%;
+  left:100%;
+  /* bottom:0px;
+  right:0px; */
+  /* transform: translate(0%,29%); */
+  transform: translate(-100%,-100%);
+  z-index:1;
+  width:100%;
   height:100%;
-  transform: translate(0%,29%);
-  z-index:1
+}
+.aboutpictureframe {
+  position: absolute;
+  
+  width:60vh;
+  /* padding-top: 100%; */
+  height:60vh;
+  top: 100%;
+  left:100%;
+  transform: translate(-100%,-100%);
+
 
 }
+/* the image */
 .aboutcoaster {
 
   position: absolute;
-  bottom:0px;
-  right: 0px;
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
+  top: 100%;
+  left:100%;
+  transform: translate(-100%,-100%);
 
+}
+/*the word */
 .aboutorsearch {
-  float:left;
+  float:right;
   position: absolute;
-  bottom:29%;
+
+  /* top: 100%;
+  left:100%;
+  transform: translate(-100%,-100%); */
+
+  bottom:0%;
   right: 7%;
   font-size: 48px;
   color: #377872;
@@ -110,7 +135,7 @@ h1 {
   
   top:20vh;
 }
-.search, .result , .mapall{
+.search, .result , .mapall, .aboutdetail {
 
   /* this rotates the napkin - and all the text */
   transform: rotatez(-4deg);
@@ -153,7 +178,7 @@ h1 {
   /* right: 50%; */
   /* transform: translate(-50%,-50%);  */
   /* border: 2px solid purple; */
-
+  position: relative;  /* DOES THIS BREAK ANYTHING ELSE */
 
 }
       .search {
@@ -193,10 +218,28 @@ h1 {
     width: 100%; /* of container*/
     height: 100%; /* of container */
     position: absolute;
-    top: 10%;
-    left: 10%;
     /* transform: translate(-50%,-50%); */
   }
+  .displaydata {
+    top: 2%;
+    left: 2%;
+
+  }
+  .inputfields {
+    top: 12%;
+    left: 12%;
+
+  }
+  select, input[type="color" i][list] {
+    background-color:transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(166, 166, 166);
+    border-image: initial;
+}
+select:hover  {
+  background-color: #d6d0ba;
+}
   .displaydata {
     display: flex;
   }
@@ -204,8 +247,9 @@ h1 {
   display:grid;
   min-width: 85%;
   max-width: 85%;
-  grid-template-columns: 2% 47% 2% 47% 2%;
-  grid-template-rows: 2% 47% 2% 47% 2%;
+  height:85%;
+  grid-template-columns: 4% 43% 2% 43% 4%;
+  grid-template-rows: 4% 43% 2% 43% 4%;
   /* max-height: 100vh; */
   
   grid-auto-rows: minmax(100%, 100%);
@@ -245,6 +289,12 @@ h1 {
   /* position: absolute;
   right: 10%; */
   
+}
+.aboutinfo {
+  position: absolute;
+  top:0;
+  font-size:5vh;
+  margin:15px;
 }
 .pictureframe {
   position:relative;
@@ -351,6 +401,74 @@ img {
   }
   /* change this for larger screens */
   
+
+
+.mapall {
+  height: 100%;
+  width: 100%;
+  /* z-index: 1000; */
+}
+.mapbackgroundpic {
+  position: absolute !important;
+  overflow:visible !important;
+  top: 0px;
+display:flex;
+align-content: space-around;
+justify-content: space-around;
+}
+
+.mapbackgroundpic img{
+  /* position: absolute; */
+  /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
+  /* background-repeat: no-repeat; */
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  /* top: 50%; */
+  /* right: 50%; */
+  /* transform: translate(-50%,-50%);  */
+  /* border: 2px solid purple; */
+  position: relative;  /* DOES THIS BREAK ANYTHING ELSE */
+
+}
+/* map is essentially a picture frame */
+#map {
+  width:79vw;
+  padding-top: 81%; 
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;;
+  transform: translate(-50%,-50%) !important;; 
+  object-fit: contain;
+
+}
+/* you have to overwrite all of googles inline styling */
+#map > * {
+  /* width:80vh !important; */
+  /* height:80vh !important; */
+  position: absolute !important;;
+    /* top: 50% !important; */
+    /* top:0px; */
+  /* right: 50% !important;; */
+  /* transform: translate(-7%,-51%) !important;;  */
+  overflow: hidden;  /* must have this */
+  /* object-fit: cover; */
+
+
+}
+
+@media only screen 
+and (max-device-width: 600px) {
+  .aboutsearchdiv {
+    /* position: fixed;
+    left: 375px;
+    top: 680px;
+    transform: translate(-100%,-100%); */
+
+   
+
+}
+}
   /* when the width is larger than the height - the cards should be 90% of the height*/
   /* when the height is larger than the width - the cards should be 90% of the width */
 @media only screen 
@@ -364,19 +482,42 @@ and (min-device-width: 800px) {
      /* works for landscapes */
     /* font-size:3.8vh;  */
   }
+  .aboutinfo {
+    font-size:5vh;
+  }
+  .title, .aboutorsearch {
+    font-size: 8vh;
+  }
+  #map {
+    width:79vh;
   
  }
+}
  /* Portrait styles */
  @media screen and (orientation:portrait) {
   .cardpictureframe {
     width:90vw;
   }
+  .aboutinfo {
+    font-size:5vw;
+  }
+  .title, .aboutorsearch {
+    font-size: 8vw;
+  }
+  #map {
+    width:79vw;
+  
+ }
+
+
+}
+
   .search, .result, .running , .mapall{  
      /* works for portrait */
     /* font-size:3.8vw;  */
   }
 
-}
+
 /* Landscape */
 @media screen and (orientation:landscape) {
   .cardpictureframe {
@@ -386,10 +527,26 @@ and (min-device-width: 800px) {
    /* works for landscapes */
   font-size:3.8vh;  
 }
+.title, .aboutorsearch {
+  font-size: 8vh;
+}
+#map {
+  width:79vh;
+}
+
 
 }
 /* ----------- iPad Pro 12.9" ----------- */
 /* Portrait and Landscape */
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    body {
+      background-size: 1500px 1500px;
+     } 
+}
 @media only screen 
   and (min-device-width: 1024px) 
   and (max-device-width: 1366px)
@@ -424,9 +581,9 @@ and (min-device-width: 800px) {
   and (max-device-width: 667px) 
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) { 
-    .maincontainer {
+    /* .maincontainer {
       top:50px;
-    }
+    } */
 }
 
 /* ----------- iPhone 6+, 7+ and 8+ ----------- */
@@ -454,17 +611,11 @@ and (min-device-width: 800px) {
   and (max-device-width: 736px) 
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: landscape) { 
-    .maincontainer {
+    /* .maincontainer {
       top:50px;
-    }
+    } */
 
 
-}
-
-.mapall {
-  height: 100%;
-  width: 100%;
-  z-index: 1000;
 }
 
 /* old stuff for video */
