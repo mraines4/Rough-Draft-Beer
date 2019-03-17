@@ -212,10 +212,11 @@ function giveApiInfo() {
     // makeBrewery(dummyYelp)
 }
 
-
-function test(event) {
-console.log(event)
+function showResult() {
+    mapDiv.classList.add('hidden');
+    resultDiv.classList.remove('hidden');
 }
+
 
 //////////////////////////////////////////////////////////
 ///////////////// POPULATE RESULTS ///////////////////////
@@ -236,7 +237,6 @@ function makeBrewery(brewInfo) {
     breweryReview.setAttribute('src', `./../img/${brewInfo[0].rating}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo[0].is_closed);
     breweryDistance.textContent = `${brewInfo[1]} miles away`;
-
 }
 
 // checks truthiness of open status of brewery

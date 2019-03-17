@@ -270,7 +270,8 @@ function haversine(lat1, lng1, lat2, lng2){
 function initMap(breweryName) {
     let atlanta = new google.maps.LatLng(33.848555, -84.373724); // geolocate user
 
-    infowindow = new google.maps.InfoWindow();
+    infowindow = new google.maps.InfoWindow(
+    );
 
     map = new google.maps.Map(
         document.getElementById('map'), {
@@ -305,13 +306,24 @@ function createMarker(place) {
                 icon: './../img/Beermap.png'
             });
             
-            google.maps.event.addListener(marker, 'click', function() {
+            google.maps.event.addListener(marker, 'mouseover', function() {
                 console.log(place);
-                infowindow.setContent(`<strong>${place.name}</strong><br><div class=testy >Double click icon for more info</div>`);
+                infowindow.setContent(`<strong>${place.name}</strong>`);
                 infowindow.open(map, this);
+                
                 // infowindow.classList.add('testclass');
                 // let bubble = document.querySelector('testclass');
                 // bubble.addEventListener('click', test);
+                // showResult(place)
+            });
+            google.maps.event.addListener(marker, 'mouseout', function() {
+                console.log(place);
+                infowindow.close()
+
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+
+                showResult(place)
             });
 }
 
