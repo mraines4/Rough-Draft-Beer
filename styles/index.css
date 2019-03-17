@@ -113,7 +113,7 @@ h1 {
 .search, .result , .mapall{
 
   /* this rotates the napkin - and all the text */
-  transform: rotatez(-8deg);
+  transform: rotatez(-4deg);
   /* this does a tilt - so napkin appears flat on slanted table */
   /* transform: perspective(324px) rotatex(7deg); */
 
