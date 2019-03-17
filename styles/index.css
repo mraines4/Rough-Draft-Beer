@@ -218,10 +218,25 @@ h1 {
     width: 100%; /* of container*/
     height: 100%; /* of container */
     position: absolute;
-    top: 2%;
-    left: 2%;
     /* transform: translate(-50%,-50%); */
   }
+  .displaydata {
+    top: 2%;
+    left: 2%;
+
+  }
+  .inputfields {
+    top: 12%;
+    left: 12%;
+
+  }
+  select, input[type="color" i][list] {
+    background-color:transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(166, 166, 166);
+    border-image: initial;
+}
   .displaydata {
     display: flex;
   }
