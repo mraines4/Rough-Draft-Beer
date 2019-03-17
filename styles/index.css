@@ -461,6 +461,12 @@ and (min-device-width: 800px) {
 
 }
 
+.mapall {
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+}
+
 /* old stuff for video */
 
 /* video { */
@@ -506,4 +512,3 @@ and (min-device-width: 800px) {
         /* opacity: 50%; */
         /* object-fit: cover;     */
       /* } */
-

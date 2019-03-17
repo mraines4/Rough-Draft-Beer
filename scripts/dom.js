@@ -93,23 +93,23 @@
 //     "total": 1
 // }
 
-let dummyBrewery = {
-    "id": 2183,
-    "name": "Red Hare Brewing Company",
-    "brewery_type": "micro",
-    "street": "1998 Delk Industrial Blvd SE",
-    "city": "Marietta",
-    "state": "Georgia",
-    "postal_code": "30067-8904",
-    "country": "United States",
-    "longitude": "-84.4957563035449",
-    "latitude": "33.92440825",
-    "phone": "6784010600",
-    "website_url": "http://www.redharebrewing.com",
-    "updated_at": "2018-08-24T00:29:23.424Z",
-    "tag_list": []
-}
-const dummyCurrentLocation = [33.9526,-84.5499]
+// let dummyBrewery = {
+//     "id": 2183,
+//     "name": "Red Hare Brewing Company",
+//     "brewery_type": "micro",
+//     "street": "1998 Delk Industrial Blvd SE",
+//     "city": "Marietta",
+//     "state": "Georgia",
+//     "postal_code": "30067-8904",
+//     "country": "United States",
+//     "longitude": "-84.4957563035449",
+//     "latitude": "33.92440825",
+//     "phone": "6784010600",
+//     "website_url": "http://www.redharebrewing.com",
+//     "updated_at": "2018-08-24T00:29:23.424Z",
+//     "tag_list": []
+// }
+// const dummyCurrentLocation = [33.9526,-84.5499]
 
 //////////////////////////////////////////////////////////
 ////////////////////// SELECTORS /////////////////////////
@@ -130,6 +130,7 @@ const goButton = document.querySelector('[data-gobutton]');
 const searchDiv = document.querySelector('[data-search]');
 const runningDiv = document.querySelector('[data-running]');
 const resultDiv = document.querySelector('[data-result]');
+const mapDiv = document.querySelector('[data-mapall]')
 
 
 //////////////////////////////////////////////////////////
@@ -200,6 +201,11 @@ function giveApiInfo() {
         // result[1] is the user distance from the brewery
         // result[2] is the brewery website
         makeBrewery(result);
+        let map;
+        let service;
+        let infoWindow;
+        let breweryName = result[0].name;
+        initMap(breweryName);
     });
 
     // makeBrewery(dummyYelp)
@@ -215,7 +221,7 @@ function giveApiInfo() {
 function makeBrewery(brewInfo) {
     //// unhide when divs are updated!!!
     runningDiv.classList.add('hidden');
-    resultDiv.classList.remove('hidden');
+    mapDiv.classList.remove('hidden');
     breweryPicture.setAttribute('src', brewInfo[0].image_url);
     breweryName.textContent = brewInfo[0].name;
     breweryPhone.textContent = brewInfo[0].display_phone;

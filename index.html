@@ -15,6 +15,8 @@
     <!-- font awesome styles - graphics for icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/map.js"></script>
+
 
     <title>Rough Draft Beer</title>
 </head>
@@ -150,7 +152,7 @@
 
     <!-- A container that can be used to display a map with all possible breweries-->
     <div class="mapall hidden " data-mapall>
-            <div class="cardpictureframe">
+            <div id="map" class="cardpictureframe">
                 <div class="cardbackgroundpic">
                         <!-- <img src="img/napkinours.png" alt=""> -->
                         <img src="../img/square-coaster.png" alt="">
@@ -230,6 +232,7 @@
 <!-- margarets test.js code -->
 <!-- <script src="scripts/test.js"></script> -->
 <script src="scripts/api.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&libraries=places&callback=initMap" async defer></script>
 <script src="scripts/dom.js"></script>
 </body>
 </html>
