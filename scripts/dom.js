@@ -1,3 +1,4 @@
+'unsafe-inline'
 //////////////////////////////////////////////////////////
 /////////////////////// DUMMY DATA ///////////////////////
 //////////////////////////////////////////////////////////
@@ -239,7 +240,7 @@ function makeBrewery(brewInfo) {
     breweryAddress.textContent = `${brewInfo[0].location.address1}\n\r${brewInfo[0].location.city}, ${brewInfo[0].location.state} ${brewInfo[0].location.zip_code}`;
     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
     breweryWebsite.textContent = brewInfo[2];
-    breweryWebsite.setAttribute('href' ,brewInfo[2].website_url);
+    breweryWebsite.setAttribute('href', brewInfo[2].website_url);
     breweryReview.setAttribute('src', `./../img/${brewInfo[0].rating}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo[0].is_closed);
     breweryDistance.textContent = `${brewInfo[1]} miles away`;

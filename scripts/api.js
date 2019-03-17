@@ -157,7 +157,8 @@ function yelpAPI(phone){
 function geoApi(city,state){
     // geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan
     // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
-    geoKey = '1e1a5ca33b17441e848d7f47354a2236' //margaret
+    // geoKey = '1e1a5ca33b17441e848d7f47354a2236' //margaret
+    geoKey = '9d9748a20c404012b1f456f51a28720b' //4th
 
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
 
