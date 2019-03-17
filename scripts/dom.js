@@ -182,6 +182,12 @@ goFetch();
 //////////////////// GIVE API INFO ///////////////////////
 //////////////////////////////////////////////////////////
 
+currentState.addEventListener('change', unhideGo)
+
+function unhideGo () {
+    goButton.classList.remove('hidden')
+}
+
 goButton.addEventListener('click', giveApiInfo);
 
 function giveApiInfo() {
