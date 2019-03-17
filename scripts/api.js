@@ -155,8 +155,13 @@ function yelpAPI(phone){
 // OPENCAGE API BEGINS //
 /////////////////////////
 function geoApi(city,state){
-    // geoKey = '9940fdfbec3c42328da75e23977d75a9'; jonathan
-    geoKey = '9d9748a20c404012b1f456f51a28720b'; //matt
+
+
+    // geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan
+    // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
+    // geoKey = '1e1a5ca33b17441e848d7f47354a2236' //margaret
+    geoKey = '9d9748a20c404012b1f456f51a28720b' //4th
+
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
 
     return fetch(GEO_URL)
@@ -268,7 +273,8 @@ function haversine(lat1, lng1, lat2, lng2){
 function initMap(breweryName) {
     let atlanta = new google.maps.LatLng(33.848555, -84.373724); // geolocate user
 
-    infowindow = new google.maps.InfoWindow();
+    infowindow = new google.maps.InfoWindow(
+    );
 
     map = new google.maps.Map(
         document.getElementById('map'), {
@@ -299,17 +305,41 @@ function initMap(breweryName) {
 function createMarker(place) {
             let marker = new google.maps.Marker({
                 map: map,
-                position: place.geometry.location
+                position: place.geometry.location,
+                icon: './../img/Beermap.png'
             });
             
-            google.maps.event.addListener(marker, 'click', function() {
+            google.maps.event.addListener(marker, 'mouseover', function() {
                 console.log(place);
-                infowindow.setContent(place.name);
+                infowindow.setContent(`<strong>${place.name}</strong>`);
                 infowindow.open(map, this);
+                
+                // infowindow.classList.add('testclass');
+                // let bubble = document.querySelector('testclass');
+                // bubble.addEventListener('click', test);
+                // showResult(place)
+            });
+            google.maps.event.addListener(marker, 'mouseout', function() {
+                console.log(place);
+                infowindow.close()
+
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+
+                showResult(place)
             });
 }
+
+
+function eventfind (e) {
+    console.log(e)
+}
+
 
 
 /////////////////////////
 // Testing Environment //
 /////////////////////////
+
+
+
