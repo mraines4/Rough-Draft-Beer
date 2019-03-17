@@ -29,21 +29,80 @@ h1 {
   text-align: center;
   color : #FFC24F;
 }
-   
+.titlename {
+  float: left;
+  position: absolute;
+  top:0px;
+  left:0px;
+  width:60vh;
+  height:100%;
+  transform: translate(0%,-29%);
+
+}
+.titlecoaster {
+
+  position: absolute;
+  top:0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .title {
+  float:left;
+  position: absolute;
+  top:29%;
+  left: 2%;
   font-size: 48px;
   color: #377872;
   font-weight: bold;
-  positon: absolute;
+  position: absolute;
+  transform: rotatez(-7deg);
 }
+
+.aboutsearchdiv {
+  float: left;
+  position: absolute;
+  bottom:0px;
+  right:0px;
+  width:60vh;
+  height:100%;
+  transform: translate(0%,29%);
+  z-index:1
+
+}
+.aboutcoaster {
+
+  position: absolute;
+  bottom:0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.aboutorsearch {
+  float:left;
+  position: absolute;
+  bottom:29%;
+  right: 7%;
+  font-size: 48px;
+  color: #377872;
+  font-weight: bold;
+  position: absolute;
+  transform: rotatez(-7deg);
+}
+
 
 .maincontainer {
   display:flex;
   position: absolute;
   /* border: 2px solid red; */
-  top:70px; 
+  top:50%; 
   left:50%;
-  transform: translate(-50%,0%); 
+  transform: translate(-50%,-50%); 
+  z-index: 2;
 
 }
 /* took running out b/c its not on a napkin */
@@ -54,9 +113,9 @@ h1 {
 .search, .result , .mapall{
 
   /* this rotates the napkin - and all the text */
-  /* transform: rotatez(-8deg); */
+  transform: rotatez(-4deg);
   /* this does a tilt - so napkin appears flat on slanted table */
-  transform: perspective(324px) rotatex(7deg);
+  /* transform: perspective(324px) rotatex(7deg); */
 
 /* works for landscapes */
   /* font-size:4vh;   */
