@@ -231,7 +231,7 @@ function makeBrewery(brewInfo) {
 
 // checks truthiness of open status of brewery
 function closedOrNot(status) {
-    if (status) {
+    if (status === false) {
         return 'Closed Now';
     } else {
         return 'Open Now';

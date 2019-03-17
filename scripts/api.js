@@ -125,16 +125,24 @@ function showMeTheBreweryTypes(breweriesArray){ // quick optional function to lo
 /////////////////////
 function yelpAPI(phone){
     return fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
-    .catch(function (error){
-        console.log('ERROR');
-    })
     .then(function (response){
         // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
         // If you just got a Syntax Error, don't worry.
-        // This is one of those cases where the database 
-        // didn't have a brewery that the critea and so it fails out
-        // We'll be putting in a Chili's fix soon.
-        return response.json(); // workable data
+        // This is one of those cases where the phone number 
+        // returns 0 businesses from Yelp!
+        // We'll be putting in a Chili's fix soon or
+        // we'll pick a new brewery for you. 
+        // // maybe pass the localBreweries object into this function 
+        // // and have a new function that re-does
+        // // // const randomBreweryObject = (radiusBreweryRandomizer(localBreweriesArrayofObjects_1));
+        // // // const phone = breweryPhoneNumber(randomBreweryObject);
+        // // // const yelpInfo = await yelpAPI(phone);
+        // // which should hopefully pass the `.catch` on another try?
+        let result = response.json(); // split this line up so it'd be easier to debug by console log
+        return result; // workable data
+    })
+    .catch(function (error){
+        console.log('ERROR'); // possible landing site for new function
     })
     .then(function (data){
         // console.log(data); // sanity checks
