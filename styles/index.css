@@ -401,6 +401,62 @@ img {
   }
   /* change this for larger screens */
   
+
+
+.mapall {
+  height: 100%;
+  width: 100%;
+  /* z-index: 1000; */
+}
+.mapbackgroundpic {
+  position: absolute !important;
+  overflow:visible !important;
+  top: 0px;
+display:flex;
+align-content: space-around;
+justify-content: space-around;
+}
+
+.mapbackgroundpic img{
+  /* position: absolute; */
+  /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
+  /* background-repeat: no-repeat; */
+  width:100%;
+  height:100%;
+  object-fit: cover;
+  /* top: 50%; */
+  /* right: 50%; */
+  /* transform: translate(-50%,-50%);  */
+  /* border: 2px solid purple; */
+  position: relative;  /* DOES THIS BREAK ANYTHING ELSE */
+
+}
+/* map is essentially a picture frame */
+#map {
+  width:79vw;
+  padding-top: 81%; 
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;;
+  transform: translate(-50%,-50%) !important;; 
+  object-fit: contain;
+
+}
+/* you have to overwrite all of googles inline styling */
+#map > * {
+  /* width:80vh !important; */
+  /* height:80vh !important; */
+  position: absolute !important;;
+    /* top: 50% !important; */
+    /* top:0px; */
+  /* right: 50% !important;; */
+  /* transform: translate(-7%,-51%) !important;;  */
+  overflow: hidden;  /* must have this */
+  /* object-fit: cover; */
+
+
+}
+
 @media only screen 
 and (max-device-width: 600px) {
   .aboutsearchdiv {
@@ -432,8 +488,11 @@ and (min-device-width: 800px) {
   .title, .aboutorsearch {
     font-size: 8vh;
   }
+  #map {
+    width:79vh;
   
  }
+}
  /* Portrait styles */
  @media screen and (orientation:portrait) {
   .cardpictureframe {
@@ -445,6 +504,11 @@ and (min-device-width: 800px) {
   .title, .aboutorsearch {
     font-size: 8vw;
   }
+  #map {
+    width:79vw;
+  
+ }
+
 
 }
 
@@ -465,6 +529,9 @@ and (min-device-width: 800px) {
 }
 .title, .aboutorsearch {
   font-size: 8vh;
+}
+#map {
+  width:79vh;
 }
 
 
@@ -547,47 +614,6 @@ and (min-device-width: 800px) {
     /* .maincontainer {
       top:50px;
     } */
-
-
-}
-
-.mapall {
-  height: 100%;
-  width: 100%;
-  /* z-index: 1000; */
-}
-.mapbackgroundpic {
-  position: absolute !important;
-  overflow:visible !important;
-  top: 0px;
-display:flex;
-align-content: space-around;
-justify-content: space-around;
-}
-
-.mapbackgroundpic img{
-  /* position: absolute; */
-  /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
-  /* background-repeat: no-repeat; */
-  width:100%;
-  height:100%;
-  object-fit: cover;
-  /* top: 50%; */
-  /* right: 50%; */
-  /* transform: translate(-50%,-50%);  */
-  /* border: 2px solid purple; */
-  position: relative;  /* DOES THIS BREAK ANYTHING ELSE */
-
-}
-
-#map > * {
-  width:80vh !important;
-  height:80vh !important;
-  position: absolute !important;;
-    top: 50% !important;
-  right: 50% !important;;
-  transform: translate(-50%,-50%) !important;; 
-  overflow: hidden;
 
 
 }
