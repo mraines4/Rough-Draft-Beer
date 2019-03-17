@@ -54,7 +54,7 @@ h1 {
   position: absolute;
   top:29%;
   left: 2%;
-  font-size: 48px;
+  font-size: 8vh;
   color: #377872;
   font-weight: bold;
   position: absolute;
@@ -62,29 +62,53 @@ h1 {
 }
 
 .aboutsearchdiv {
-  float: left;
+  /* float: right; */
+  display:flex;
+
   position: absolute;
-  bottom:0px;
-  right:0px;
-  width:60vh;
+  top: 100%;
+  left:100%;
+  /* bottom:0px;
+  right:0px; */
+  /* transform: translate(0%,29%); */
+  transform: translate(-100%,-100%);
+  z-index:1;
+  width:100%;
   height:100%;
-  transform: translate(0%,29%);
-  z-index:1
+}
+.aboutpictureframe {
+  position: absolute;
+  
+  width:60vh;
+  /* padding-top: 100%; */
+  height:60vh;
+  top: 100%;
+  left:100%;
+  transform: translate(-100%,-100%);
+
 
 }
+/* the image */
 .aboutcoaster {
 
   position: absolute;
-  bottom:0px;
-  right: 0px;
   width: 100%;
   height: 100%;
   object-fit: contain;
-}
+  top: 100%;
+  left:100%;
+  transform: translate(-100%,-100%);
 
+}
+/*the word */
 .aboutorsearch {
-  float:left;
+  float:right;
   position: absolute;
+
+  /* top: 100%;
+  left:100%;
+  transform: translate(-100%,-100%); */
+
   bottom:29%;
   right: 7%;
   font-size: 48px;
@@ -110,7 +134,7 @@ h1 {
   
   top:20vh;
 }
-.search, .result , .mapall{
+.search, .result , .mapall, .aboutdetail {
 
   /* this rotates the napkin - and all the text */
   transform: rotatez(-4deg);
@@ -246,6 +270,12 @@ h1 {
   right: 10%; */
   
 }
+.aboutinfo {
+  position: absolute;
+  top:0;
+  font-size:5vh;
+  margin:15px;
+}
 .pictureframe {
   position:relative;
   margin:auto;
@@ -351,6 +381,18 @@ img {
   }
   /* change this for larger screens */
   
+@media only screen 
+and (max-device-width: 600px) {
+  .aboutsearchdiv {
+    position: fixed;
+    left: 375px;
+    top: 680px;
+    transform: translate(-100%,-100%);
+
+   
+
+}
+}
   /* when the width is larger than the height - the cards should be 90% of the height*/
   /* when the height is larger than the width - the cards should be 90% of the width */
 @media only screen 
@@ -364,6 +406,12 @@ and (min-device-width: 800px) {
      /* works for landscapes */
     /* font-size:3.8vh;  */
   }
+  .aboutinfo {
+    font-size:5vh;
+  }
+  .title, .aboutorsearch {
+    font-size: 8vh;
+  }
   
  }
  /* Portrait styles */
@@ -371,12 +419,21 @@ and (min-device-width: 800px) {
   .cardpictureframe {
     width:90vw;
   }
+  .aboutinfo {
+    font-size:5vw;
+  }
+  .title, .aboutorsearch {
+    font-size: 8vw;
+  }
+
+}
+
   .search, .result, .running , .mapall{  
      /* works for portrait */
     /* font-size:3.8vw;  */
   }
 
-}
+
 /* Landscape */
 @media screen and (orientation:landscape) {
   .cardpictureframe {
@@ -386,6 +443,10 @@ and (min-device-width: 800px) {
    /* works for landscapes */
   font-size:3.8vh;  
 }
+.title, .aboutorsearch {
+  font-size: 8vh;
+}
+
 
 }
 /* ----------- iPad Pro 12.9" ----------- */
@@ -424,9 +485,9 @@ and (min-device-width: 800px) {
   and (max-device-width: 667px) 
   and (-webkit-min-device-pixel-ratio: 2)
   and (orientation: landscape) { 
-    .maincontainer {
+    /* .maincontainer {
       top:50px;
-    }
+    } */
 }
 
 /* ----------- iPhone 6+, 7+ and 8+ ----------- */
@@ -454,9 +515,9 @@ and (min-device-width: 800px) {
   and (max-device-width: 736px) 
   and (-webkit-min-device-pixel-ratio: 3)
   and (orientation: landscape) { 
-    .maincontainer {
+    /* .maincontainer {
       top:50px;
-    }
+    } */
 
 
 }
@@ -464,7 +525,7 @@ and (min-device-width: 800px) {
 .mapall {
   height: 100%;
   width: 100%;
-  z-index: 1000;
+  /* z-index: 1000; */
 }
 
 /* old stuff for video */
