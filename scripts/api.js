@@ -265,6 +265,51 @@ function haversine(lat1, lng1, lat2, lng2){
     return Math.round(d * 10) / 10;
 }
 
+function initMap(breweryName) {
+    let atlanta = new google.maps.LatLng(33.848555, -84.373724); // geolocate user
+
+    infowindow = new google.maps.InfoWindow();
+
+    map = new google.maps.Map(
+        document.getElementById('map'), {
+            center: atlanta, 
+            zoom: 12 // should be based on radius setting
+        }
+    );
+            
+            let request = {
+                query: `${breweryName}`, // need user input
+                fields: ['name', 'geometry'],
+            };
+        //   console.log(breweryName)
+            
+            service = new google.maps.places.PlacesService(map);
+            
+            service.findPlaceFromQuery(request, function(results, status) {
+                if (status === google.maps.places.PlacesServiceStatus.OK) 
+                {
+                for (let i = 0; i < results.length; i++) {
+                    createMarker(results[i]);
+                }
+                map.setCenter(results[0].geometry.location);
+                }
+            });
+}
+            
+function createMarker(place) {
+            let marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+            });
+            
+            google.maps.event.addListener(marker, 'click', function() {
+                console.log(place);
+                infowindow.setContent(place.name);
+                infowindow.open(map, this);
+            });
+}
+
+
 /////////////////////////
 // Testing Environment //
 /////////////////////////
