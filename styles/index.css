@@ -35,8 +35,9 @@ h1 {
   top:0px;
   left:0px;
   width:60vh;
-  height:100%;
-  transform: translate(0%,-29%);
+  height:60vh;  /* it is square
+  /* height:100%; */
+  /* transform: translate(0%,-29%); */
 
 }
 .titlecoaster {
@@ -52,7 +53,7 @@ h1 {
 .title {
   float:left;
   position: absolute;
-  top:29%;
+  /* top:29%; */
   left: 2%;
   font-size: 8vh;
   color: #377872;
@@ -109,7 +110,7 @@ h1 {
   left:100%;
   transform: translate(-100%,-100%); */
 
-  bottom:29%;
+  bottom:0%;
   right: 7%;
   font-size: 48px;
   color: #377872;
@@ -217,8 +218,8 @@ h1 {
     width: 100%; /* of container*/
     height: 100%; /* of container */
     position: absolute;
-    top: 10%;
-    left: 10%;
+    top: 2%;
+    left: 2%;
     /* transform: translate(-50%,-50%); */
   }
   .displaydata {
@@ -228,8 +229,9 @@ h1 {
   display:grid;
   min-width: 85%;
   max-width: 85%;
-  grid-template-columns: 2% 47% 2% 47% 2%;
-  grid-template-rows: 2% 47% 2% 47% 2%;
+  height:85%;
+  grid-template-columns: 4% 43% 2% 43% 4%;
+  grid-template-rows: 4% 43% 2% 43% 4%;
   /* max-height: 100vh; */
   
   grid-auto-rows: minmax(100%, 100%);
@@ -384,10 +386,10 @@ img {
 @media only screen 
 and (max-device-width: 600px) {
   .aboutsearchdiv {
-    position: fixed;
+    /* position: fixed;
     left: 375px;
     top: 680px;
-    transform: translate(-100%,-100%);
+    transform: translate(-100%,-100%); */
 
    
 
@@ -451,6 +453,15 @@ and (min-device-width: 800px) {
 }
 /* ----------- iPad Pro 12.9" ----------- */
 /* Portrait and Landscape */
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    body {
+      background-size: 1500px 1500px;
+     } 
+}
 @media only screen 
   and (min-device-width: 1024px) 
   and (max-device-width: 1366px)
