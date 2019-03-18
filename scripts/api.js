@@ -193,6 +193,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
     let radius = radiusMiles;
     let lat = localCoordinatesObjects["lat"];
     let lng = localCoordinatesObjects["lng"];
+
     let userLocation = new google.maps.LatLng(lat, lng); //*** going to need to geolocate user
 
     infowindow = new google.maps.InfoWindow();
@@ -214,16 +215,12 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
         zoomValue = 11.97;
     }
     
-    console.log(`zoom value: ${zoomValue}`);
+    // console.log(`zoom value: ${zoomValue}`);
 
     map = new google.maps.Map(
         document.getElementById('map'), {
             center: userLocation, 
-            
-            // zoom 10:38 miles, zoom 9:76 miles, zoom 8: ~150miles, zoom 1:23000miles
             zoom : zoomValue 
-
-            // zoom: 1 // should be based on radius setting
         }
     );
     arrayOfStateBreweriesObjects.forEach(function (brewery){ //*** should iterate over each Brewery Name to create a marker and add it to the map
@@ -236,7 +233,17 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
             console.log(googleBreweryData);
             results =  googleBreweryData;
             result = results.result;
-            initMapPart3(initMapPart2(result))
+            console.log(localCoordinatesObjects);
+
+            // let userLat = localCoordinatesObjects["lat"];
+            // let userLng = localCoordinatesObjects["lng"];
+            // let breweryLat = result.geometry.location.lat;
+            // let breweryLng = result.geometry.location.lng;
+            // let result1 = haversine(userLat, userLng, breweryLat, breweryLng);
+            // console.log(result1);
+            // debugger;
+
+            initMapPart3(initMapPart2(result, localCoordinatesObjects))
         }
         else{ // Generate the promise chain and then store the brewerie's info
             return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
@@ -272,7 +279,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
                 console.log("PROMISE CHAIN ENACTED, GIRD YOUR LOINS");
                 results = response;
                 result = results.result;
-                initMapPart3(initMapPart2(result))
+                initMapPart3(initMapPart2(result, localCoordinatesObjects))
             })
             .catch(function (error){
                 console.log("There was no Place_ID");
@@ -283,19 +290,22 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
     })
 }
 
-function initMapPart2(eachBrewery){
+function initMapPart2(eachBrewery,localCoordinatesObjects){
     console.log(eachBrewery);
     if (eachBrewery.photos){
         let photoURL = eachBrewery.photos[0].photo_reference;
         let breweryPhotoURLArray = [photoURL,eachBrewery];
-        return breweryPhotoURLArray;
+        let breweryPhotoURLArrayAndLocalCoordinatesObjectsArray = [breweryPhotoURLArray,localCoordinatesObjects]
+        return breweryPhotoURLArrayAndLocalCoordinatesObjectsArray;
     }
     else{
-        return;
+        return [0,localCoordinatesObjects];
     }
 }
 
-function initMapPart3(breweryPhotoURLArray){
+function initMapPart3(breweryPhotoURLArrayAndLocalCoordinatesObjectsArray){
+    let breweryPhotoURLArray = breweryPhotoURLArrayAndLocalCoordinatesObjectsArray[0];
+    let localCoordinatesObjects = breweryPhotoURLArrayAndLocalCoordinatesObjectsArray[1];
     let brewery1;
     let photoURL1;
     if (breweryPhotoURLArray){
@@ -310,7 +320,7 @@ function initMapPart3(breweryPhotoURLArray){
         console.log("Didn't find what you were looking for.");
     }
     else{
-        createMarker(brewery1, photoURL1);
+        createMarker(brewery1, photoURL1, localCoordinatesObjects);
         showCard(mapDiv)
     }
 }
@@ -318,7 +328,7 @@ function initMapPart3(breweryPhotoURLArray){
 
 
 
-function createMarker(place, photoURL) {
+function createMarker(place, photoURL, localCoordinatesObjects) {
     console.log(place);
     let marker = new google.maps.Marker({
         map: map,
@@ -341,7 +351,16 @@ function createMarker(place, photoURL) {
         photoURL = "";
     }
     google.maps.event.addListener(marker, 'click', function() {
-        makeBrewery(place, photoURL);
+
+            let userLat = localCoordinatesObjects["lat"];
+            let userLng = localCoordinatesObjects["lng"];
+            let breweryLat = place.geometry.location.lat;
+            let breweryLng = place.geometry.location.lng;
+            let result1 = haversine(userLat, userLng, breweryLat, breweryLng);
+            console.log(result1);
+            debugger;
+
+        makeBrewery(place, photoURL, result1);
         showCard(resultDiv)
     });
 }
@@ -456,80 +475,22 @@ function haversine(lat1, lng1, lat2, lng2){
     Math.sin(dLon/2) * Math.sin(dLon/2);  
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     let d = (R * c) * 0.62137; // convert to miles
+    // debugger;
     return Math.round(d * 10) / 10;
+    // console.log(d);
+    // console.log(typeof d);
+    // // debugger;
+    // return d;
 }
-
-// function initMap(breweryName) {
-//     let userLocation = new google.maps.LatLng(33.848555, -84.373724); // geolocate user
-
-//     infowindow = new google.maps.InfoWindow(
-//     );
-
-//     map = new google.maps.Map(
-//         document.getElementById('map'), {
-//             center: userLocation, 
-//             zoom: 12 // should be based on radius setting
-//         }
-//     );
-            
-//             let request = {
-//                 query: `${breweryName}`, // need user input
-//                 fields: ['name', 'geometry'],
-//             };
-//         //   console.log(breweryName)
-            
-//             service = new google.maps.places.PlacesService(map);
-            
-//             service.findPlaceFromQuery(request, function(results, status) {
-//                 if (status === google.maps.places.PlacesServiceStatus.OK) 
-//                 {
-//                 for (let i = 0; i < results.length; i++) {
-//                     createMarker(results[i]);
-//                 }
-//                 map.setCenter(results[0].geometry.location);
-//                 }
-//             });
-// }
-            
-// function createMarker(place) {
-//             let marker = new google.maps.Marker({
-//                 map: map,
-//                 position: place.geometry.location,
-//                 icon: './../img/Beermap.png'
-//             });
-            
-//             google.maps.event.addListener(marker, 'mouseover', function() {
-//                 console.log(place);
-//                 infowindow.setContent(`<strong>${place.name}</strong>`);
-//                 infowindow.open(map, this);
-                
-//                 // infowindow.classList.add('testclass');
-//                 // let bubble = document.querySelector('testclass');
-//                 // bubble.addEventListener('click', test);
-//                 // showResult(place)
-//             });
-//             google.maps.event.addListener(marker, 'mouseout', function() {
-//                 console.log(place);
-//                 infowindow.close()
-
-//             });
-//             google.maps.event.addListener(marker, 'click', function() {
-
-//                 showResult(place)
-//             });
-// }
-
 
 function eventfind (e) {
     console.log(e)
 }
 
-function makeBrewery(brewInfo, photoURL) {
+function makeBrewery(brewInfo, photoURL, result1) {
     //// unhide when divs are updated!!!
     // runningDiv.classList.add('hidden');
     // mapDiv.classList.remove('hidden');
-
-
     // weatherIcon.setAttribute('src', `https://openweathermap.org/img/w/${brewInfo.weather.icon}.png`);
     // console.log(brewInfo.geometry.location.lat);
     getWeather(brewInfo.geometry.location.lat, brewInfo.geometry.location.lng)
@@ -537,7 +498,6 @@ function makeBrewery(brewInfo, photoURL) {
         breweryPicture.setAttribute('src', photoURL);
     }
     else{
-        debugger;
         breweryPicture.setAttribute('src', `./../img/nopicturebeer.jpg`);
     }
     // debugger;
@@ -549,7 +509,11 @@ function makeBrewery(brewInfo, photoURL) {
     breweryWebsite.setAttribute('href', brewInfo.website);
     breweryReview.setAttribute('src', `./../img/${roundToHalfNumber(brewInfo.rating)}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
-    // breweryDistance.textContent = `${brewInfo[1]} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
+    // let breweryDistanceFromUser = distanceFromBrewery(brewInfo, localCoordinatesObjects)
+    // console.log(breweryDistanceFromUser);
+    // debugger;
+    // breweryDistance.textContent = `${breweryDistanceFromUser} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
+    breweryDistance.textContent = `${result1} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
 
 }
 
@@ -594,5 +558,48 @@ function getWeather(lat, long) {
         weatherIcon.textContent = '';
         weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
     });
+}
+
+function geoIPCheck(){
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            do_something(position.coords.latitude, position.coords.longitude);
+        });
+    }
+    else{
+        console.log("You're pretty private.")
+    }
+}
+
+function do_something(lat, lng){
+    console.log(`Here's your latitude: ${lat}`);
+    console.log(`Here's your longitude: ${lng}`);
+}
+
+geoIPCheck();
+
+function distanceFromBrewery(brewInfo, localCoordinatesObjects){
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            let userLat = position.coords.latitude;
+            let userLng = position.coords.longitude;
+            let breweryLat = brewInfo.geometry.location.lat;
+            let breweryLng = brewInfo.geometry.location.lng;
+            console.log(`${userLat},${breweryLat}`);
+            let result = haversine(userLat, userLng, breweryLat, breweryLng);
+            // debugger;
+            return result;
+        });
+    }
+    else{
+        let userLat = localCoordinatesObjects["lat"];
+        let userLng = localCoordinatesObjects["lng"];
+        let breweryLat = brewInfo.geometry.location.lat;
+        let breweryLng = brewInfo.geometry.location.lng;
+        console.log(`${userLat},${breweryLat}`);
+        let result = haversine(userLat, userLng, breweryLat, breweryLng);
+        // debugger;
+        return result;
+    }
 }
 
