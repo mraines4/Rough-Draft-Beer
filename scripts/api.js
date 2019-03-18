@@ -339,8 +339,8 @@ function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or clos
 }
 
 async function inputToObject(city = "userLocation", state = "Georgia", radius = 50){ // default data
-    let userCoordinatesPromise = geoApi(city, state);
-    // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155};
+    // let userCoordinatesPromise = geoApi(city, state);
+    let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155};
     let arrayOfStateBreweryObjectsPromise = breweryAPI(state); // fetches all the OpenBreweryDB's records for the state and filters them a bit
     const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
     let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
