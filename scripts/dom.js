@@ -181,6 +181,7 @@ function bringAbout() {
     mapDiv.classList.add('hidden');
     resultDiv.classList.add('hidden');
     aboutDiv.classList.remove('hidden');
+    researchButton.classList.remove('hidden');
 }
 
 function goBack() {
