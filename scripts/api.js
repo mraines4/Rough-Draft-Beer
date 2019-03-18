@@ -253,9 +253,12 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMe
             // console.log(photoURLPromise);
             // debugger;
             createMarker(brewery1, photoURL1);
+            showCard(mapDiv)
             // return [photoURL, brewery1];
             // return Promise.all([photoURL, brewery1]);
-        })
+        });//.then(function () {
+            //showCard(mapDiv);});
+
         // .then(function (photoURLBreweryArray){
         //     let photoURLPreJSON = (photoURLBreweryArray[0]);
         //     console.log(photoURLPreJSON);
@@ -278,6 +281,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMe
                     // }
                     // map.setCenter(results[0].geometry.location);
         
+        
         });
     }
 //     )
@@ -292,7 +296,7 @@ function createMarker(place, photoURL) {
         position: place.geometry.location,
         icon: '../img/Beermap.png'
     });
-    showCard(mapDiv)
+    // showCard(mapDiv);
     
     google.maps.event.addListener(marker, 'mouseover', function() {
         console.log(place);
@@ -497,8 +501,7 @@ function makeBrewery(brewInfo, photoURL) {
     //// unhide when divs are updated!!!
     // runningDiv.classList.add('hidden');
     // mapDiv.classList.remove('hidden');
-    // showCard(mapDiv);
-    
+
 
     breweryPicture.setAttribute('src', photoURL);
     // debugger;

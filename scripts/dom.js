@@ -19,7 +19,11 @@ const goButton = document.querySelector('[data-gobutton]');
 const searchDiv = document.querySelector('[data-search]');
 const runningDiv = document.querySelector('[data-running]');
 const resultDiv = document.querySelector('[data-result]');
-const mapDiv = document.querySelector('[data-mapall]')
+const aboutDiv = document.querySelector('[data-aboutdetail');
+const mapDiv = document.querySelector('[data-mapall]');
+const aboutButton = document.querySelector('[data-about]');
+const researchButton = document.querySelector('[data-research]');
+const backButton = document.querySelector('[data-back]');
 
 
 //////////////////////////////////////////////////////////
@@ -140,13 +144,17 @@ function roundToHalfNumber (rating) {
     return Math.round(rating*2)/2;
 }
 
+aboutButton.addEventListener('click', showCard(aboutDiv));
+backButton.addEventListener('click', showCard(mapDiv));
+researchButton.addEventListener('click', showCard(searchDiv));
+
+
 function showCard(card) {
     searchDiv.classList.add('hidden');
     runningDiv.classList.add('hidden');
     mapDiv.classList.add('hidden');
     resultDiv.classList.add('hidden');
     // aboutDiv.classList.add('hidden');
-    
     card.classList.remove('hidden');
 }
 
