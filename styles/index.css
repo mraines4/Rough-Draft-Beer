@@ -265,7 +265,11 @@ select:hover  {
   grid-auto-rows: minmax(100%, 100%);
   grid-auto-columns: minmax(100%, 100%);
 }
-
+.breweryname {
+  /* need to check this with responsive
+  it should actuall be based the 3.8vh setting and then rescaled */
+  font-size:130%;  
+}
 .topleft {
   grid-column-start: 2;
   grid-column-end:3;
