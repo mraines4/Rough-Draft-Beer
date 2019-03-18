@@ -85,18 +85,12 @@ function giveApiInfo() {
     // console.log(currentRadius.value)
 
     //// unhide when divs are updated!!!
-    searchDiv.classList.add('hidden');
-    runningDiv.classList.remove('hidden');
+    // searchDiv.classList.add('hidden');
+    // runningDiv.classList.remove('hidden');
+    showCard(runningDiv)
 
     inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
-                    /////////////////
-                    // Cheat Sheet //
-                    /////////////////
-        // result[0] is the yelpObject about the brewery
-        // result[1] is the user distance from the brewery
-        // result[2] is the brewery website
 
-        // makeBrewery(result);
 
         let map;
         let service;
@@ -113,25 +107,55 @@ function giveApiInfo() {
         // debugger;
         initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters);
         // debugger;
-        runningDiv.classList.add('hidden');
-        mapDiv.classList.remove('hidden');
+        // runningDiv.classList.add('hidden');
+        // mapDiv.classList.remove('hidden');
+        // showCard(mapDiv);
+
 
 
     });
 
-    // makeBrewery(dummyYelp)
 }
 
-// function showResult() {
-//     mapDiv.classList.add('hidden');
-//     resultDiv.classList.remove('hidden');
-// }
+
 
 
 //////////////////////////////////////////////////////////
 ///////////////// POPULATE RESULTS ///////////////////////
 //////////////////////////////////////////////////////////
 
+
+
+// checks truthiness of open status of brewery
+function closedOrNot(status) {
+    if (status === false) {
+        return 'Closed Now';
+    } else {
+        return 'Open Now';
+    }
+}
+
+
+function showCard(card) {
+    searchDiv.classList.add('hidden');
+    runningDiv.classList.add('hidden');
+    mapDiv.classList.add('hidden');
+    resultDiv.classList.add('hidden');
+    // aboutDiv.classList.add('hidden');
+    
+    card.classList.remove('hidden');
+}
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////
+////////////////////// old/unused ////////////////////////
+//////////////////////////////////////////////////////////
 
 // function makeBrewery(brewInfo) {
 //     //// unhide when divs are updated!!!
@@ -149,14 +173,6 @@ function giveApiInfo() {
 //     breweryDistance.textContent = `${brewInfo[1]} miles away`;
 // }
 
-// checks truthiness of open status of brewery
-function closedOrNot(status) {
-    if (status === false) {
-        return 'Closed Now';
-    } else {
-        return 'Open Now';
-    }
-}
 
 // unused functions****************
 // converts phone number to display

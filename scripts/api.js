@@ -292,6 +292,7 @@ function createMarker(place, photoURL) {
         position: place.geometry.location,
         icon: '../img/Beermap.png'
     });
+    showCard(mapDiv)
     
     google.maps.event.addListener(marker, 'mouseover', function() {
         console.log(place);
@@ -311,7 +312,8 @@ function createMarker(place, photoURL) {
     google.maps.event.addListener(marker, 'click', function() {
         // console.log(brewery);
         makeBrewery(place, photoURL);
-        showResult(place)
+        showCard(resultDiv)
+
     });
 }
 
@@ -495,7 +497,7 @@ function makeBrewery(brewInfo, photoURL) {
     //// unhide when divs are updated!!!
     // runningDiv.classList.add('hidden');
     // mapDiv.classList.remove('hidden');
-
+    // showCard(mapDiv);
     
 
     breweryPicture.setAttribute('src', photoURL);
@@ -510,12 +512,9 @@ function makeBrewery(brewInfo, photoURL) {
     breweryReview.setAttribute('src', `./../img/${brewInfo.rating}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
     // breweryDistance.textContent = `${brewInfo[1]} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
+
 }
 
-function showResult() {
-    mapDiv.classList.add('hidden');
-    resultDiv.classList.remove('hidden');
-}
 
 /////////////////////////
 // Testing Environment //
