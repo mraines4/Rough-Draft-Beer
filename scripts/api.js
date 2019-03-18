@@ -533,7 +533,7 @@ function makeBrewery(brewInfo, photoURL) {
     breweryName.textContent = brewInfo.name;
     breweryPhone.textContent = brewInfo.formatted_phone_number;
     // breweryAddress.textContent = `${brewInfo.address_components[0].short_name} ${brewInfo.address_components[1].short_name}\n\r${brewInfo.address_components[2].short_name}, ${brewInfo.address_components[5].short_name} ${brewInfo.address_components[7].short_name}`;
-    breweryAddress.textContent = brewInfo.formatted_address;
+    breweryAddress.textContent = `${splitAddress(brewInfo.formatted_address)[0]}\n\r${splitAddress(brewInfo.formatted_address)[1]}`;
     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${brewInfo.formatted_address}`)
     breweryWebsite.setAttribute('href', brewInfo.website);
     breweryReview.setAttribute('src', `./../img/${roundToHalfNumber(brewInfo.rating)}pint.png`);

@@ -144,6 +144,16 @@ function closedOrNot(status) {
     }
 }
 
+function splitAddress(address) {
+
+let arr = [];             //new storage
+str = address.split(',');     //split by spaces
+arr.push(str.shift());    //add the number
+arr.push(str.join(''));
+console.log(arr)
+return arr;
+}
+
 
 function roundToHalfNumber (rating) {
     return Math.round(rating*2)/2;
