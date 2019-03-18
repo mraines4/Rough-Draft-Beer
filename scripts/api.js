@@ -502,7 +502,7 @@ function makeBrewery(brewInfo, photoURL) {
 
 
     // weatherIcon.setAttribute('src', `https://openweathermap.org/img/w/${brewInfo.weather.icon}.png`);
-    console.log(brewInfo.geometry.location.lat);
+    // console.log(brewInfo.geometry.location.lat);
     getWeather(brewInfo.geometry.location.lat, brewInfo.geometry.location.lng)
     breweryPicture.setAttribute('src', photoURL);
     // debugger;

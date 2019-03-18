@@ -155,7 +155,7 @@ function showCard(card) {
     runningDiv.classList.add('hidden');
     mapDiv.classList.add('hidden');
     resultDiv.classList.add('hidden');
-    // aboutDiv.classList.add('hidden');
+    aboutDiv.classList.add('hidden');
     card.classList.remove('hidden');
 }
 
