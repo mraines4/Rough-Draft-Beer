@@ -76,7 +76,7 @@ goFetch();
 //////////////////// GIVE API INFO ///////////////////////
 //////////////////////////////////////////////////////////
 
-currentState.addEventListener('change', unhideGo)
+currentRadius.addEventListener('change', unhideGo)
 
 function unhideGo () {
     goButton.classList.remove('hidden')
@@ -149,9 +149,10 @@ function roundToHalfNumber (rating) {
     return Math.round(rating*2)/2;
 }
 
-aboutButton.addEventListener('click', showCard(aboutDiv));
-backButton.addEventListener('click', showCard(mapDiv));
-researchButton.addEventListener('click', showCard(searchDiv));
+// aboutButton.addEventListener('click', showCard(aboutDiv));
+aboutButton.addEventListener('click', bringAbout);
+backButton.addEventListener('click', goBack);
+researchButton.addEventListener('click', goResearch);
 
 
 function showCard(card) {
@@ -161,6 +162,30 @@ function showCard(card) {
     resultDiv.classList.add('hidden');
     aboutDiv.classList.add('hidden');
     card.classList.remove('hidden');
+}
+
+function bringAbout() {
+    searchDiv.classList.add('hidden');
+    runningDiv.classList.add('hidden');
+    mapDiv.classList.add('hidden');
+    resultDiv.classList.add('hidden');
+    aboutDiv.classList.remove('hidden');
+}
+
+function goBack() {
+        searchDiv.classList.add('hidden');
+        runningDiv.classList.add('hidden');
+        mapDiv.classList.remove('hidden');
+        resultDiv.classList.add('hidden');
+        aboutDiv.classList.add('hidden');
+}
+
+function goResearch() {
+    searchDiv.classList.remove('hidden');
+    runningDiv.classList.add('hidden');
+    mapDiv.classList.add('hidden');
+    resultDiv.classList.add('hidden');
+    aboutDiv.classList.add('hidden');
 }
 
 
