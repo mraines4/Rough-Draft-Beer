@@ -15,6 +15,8 @@ body {
     background-repeat: no-repeat;
     max-width: 100vw;
     max-height: 100vh;  
+    min-width: 100vw;
+    min-height: 100vh;
     /* hides if it doesn't fit! */
     overflow: hidden;  
     font-family:  Montserrat, 'Times New Roman', Times, serif;
@@ -40,8 +42,8 @@ h3 {
   position: absolute;
   top:0px;
   left:0px;
-  width:60vh;
-  height:60vh;  /* it is square
+  width:60vw;
+  height:60vw;  /* it is square
   /* height:100%; */
   /* transform: translate(0%,-29%); */
 
@@ -66,6 +68,7 @@ h3 {
   font-weight: bold;
   position: absolute;
   transform: rotatez(-7deg);
+  z-index: 2;
 }
 
 .aboutsearchdiv {
@@ -76,16 +79,15 @@ h3 {
   top: 100%;
   left:100%;
   transform: translate(-100%,-100%);
-  z-index:1;
-  width:100%;
-  height:100%;
+  width:60vw;
+  height:60vw; 
 }
 .aboutpictureframe {
   position: absolute;
   
-  width:60vh;
+  width:60vw;
   /* padding-top: 100%; */
-  height:60vh;
+  height:60vw;
   top: 100%;
   left:100%;
   transform: translate(-100%,-100%);
@@ -106,20 +108,36 @@ h3 {
 }
 /*the words */
 .aboutorsearch   {
-  float:right;
+  /* float:right; */
   position: absolute;
-
-  /* top: 100%;
+  display:flex;
+  align-self: baseline;
+  justify-content: space-around;
+  width:60vw;
+  /* height:60vh; */
+  /* z-index:6; */
+  top: 100%;
   left:100%;
-  transform: translate(-100%,-100%); */
+  transform: translate(-100%,-100%);
 
-  bottom:0%;
-  right: 7%;
+  /* bottom:0%;
+  right: 7%; */
   /* font-size: 12px; */
   color: #377872;
   font-weight: bold;
-  transform: rotatez(-7deg);
+
 }
+.back, .research , .about  {
+  position: relative;
+  /* vertical-align: bottom; */
+  /* top:0; */
+  transform: rotatez(-7deg);
+  align-self: flex-end;
+  z-index:6;
+  
+
+}
+
 
 
 .maincontainer {
@@ -129,7 +147,7 @@ h3 {
   top:50%; 
   left:50%;
   transform: translate(-50%,-50%); 
-  z-index: 2;
+  z-index: 1;
 
 }
 /* took running out b/c its not on a napkin */
@@ -192,11 +210,12 @@ h3 {
     padding:10px;
     border-radius:10%;
   }
-
+/*
   .search:hover {
     opacity: 1;
     z-index: 3;
   }
+  */
   
   .result {
     /* top:30vh;
@@ -314,15 +333,16 @@ select:hover  {
 .gobutton {
   position: absolute;
   bottom:25%;
-  right:25%;
-  border: 2px solid brown;
-  float:right;
+  left:5%;
+  border: 2px solid #377872;
+  /* float:left; */
   padding:1%;
   border-radius: 5px;
   /* position: absolute;
   right: 10%; */
     background-color:transparent;
     font-size: 5vw;
+    z-index:3;   /* always want this on top */
 }
 .gobutton > img {
   width: 5vw;
@@ -361,8 +381,9 @@ img {
 }
 
   .hidden {
-    display:none;
+    display:none !important;
   }
+
   .checkbox {
     display:none;
   }
@@ -412,10 +433,8 @@ img {
   /* height: 50%; */
 }
 .transparent {
-  opacity: .5;
-  z-index:-1;
+  
 }
-
 
   #micro:checked ~ .microlabel {
     background-color: #d1b97f;
@@ -440,12 +459,24 @@ img {
   }
   /* change this for larger screens */
   
+  
+/*
+  h3 {
+    position:absolute;
+    top:0%;
+    z-index:5;
+ 
+  }
+  */
+  
 
+.back:hover ,.research:hover ,.about:hover {
+  color:#C46233;
+}
 
 .mapall {
   height: 100%;
   width: 100%;
-  /* z-index: 1000; */
 }
 .mapbackgroundpic {
   position: absolute !important;
@@ -544,15 +575,21 @@ and (min-device-width: 800px) {
   .aboutinfo {
     font-size:5vw;
   }
-  .title, .aboutorsearch {
+  .title  {
     font-size: 8vw;
   }
+  .back, .research, .about {
+    font-size: 5vw;
+  }
+
   #map {
     width:79vw;
   
  }
-
-
+.titlename, .aboutsearchdiv, .aboutorsearch, .aboutpictureframe {
+  width:60vw;
+  height:60vw; 
+}
 }
 
   .search, .result, .running , .mapall{  
@@ -573,6 +610,10 @@ and (min-device-width: 800px) {
 .title, .aboutorsearch {
   font-size: 8vh;
 }
+.back, .research, .about {
+  font-size: 5vh;
+}
+
 #map {
   width:79vh;
 }
@@ -583,6 +624,10 @@ and (min-device-width: 800px) {
  .inputfields , .displaydata {
   font-size: 4.3vh;
 
+}
+.titlename, .aboutsearchdiv, .aboutorsearch, .aboutpictureframe {
+  width:60vh;
+  height:60vh; 
 }
 
 
