@@ -29,6 +29,12 @@ h1 {
   text-align: center;
   color : #FFC24F;
 }
+
+h3 {
+  text-align: right;
+  /* color : #FFC24F; */
+  font-size: 4vh;
+}
 .titlename {
   float: left;
   position: absolute;
@@ -69,9 +75,6 @@ h1 {
   position: absolute;
   top: 100%;
   left:100%;
-  /* bottom:0px;
-  right:0px; */
-  /* transform: translate(0%,29%); */
   transform: translate(-100%,-100%);
   z-index:1;
   width:100%;
@@ -101,8 +104,8 @@ h1 {
   transform: translate(-100%,-100%);
 
 }
-/*the word */
-.aboutorsearch {
+/*the words */
+.aboutorsearch   {
   float:right;
   position: absolute;
 
@@ -112,10 +115,9 @@ h1 {
 
   bottom:0%;
   right: 7%;
-  font-size: 48px;
+  /* font-size: 12px; */
   color: #377872;
   font-weight: bold;
-  position: absolute;
   transform: rotatez(-7deg);
 }
 
@@ -167,7 +169,7 @@ h1 {
   position: absolute;
   top: 0;
 }
-.cardbackgroundpic img{
+.cardbackgroundpic > img {
   /* position: absolute; */
   /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
   /* background-repeat: no-repeat; */
@@ -219,6 +221,8 @@ h1 {
     height: 100%; /* of container */
     position: absolute;
     /* transform: translate(-50%,-50%); */
+    font-size: 4.3vw;
+
   }
   .displaydata {
     top: 2%;
@@ -228,6 +232,13 @@ h1 {
   .inputfields {
     top: 12%;
     left: 12%;
+
+  }
+
+  .inputfields > * {
+        /* add spacing after the select fields */
+        padding-bottom: 20px;
+        text-align: center;
 
   }
   select, input[type="color" i][list] {
@@ -255,12 +266,22 @@ select:hover  {
   grid-auto-rows: minmax(100%, 100%);
   grid-auto-columns: minmax(100%, 100%);
 }
-
+.breweryname {
+  /* need to check this with responsive
+  it should actuall be based the 3.8vh setting and then rescaled */
+  font-size:130%;  
+}
 .topleft {
   grid-column-start: 2;
   grid-column-end:3;
   grid-row-start:2;
   grid-row-end:3;
+}
+.bottomleft {
+  grid-column-start: 2;
+  grid-column-end:3;
+  grid-row-start:4;
+  grid-row-end:5;
 }
 .topright {
   grid-column-start: 4;
@@ -268,28 +289,46 @@ select:hover  {
   grid-row-start:2;
   grid-row-end:3;
 }
+.bottomright {
+  grid-column-start: 4;
+  grid-column-end:5;
+  grid-row-start:4;
+  grid-row-end:5;
+
+}
 .bottom {
   grid-column-start: 2;
   grid-column-end:5;
   grid-row-start:4;
   grid-row-end:5;
   text-align: center;
-
+}
+.topspan {
+  grid-column-start: 2;
+  grid-column-end:5;
+  grid-row-start:2;
+  grid-row-end:3;
+  text-align: center;
 }
 
 .gobutton {
   position: absolute;
   bottom:25%;
   right:25%;
-  font-size: 25px;
   border: 2px solid brown;
   float:right;
-  padding:10px;
+  padding:1%;
   border-radius: 5px;
   /* position: absolute;
   right: 10%; */
-  
+    background-color:transparent;
+    font-size: 5vw;
 }
+.gobutton > img {
+  width: 5vw;
+}
+
+
 .aboutinfo {
   position: absolute;
   top:0;
@@ -485,12 +524,16 @@ and (min-device-width: 800px) {
   .aboutinfo {
     font-size:5vh;
   }
-  .title, .aboutorsearch {
+  .title  {
     font-size: 8vh;
+    padding-left:16px;
   }
   #map {
     width:79vh;
-  
+ }
+ .gobutton {
+  font-size: 5vw;
+
  }
 }
  /* Portrait styles */
@@ -533,6 +576,15 @@ and (min-device-width: 800px) {
 #map {
   width:79vh;
 }
+.gobutton {
+  font-size: 5vh;
+
+ }
+ .inputfields , .displaydata {
+  font-size: 4.3vh;
+
+}
+
 
 
 }
