@@ -188,29 +188,51 @@ function geoApi(city,state){
 ///////////////////////
 // GOOGLE API BEGINS //
 ///////////////////////
-function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters) { //*** needs to be passed an array of brewery names
-    // debugger;
-    let radius = radiusMeters;
-    console.log(arrayOfStateBreweriesObjects);
-    console.log(radiusMeters);
+// function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters) { //*** needs to be passed an array of brewery names
+function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles) { //*** needs to be passed an array of brewery names
+    let radius = radiusMiles;
     let lat = localCoordinatesObjects["lat"];
     let lng = localCoordinatesObjects["lng"];
     let userLocation = new google.maps.LatLng(lat, lng); //*** going to need to geolocate user
 
     infowindow = new google.maps.InfoWindow();
+    let zoomValue = 0;
+    console.log(`zoom value: ${zoomValue}`);
+    radius = parseInt(radius);
+    if (radius === 50){
+        zoomValue = 9.6;
+    }
+    else if (radius === 40){
+        zoomValue = 9.85;
+    }
+    else if (radius === 30){
+        zoomValue = 10.35;
+    }
+    else if (radius === 20){
+        zoomValue = 10.9;
+    }
+    else if (radius === 10){
+        zoomValue = 11.97;
+
+    }
+
 
     map = new google.maps.Map(
         document.getElementById('map'), {
             center: userLocation, 
-            zoom: 10 // should be based on radius setting
+            
+            // zoom 10:38 miles, zoom 9:76 miles, zoom 8: ~150miles, zoom 1:23000miles
+            zoom : zoomValue 
+
+            // zoom: 1 // should be based on radius setting
         }
     );
     arrayOfStateBreweriesObjects.forEach(function (brewery){ //*** should iterate over each Brewery Name to create a marker and add it to the map
         let name = brewery.name;
-        console.log(name);
-        console.log(radius);
-        console.log(lat);
-        console.log(lng);
+        // console.log(name);
+        // console.log(radius);
+        // console.log(lat);
+        // console.log(lng);
         return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
         .then(function (response){
             return response.json();
@@ -349,9 +371,11 @@ async function inputToObject(city = "userLocation", state = "Georgia", radius = 
     const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
     let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
     let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
-    let radiusMeters = radius * 1609.34;
+    // let radiusMeters = radius * 1609.34;
+    let radiusMiles = radius;
 
-    return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMeters];
+    // return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMeters];
+    return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
     // // arrayOfStateBreweriesObjects.forEach(function (breweries){
     // //     // do a thing
     // // });
