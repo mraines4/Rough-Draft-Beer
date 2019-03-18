@@ -312,6 +312,7 @@ function initMapPart3(breweryPhotoURLArray){
     else{
         createMarker(brewery1, photoURL1);
         showCard(mapDiv)
+        researchButton.classList.remove('hidden');
     }
 }
 
@@ -343,6 +344,7 @@ function createMarker(place, photoURL) {
     google.maps.event.addListener(marker, 'click', function() {
         makeBrewery(place, photoURL);
         showCard(resultDiv)
+        backButton.classList.remove('hidden');
     });
 }
 

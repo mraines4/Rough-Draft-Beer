@@ -189,6 +189,7 @@ function goBack() {
         mapDiv.classList.remove('hidden');
         resultDiv.classList.add('hidden');
         aboutDiv.classList.add('hidden');
+        backButton.classList.add('hidden');
 }
 
 function goResearch() {
@@ -197,6 +198,8 @@ function goResearch() {
     mapDiv.classList.add('hidden');
     resultDiv.classList.add('hidden');
     aboutDiv.classList.add('hidden');
+    backButton.classList.add('hidden');
+    researchButton.classList.add('hidden');
 }
 
 
