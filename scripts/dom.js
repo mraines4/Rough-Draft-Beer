@@ -1,116 +1,4 @@
-'unsafe-inline'
-//////////////////////////////////////////////////////////
-/////////////////////// DUMMY DATA ///////////////////////
-//////////////////////////////////////////////////////////
 
-
-// let dummyYelp ={
-//     "businesses": [
-//         {
-//             "id": "-X6YB-qWX-nFqOk8vpoPcQ",
-//             "alias": "red-hare-brewing-company-marietta",
-//             "name": "Red Hare Brewing Company",
-//             "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/_ArCLNvKl7WDfudGSf3QbQ/o.jpg",
-//             "is_closed": false,
-//             "url": "https://www.yelp.com/biz/red-hare-brewing-company-marietta?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
-//             "review_count": 82,
-//             "categories": [
-//                 {
-//                     "alias": "breweries",
-//                     "title": "Breweries"
-//                 },
-//                 {
-//                     "alias": "brewingsupplies",
-//                     "title": "Brewing Supplies"
-//                 }
-//             ],
-//             "rating": 4,
-//             "coordinates": {
-//                 "latitude": 33.92434,
-//                 "longitude": -84.49576
-//             },
-//             "transactions": [],
-//             "price": "$",
-//             "location": {
-//                 "address1": "1998 Delk Industrial Blvd",
-//                 "address2": "",
-//                 "address3": "",
-//                 "city": "Marietta",
-//                 "zip_code": "30067",
-//                 "country": "US",
-//                 "state": "GA",
-//                 "display_address": [
-//                     "1998 Delk Industrial Blvd",
-//                     "Marietta, GA 30067"
-//                 ]
-//             },
-//             "phone": "+16784010600",
-//             "display_phone": "(678) 401-0600"
-//         }
-//     ],
-//     "total": 1
-// }
-
-// let dummyYelp = {
-//     "businesses": [
-//         {
-//             "id": "YYw-k-LjkrQt2HkCJ5iFUw",
-//             "alias": "wicked-weed-asheville",
-//             "name": "Wicked Weed",
-//             "image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/drTCIycsDpP_KtHchCsnPw/o.jpg",
-//             "is_closed": false,
-//             "url": "https://www.yelp.com/biz/wicked-weed-asheville?adjust_creative=MvuodG5DKzjWVXYRja2GlA&utm_campaign=yelp_api_v3&utm_medium=api_v3_phone_search&utm_source=MvuodG5DKzjWVXYRja2GlA",
-//             "review_count": 1767,
-//             "categories": [
-//                 {
-//                     "alias": "brewpubs",
-//                     "title": "Brewpubs"
-//                 }
-//             ],
-//             "rating": 4,
-//             "coordinates": {
-//                 "latitude": 35.591706,
-//                 "longitude": -82.551034
-//             },
-//             "transactions": [],
-//             "price": "$$",
-//             "location": {
-//                 "address1": "91 Biltmore Ave",
-//                 "address2": "",
-//                 "address3": "",
-//                 "city": "Asheville",
-//                 "zip_code": "28801",
-//                 "country": "US",
-//                 "state": "NC",
-//                 "display_address": [
-//                     "91 Biltmore Ave",
-//                     "Asheville, NC 28801"
-//                 ]
-//             },
-//             "phone": "+18285759599",
-//             "display_phone": "(828) 575-9599"
-//         }
-//     ],
-//     "total": 1
-// }
-
-// let dummyBrewery = {
-//     "id": 2183,
-//     "name": "Red Hare Brewing Company",
-//     "brewery_type": "micro",
-//     "street": "1998 Delk Industrial Blvd SE",
-//     "city": "Marietta",
-//     "state": "Georgia",
-//     "postal_code": "30067-8904",
-//     "country": "United States",
-//     "longitude": "-84.4957563035449",
-//     "latitude": "33.92440825",
-//     "phone": "6784010600",
-//     "website_url": "http://www.redharebrewing.com",
-//     "updated_at": "2018-08-24T00:29:23.424Z",
-//     "tag_list": []
-// }
-// const dummyCurrentLocation = [33.9526,-84.5499]
 
 //////////////////////////////////////////////////////////
 ////////////////////// SELECTORS /////////////////////////
@@ -131,7 +19,12 @@ const goButton = document.querySelector('[data-gobutton]');
 const searchDiv = document.querySelector('[data-search]');
 const runningDiv = document.querySelector('[data-running]');
 const resultDiv = document.querySelector('[data-result]');
-const mapDiv = document.querySelector('[data-mapall]')
+const aboutDiv = document.querySelector('[data-aboutdetail');
+const mapDiv = document.querySelector('[data-mapall]');
+const aboutButton = document.querySelector('[data-about]');
+const researchButton = document.querySelector('[data-research]');
+const backButton = document.querySelector('[data-back]');
+const weatherIcon = document.querySelector('[data-currentweathericon]');
 
 
 //////////////////////////////////////////////////////////
@@ -197,19 +90,14 @@ function giveApiInfo() {
     // console.log(currentRadius.value)
 
     //// unhide when divs are updated!!!
-    searchDiv.classList.add('hidden');
-    runningDiv.classList.remove('hidden');
+    // searchDiv.classList.add('hidden');
+    // runningDiv.classList.remove('hidden');
+    showCard(runningDiv)
+
 
     inputToObject(currentCity.value, currentState.value, currentRadius.value)
     .then(function (result){
-                    /////////////////
-                    // Cheat Sheet //
-                    /////////////////
-        // result[0] is the yelpObject about the brewery
-        // result[1] is the user distance from the brewery
-        // result[2] is the brewery website
 
-        // makeBrewery(result);
 
         let map;
         let service;
@@ -228,25 +116,63 @@ function giveApiInfo() {
         // initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters);
         initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles);
         // debugger;
-        runningDiv.classList.add('hidden');
-        mapDiv.classList.remove('hidden');
+        // runningDiv.classList.add('hidden');
+        // mapDiv.classList.remove('hidden');
+        // showCard(mapDiv);
+
 
 
     });
 
-    // makeBrewery(dummyYelp)
 }
 
-// function showResult() {
-//     mapDiv.classList.add('hidden');
-//     resultDiv.classList.remove('hidden');
-// }
+
 
 
 //////////////////////////////////////////////////////////
 ///////////////// POPULATE RESULTS ///////////////////////
 //////////////////////////////////////////////////////////
 
+
+
+// checks truthiness of open status of brewery
+function closedOrNot(status) {
+    if (status === false) {
+        return 'Closed Now';
+    } else {
+        return 'Open Now';
+    }
+}
+
+
+function roundToHalfNumber (rating) {
+    return Math.round(rating*2)/2;
+}
+
+aboutButton.addEventListener('click', showCard(aboutDiv));
+backButton.addEventListener('click', showCard(mapDiv));
+researchButton.addEventListener('click', showCard(searchDiv));
+
+
+function showCard(card) {
+    searchDiv.classList.add('hidden');
+    runningDiv.classList.add('hidden');
+    mapDiv.classList.add('hidden');
+    resultDiv.classList.add('hidden');
+    aboutDiv.classList.add('hidden');
+    card.classList.remove('hidden');
+}
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////
+////////////////////// old/unused ////////////////////////
+//////////////////////////////////////////////////////////
 
 // function makeBrewery(brewInfo) {
 //     //// unhide when divs are updated!!!
@@ -264,14 +190,6 @@ function giveApiInfo() {
 //     breweryDistance.textContent = `${brewInfo[1]} miles away`;
 // }
 
-// checks truthiness of open status of brewery
-function closedOrNot(status) {
-    if (status === false) {
-        return 'Closed Now';
-    } else {
-        return 'Open Now';
-    }
-}
 
 // unused functions****************
 // converts phone number to display
@@ -327,4 +245,31 @@ function closedOrNot(status) {
 
 // function testOutMap () {
 //     console.log(mapAddress)
+// }
+
+
+// function getIcon(obj) {
+//     return obj.weather[0].icon;
+// }
+
+// function weatherPic (get) {
+//     let imgTag = document.createElement('img');
+//     imgTag.classList.add('weatherpng');
+//     imgTag.setAttribute('src', `http://openweathermap.org/img/w/${get}.png`);
+//     return imgTag;
+// }
+
+
+// function getWeather() {
+//     let theWeather;
+//     const url = 'https://http://api.openweathermap.org/data/2.5/weather?lat=34.04332&lon=-84.94324&appid=1efd23d575e7f6ab1b69c24ba772d747';
+//     fetch(url)
+//     .then(function(response) { 
+//         return response.json() 
+//     })
+//     .then(function(weatherData) { 
+//         console.log(weatherData);
+//         theWeather = weatherData;
+//         weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
+//     });
 // }

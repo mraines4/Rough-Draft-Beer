@@ -275,9 +275,12 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
             // console.log(photoURLPromise);
             // debugger;
             createMarker(brewery1, photoURL1);
+            showCard(mapDiv)
             // return [photoURL, brewery1];
             // return Promise.all([photoURL, brewery1]);
-        })
+        });//.then(function () {
+            //showCard(mapDiv);});
+
         // .then(function (photoURLBreweryArray){
         //     let photoURLPreJSON = (photoURLBreweryArray[0]);
         //     console.log(photoURLPreJSON);
@@ -300,6 +303,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
                     // }
                     // map.setCenter(results[0].geometry.location);
         
+        
         });
     }
 //     )
@@ -314,9 +318,9 @@ function createMarker(place, photoURL) {
         position: place.geometry.location,
         icon: '../img/Beermap.png'
     });
+    // showCard(mapDiv);
     
     google.maps.event.addListener(marker, 'mouseover', function() {
-        console.log(place);
         infowindow.setContent(`<strong>${place.name}</strong>`);
         infowindow.open(map, this);
         
@@ -331,9 +335,9 @@ function createMarker(place, photoURL) {
 
     });
     google.maps.event.addListener(marker, 'click', function() {
-        // console.log(brewery);
         makeBrewery(place, photoURL);
-        showResult(place)
+        showCard(resultDiv)
+
     });
 }
 
@@ -520,8 +524,10 @@ function makeBrewery(brewInfo, photoURL) {
     // runningDiv.classList.add('hidden');
     // mapDiv.classList.remove('hidden');
 
-    
 
+    // weatherIcon.setAttribute('src', `https://openweathermap.org/img/w/${brewInfo.weather.icon}.png`);
+    // console.log(brewInfo.geometry.location.lat);
+    getWeather(brewInfo.geometry.location.lat, brewInfo.geometry.location.lng)
     breweryPicture.setAttribute('src', photoURL);
     // debugger;
     breweryName.textContent = brewInfo.name;
@@ -531,16 +537,46 @@ function makeBrewery(brewInfo, photoURL) {
     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
     breweryWebsite.textContent = brewInfo.website;
     breweryWebsite.setAttribute('href', brewInfo.website);
-    breweryReview.setAttribute('src', `./../img/${brewInfo.rating}pint.png`);
+    breweryReview.setAttribute('src', `./../img/${roundToHalfNumber(brewInfo.rating)}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
     // breweryDistance.textContent = `${brewInfo[1]} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
+
 }
 
-function showResult() {
-    mapDiv.classList.add('hidden');
-    resultDiv.classList.remove('hidden');
-}
 
 /////////////////////////
 // Testing Environment //
 /////////////////////////
+
+
+function getIcon(obj) {
+    return obj.weather[0].icon;
+}
+
+function weatherPic (get) {
+    let imgTag = document.createElement('img');
+    imgTag.classList.add('weatherpng');
+    imgTag.setAttribute('src', `http://openweathermap.org/img/w/${get}.png`);
+    return imgTag;
+}
+
+
+function getWeather(lat, long) {
+    let theWeather;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=1efd23d575e7f6ab1b69c24ba772d747`;
+    // console.log(lat, long);
+    // console.log(url)
+
+    // const url = 'https://api.openweathermap.org/data/2.5/weather?lat=34.3453454&lon=-84.4343&appid=1efd23d575e7f6ab1b69c24ba772d747';
+
+    fetch(url)
+    .then(function(response) { 
+        return response.json() 
+    })
+    .then(function(weatherData) { 
+        // console.log(weatherData);
+        theWeather = weatherData;
+        weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
+    });
+}
+
