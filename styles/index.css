@@ -221,6 +221,7 @@ h3 {
     height: 100%; /* of container */
     position: absolute;
     /* transform: translate(-50%,-50%); */
+
   }
   .displaydata {
     top: 2%;
@@ -230,6 +231,13 @@ h3 {
   .inputfields {
     top: 12%;
     left: 12%;
+
+  }
+
+  .inputfields > * {
+        /* add spacing after the select fields */
+        padding-bottom: 20px;
+        text-align: center;
 
   }
   select, input[type="color" i][list] {
