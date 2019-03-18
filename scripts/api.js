@@ -509,7 +509,7 @@ function makeBrewery(brewInfo, photoURL) {
     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
     breweryWebsite.textContent = brewInfo.website;
     breweryWebsite.setAttribute('href', brewInfo.website);
-    breweryReview.setAttribute('src', `./../img/${brewInfo.rating}pint.png`);
+    breweryReview.setAttribute('src', `./../img/${roundToHalfNumber(brewInfo.rating)}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
     // breweryDistance.textContent = `${brewInfo[1]} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
 

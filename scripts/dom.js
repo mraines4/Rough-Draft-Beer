@@ -136,6 +136,10 @@ function closedOrNot(status) {
 }
 
 
+function roundToHalfNumber (rating) {
+    return Math.round(rating*2)/2;
+}
+
 function showCard(card) {
     searchDiv.classList.add('hidden');
     runningDiv.classList.add('hidden');
