@@ -221,6 +221,7 @@ h3 {
     height: 100%; /* of container */
     position: absolute;
     /* transform: translate(-50%,-50%); */
+    font-size: 4.3vw;
 
   }
   .displaydata {
@@ -579,6 +580,10 @@ and (min-device-width: 800px) {
   font-size: 5vh;
 
  }
+ .inputfields , .displaydata {
+  font-size: 4.3vh;
+
+}
 
 
 
