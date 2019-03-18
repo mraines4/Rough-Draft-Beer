@@ -219,11 +219,13 @@ function giveApiInfo() {
         // // ^^^ is the lat/lon of the User
         let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
         // // ^^^ are all the breweries in the state from OpenBreweryDB
-        let radiusMeters = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[2];
+        // let radiusMeters = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[2];
+        let radiusMiles = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[2];
         console.log(localCoordinatesObjects);
         console.log(arrayOfStateBreweriesObjects);
         // debugger;
-        initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters);
+        // initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters);
+        initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles);
         // debugger;
         runningDiv.classList.add('hidden');
         mapDiv.classList.remove('hidden');
