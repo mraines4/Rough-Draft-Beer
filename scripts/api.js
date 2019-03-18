@@ -322,6 +322,7 @@ function initMapPart3(breweryPhotoURLArrayAndLocalCoordinatesObjectsArray){
     else{
         createMarker(brewery1, photoURL1, localCoordinatesObjects);
         showCard(mapDiv)
+        researchButton.classList.remove('hidden');
     }
 }
 
@@ -362,6 +363,7 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
 
         makeBrewery(place, photoURL, result1);
         showCard(resultDiv)
+        backButton.classList.remove('hidden');
     });
 }
 
@@ -505,7 +507,7 @@ function makeBrewery(brewInfo, photoURL, result1) {
     breweryPhone.textContent = brewInfo.formatted_phone_number;
     // breweryAddress.textContent = `${brewInfo.address_components[0].short_name} ${brewInfo.address_components[1].short_name}\n\r${brewInfo.address_components[2].short_name}, ${brewInfo.address_components[5].short_name} ${brewInfo.address_components[7].short_name}`;
     breweryAddress.textContent = `${splitAddress(brewInfo.formatted_address)[0]}\n\r${splitAddress(brewInfo.formatted_address)[1]}`;
-    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${brewInfo.formatted_address}`)
+    breweryAddressTag.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${brewInfo.formatted_address}`)
     breweryWebsite.setAttribute('href', brewInfo.website);
     breweryReview.setAttribute('src', `./../img/${roundToHalfNumber(brewInfo.rating)}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
@@ -555,7 +557,7 @@ function getWeather(lat, long) {
     .then(function(weatherData) { 
         // console.log(weatherData);
         theWeather = weatherData;
-        weatherIcon.textContent = '';
+        weatherIcon.textContent = 'Weather:';
         weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
     });
 }

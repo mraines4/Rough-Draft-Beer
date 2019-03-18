@@ -10,7 +10,8 @@ const currentRadius = document.querySelector('[data-radius]')
 const breweryPicture = document.querySelector('[data-bpictureimg]');
 const breweryName = document.querySelector('[data-breweryname]');
 const breweryPhone = document.querySelector('[data-breweryphone]');
-const breweryAddress = document.querySelector('[data-breweryaddressatag]');
+const breweryAddress = document.querySelector('[data-breweryaddress]');
+const breweryAddressTag = document.querySelector('[data-breweryaddressatag]')
 const breweryWebsite = document.querySelector('[data-brewerywebsiteatag]');
 const breweryReview = document.querySelector('[data-breweryreviewimg]');
 const breweryHours = document.querySelector('[data-breweryhours]');
@@ -180,6 +181,7 @@ function bringAbout() {
     mapDiv.classList.add('hidden');
     resultDiv.classList.add('hidden');
     aboutDiv.classList.remove('hidden');
+    researchButton.classList.remove('hidden');
 }
 
 function goBack() {
@@ -188,6 +190,7 @@ function goBack() {
         mapDiv.classList.remove('hidden');
         resultDiv.classList.add('hidden');
         aboutDiv.classList.add('hidden');
+        backButton.classList.add('hidden');
 }
 
 function goResearch() {
@@ -196,6 +199,8 @@ function goResearch() {
     mapDiv.classList.add('hidden');
     resultDiv.classList.add('hidden');
     aboutDiv.classList.add('hidden');
+    backButton.classList.add('hidden');
+    researchButton.classList.add('hidden');
 }
 
 
