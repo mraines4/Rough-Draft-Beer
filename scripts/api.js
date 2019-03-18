@@ -254,11 +254,11 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMe
         .then(function (breweryPhotoURLArray){
             let photoURL = breweryPhotoURLArray[0];
             let brewery1 = breweryPhotoURLArray[1];
-            let photoURL = `http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
+            let photoURL1 = `http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
             // let photoURLPromise = fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`);
             // console.log(photoURLPromise);
             // debugger;
-            createMarker(brewery1, photoURL);
+            createMarker(brewery1, photoURL1);
             // return [photoURL, brewery1];
             // return Promise.all([photoURL, brewery1]);
         })
@@ -507,14 +507,15 @@ function makeBrewery(brewInfo, photoURL) {
     breweryPicture.setAttribute('src', photoURL);
     debugger;
     breweryName.textContent = brewInfo.name;
-    breweryPhone.textContent = brewInfo.display_phone;
-    breweryAddress.textContent = `${brewInfo.location.address1}\n\r${brewInfo.location.city}, ${brewInfo.location.state} ${brewInfo.location.zip_code}`;
+    breweryPhone.textContent = brewInfo.formatted_phone_number;
+    // breweryAddress.textContent = `${brewInfo.location.address1}\n\r${brewInfo.location.city}, ${brewInfo.location.state} ${brewInfo.location.zip_code}`;
+    breweryAddress.textContent = brewInfo.formatted_address;
     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
-    breweryWebsite.textContent = brewInfo[2];
-    breweryWebsite.setAttribute('href', brewInfo[2].website_url);
+    breweryWebsite.textContent = brewInfo.website;
+    breweryWebsite.setAttribute('href', brewInfo.website);
     breweryReview.setAttribute('src', `./../img/${brewInfo.rating}pint.png`);
-    breweryHours.textContent = closedOrNot(brewInfo.is_closed);
-    breweryDistance.textContent = `${brewInfo[1]} miles away`;
+    breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
+    // breweryDistance.textContent = `${brewInfo[1]} miles away`;
 }
 
 function showResult() {
