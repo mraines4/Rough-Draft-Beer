@@ -115,7 +115,7 @@ h3 {
   justify-content: space-around;
   width:60vw;
   /* height:60vh; */
-  z-index:6;
+  /* z-index:6; */
   top: 100%;
   left:100%;
   transform: translate(-100%,-100%);
@@ -128,11 +128,12 @@ h3 {
 
 }
 .back, .research , .about  {
-  /* position: relative; */
+  position: relative;
   /* vertical-align: bottom; */
   /* top:0; */
   transform: rotatez(-7deg);
   align-self: flex-end;
+  z-index:6;
   
 
 }
@@ -574,9 +575,13 @@ and (min-device-width: 800px) {
   .aboutinfo {
     font-size:5vw;
   }
-  .title, .aboutorsearch {
+  .title  {
     font-size: 8vw;
   }
+  .back, .research, .about {
+    font-size: 5vw;
+  }
+
   #map {
     width:79vw;
   
@@ -605,6 +610,10 @@ and (min-device-width: 800px) {
 .title, .aboutorsearch {
   font-size: 8vh;
 }
+.back, .research, .about {
+  font-size: 5vh;
+}
+
 #map {
   width:79vh;
 }
