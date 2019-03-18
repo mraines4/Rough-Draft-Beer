@@ -197,7 +197,6 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
 
     infowindow = new google.maps.InfoWindow();
     let zoomValue = 0;
-    console.log(`zoom value: ${zoomValue}`);
     radius = parseInt(radius);
     if (radius === 50){
         zoomValue = 9.6;
@@ -213,9 +212,9 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
     }
     else if (radius === 10){
         zoomValue = 11.97;
-
     }
-
+    
+    console.log(`zoom value: ${zoomValue}`);
 
     map = new google.maps.Map(
         document.getElementById('map'), {
@@ -229,85 +228,68 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
     );
     arrayOfStateBreweriesObjects.forEach(function (brewery){ //*** should iterate over each Brewery Name to create a marker and add it to the map
         let name = brewery.name;
-        // console.log(name);
-        // console.log(radius);
-        // console.log(lat);
-        // console.log(lng);
-        return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
-        .then(function (response){
-            return response.json();
-        })
-        .then(function (response){
-            console.log(response);
-            let placeID;
-            // debugger;
-            if (response.candidates.length < 1){
-                placeID = "ChIJ61IfWmT99IgRwH3hzwm8cug"; // need a better way of handling this besides hardcoding an Atlanta brewery
-            }
-            else{
-                placeID = (response["candidates"][0]["place_id"]);
-            }
-            return placeID;
-        })
-        .then(function (placeID){
-            return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
-        })
-        .then(function (response){
-            return response.json();
-        })
-        .then(function (response){
-            console.log(response);
-            return response;
-        })
-        .then(function (results){
-            return(results.result);
-        })
-        .then(function (eachBrewery){
-            let photoURL = eachBrewery.photos[0].photo_reference;
-            let breweryPhotoURLArray = [photoURL,eachBrewery];
-            return breweryPhotoURLArray;
-        })
-        .then(function (breweryPhotoURLArray){
-            let photoURL = breweryPhotoURLArray[0];
-            let brewery1 = breweryPhotoURLArray[1];
-            let photoURL1 = `http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
-            // let photoURLPromise = fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`);
-            // console.log(photoURLPromise);
-            // debugger;
-            createMarker(brewery1, photoURL1);
-            showCard(mapDiv)
-            // return [photoURL, brewery1];
-            // return Promise.all([photoURL, brewery1]);
-        });//.then(function () {
-            //showCard(mapDiv);});
+        let results;
+        if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
+            googleBreweryData = JSON.parse(localStorage.getItem(name));
+            // fill list of breweries
+            console.log("sending google brewery data from storage");
+            console.log(googleBreweryData);
+            results =  googleBreweryData;
+            result = results.result;
+            initMapPart3(initMapPart2(result))
+        }
+        else{ // Generate the promise chain and then store the brewerie's info
+            return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
+            .then(function (response){
+                return response.json();
+            })
+            .then(function (response){
+                console.log(response);
+                let placeID;
+                // debugger;
+                if (response.candidates.length < 1){
+                    placeID = "ChIJ61IfWmT99IgRwH3hzwm8cug"; // need a better way of handling this besides hardcoding an Atlanta brewery
+                }
+                else{
+                    placeID = (response["candidates"][0]["place_id"]);
+                }
+                return placeID;
+            })
+            .then(function (placeID){
+                return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
+            })
+            .then(function (response){
+                return response.json();
+            })
+            .then(function (data){
+                localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
+                return data;
+            })
+            .then(function (response){
+                console.log(response);
+                console.log("PROMISE CHAIN ENACTED, GIRD YOUR LOINS");
+                results = response;
+                result = results.result;
+                initMapPart3(initMapPart2(result))
+            })
+        }
+    })
+}
 
-        // .then(function (photoURLBreweryArray){
-        //     let photoURLPreJSON = (photoURLBreweryArray[0]);
-        //     console.log(photoURLPreJSON);
-        //     let photoURL = photoURLPreJSON.json();
-        //     debugger;
-        //     let brewery1 = photoURLBreweryArray[1];
-        //     return [photoURL,brewery1]
-        // })
-        // .then(function (photoURLBreweryArray){
-        //     let photoURL = photoURLBreweryArray[0];
-        //     let brewery1 = photoURLBreweryArray[1];
-            
-        //     return;
-        // })
-            // console.log(photoURL);
-            // let brewery1 = photoURLBreweryArray[1];
-            // createMarker(brewery1, photoURL);
-        // })
-            // debugger;
-                    // }
-                    // map.setCenter(results[0].geometry.location);
-        
-        
-        });
+function initMapPart2(eachBrewery){
+        let photoURL = eachBrewery.photos[0].photo_reference;
+        let breweryPhotoURLArray = [photoURL,eachBrewery];
+        return breweryPhotoURLArray;
     }
-//     )
-// }
+    
+    function initMapPart3(breweryPhotoURLArray){
+    let photoURL = breweryPhotoURLArray[0];
+    let brewery1 = breweryPhotoURLArray[1];
+    let photoURL1 = `http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
+    createMarker(brewery1, photoURL1);
+    showCard(mapDiv)
+}
+
 
 
 
@@ -318,26 +300,19 @@ function createMarker(place, photoURL) {
         position: place.geometry.location,
         icon: '../img/Beermap.png'
     });
-    // showCard(mapDiv);
-    
+
     google.maps.event.addListener(marker, 'mouseover', function() {
         infowindow.setContent(`<strong>${place.name}</strong>`);
         infowindow.open(map, this);
         
-        // infowindow.classList.add('testclass');
-        // let bubble = document.querySelector('testclass');
-        // bubble.addEventListener('click', test);
-        // showResult(place)
     });
     google.maps.event.addListener(marker, 'mouseout', function() {
         console.log(place.name);
         infowindow.close()
-
     });
     google.maps.event.addListener(marker, 'click', function() {
         makeBrewery(place, photoURL);
         showCard(resultDiv)
-
     });
 }
 
