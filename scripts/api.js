@@ -316,6 +316,7 @@ function createMarker(place, photoURL) {
     google.maps.event.addListener(marker, 'click', function() {
         // console.log(brewery);
         makeBrewery(place, photoURL);
+        getWeather();
         showCard(resultDiv)
 
     });
@@ -522,3 +523,33 @@ function makeBrewery(brewInfo, photoURL) {
 /////////////////////////
 // Testing Environment //
 /////////////////////////
+
+
+function getIcon(obj) {
+    return obj.weather[0].icon;
+}
+
+function weatherPic (get) {
+    let imgTag = document.createElement('img');
+    imgTag.classList.add('weatherpng');
+    imgTag.setAttribute('src', `http://openweathermap.org/img/w/${get}.png`);
+    return imgTag;
+}
+
+
+function getWeather() {
+    let theWeather;
+    // const url = `https://api.openweathermap.org/data/2.5/weather?lat=${}&lon=${}&appid=1efd23d575e7f6ab1b69c24ba772d747`;
+    const url = 'https://api.openweathermap.org/data/2.5/weather?lat=34.3453454&lon=-84.4343&appid=1efd23d575e7f6ab1b69c24ba772d747';
+
+    fetch(url)
+    .then(function(response) { 
+        return response.json() 
+    })
+    .then(function(weatherData) { 
+        console.log(weatherData);
+        theWeather = weatherData;
+        weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
+    });
+}
+
