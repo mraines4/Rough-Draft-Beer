@@ -200,7 +200,8 @@ function giveApiInfo() {
     searchDiv.classList.add('hidden');
     runningDiv.classList.remove('hidden');
 
-    inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
+    inputToObject(currentCity.value, currentState.value, currentRadius.value)
+    .then(function (result){
                     /////////////////
                     // Cheat Sheet //
                     /////////////////

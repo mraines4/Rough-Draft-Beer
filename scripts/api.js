@@ -190,21 +190,19 @@ function geoApi(city,state){
 ///////////////////////
 // function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters) { //*** needs to be passed an array of brewery names
 function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles) { //*** needs to be passed an array of brewery names
-    // debugger;
     let radius = radiusMiles;
-    // let radius = radiusMeters;
-    console.log(arrayOfStateBreweriesObjects);
-    console.log(radius);
     let lat = localCoordinatesObjects["lat"];
     let lng = localCoordinatesObjects["lng"];
     let userLocation = new google.maps.LatLng(lat, lng); //*** going to need to geolocate user
 
     infowindow = new google.maps.InfoWindow();
     let zoomValue = 0;
+    console.log(`zoom value: ${zoomValue}`);
+    radius = parseInt(radius);
     if (radius === 50){
         zoomValue = 9.6;
     }
-    else if (radius === 40){ // BROKEN ???
+    else if (radius === 40){
         zoomValue = 9.85;
     }
     else if (radius === 30){
@@ -215,10 +213,8 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
     }
     else if (radius === 10){
         zoomValue = 11.97;
-    }
 
-    console.log(`ZOOM VALUE: ${zoomValue}`);
-    // debugger;
+    }
 
 
     map = new google.maps.Map(
@@ -233,10 +229,10 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
     );
     arrayOfStateBreweriesObjects.forEach(function (brewery){ //*** should iterate over each Brewery Name to create a marker and add it to the map
         let name = brewery.name;
-        console.log(name);
-        console.log(radius);
-        console.log(lat);
-        console.log(lng);
+        // console.log(name);
+        // console.log(radius);
+        // console.log(lat);
+        // console.log(lng);
         return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
         .then(function (response){
             return response.json();
