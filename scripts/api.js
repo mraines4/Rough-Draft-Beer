@@ -247,12 +247,14 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
                 console.log(response);
                 let placeID;
                 // debugger;
-                if (response.candidates.length < 1){
-                    placeID = "ChIJ61IfWmT99IgRwH3hzwm8cug"; // need a better way of handling this besides hardcoding an Atlanta brewery
-                }
-                else{
-                    placeID = (response["candidates"][0]["place_id"]);
-                }
+                    if (response.candidates.length < 1){
+                        // placeID = "ChIJ61IfWmT99IgRwH3hzwm8cug"; // need a better way of handling this besides hardcoding an Atlanta brewery
+                        throw new Error("Owwie");
+
+                    }
+                    else{
+                        placeID = (response["candidates"][0]["place_id"]);
+                    }
                 return placeID;
             })
             .then(function (placeID){
@@ -272,22 +274,45 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
                 result = results.result;
                 initMapPart3(initMapPart2(result))
             })
+            .catch(function (error){
+                console.log("There was no Place_ID");
+                console.log(error);
+                // debugger;
+            })
         }
     })
 }
 
 function initMapPart2(eachBrewery){
+    console.log(eachBrewery);
+    if (eachBrewery.photos){
         let photoURL = eachBrewery.photos[0].photo_reference;
         let breweryPhotoURLArray = [photoURL,eachBrewery];
         return breweryPhotoURLArray;
     }
-    
-    function initMapPart3(breweryPhotoURLArray){
-    let photoURL = breweryPhotoURLArray[0];
-    let brewery1 = breweryPhotoURLArray[1];
-    let photoURL1 = `http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
-    createMarker(brewery1, photoURL1);
-    showCard(mapDiv)
+    else{
+        return;
+    }
+}
+
+function initMapPart3(breweryPhotoURLArray){
+    let brewery1;
+    let photoURL1;
+    if (breweryPhotoURLArray){
+        let photoURL = breweryPhotoURLArray[0];
+        brewery1 = breweryPhotoURLArray[1];
+        photoURL1 = `http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
+    }
+    else{
+        console.log("No photo");
+    }
+    if (brewery1 === undefined){
+        console.log("Didn't find what you were looking for.");
+    }
+    else{
+        createMarker(brewery1, photoURL1);
+        showCard(mapDiv)
+    }
 }
 
 
@@ -300,7 +325,6 @@ function createMarker(place, photoURL) {
         position: place.geometry.location,
         icon: '../img/Beermap.png'
     });
-
     google.maps.event.addListener(marker, 'mouseover', function() {
         infowindow.setContent(`<strong>${place.name}</strong>`);
         infowindow.open(map, this);
@@ -310,6 +334,12 @@ function createMarker(place, photoURL) {
         console.log(place.name);
         infowindow.close()
     });
+    if (photoURL){
+        console.log("we good");
+    }
+    else{
+        photoURL = "";
+    }
     google.maps.event.addListener(marker, 'click', function() {
         makeBrewery(place, photoURL);
         showCard(resultDiv)
@@ -503,7 +533,13 @@ function makeBrewery(brewInfo, photoURL) {
     // weatherIcon.setAttribute('src', `https://openweathermap.org/img/w/${brewInfo.weather.icon}.png`);
     // console.log(brewInfo.geometry.location.lat);
     getWeather(brewInfo.geometry.location.lat, brewInfo.geometry.location.lng)
-    breweryPicture.setAttribute('src', photoURL);
+    if (photoURL){
+        breweryPicture.setAttribute('src', photoURL);
+    }
+    else{
+        debugger;
+        breweryPicture.setAttribute('src', `./../img/nopicturebeer.jpg`);
+    }
     // debugger;
     breweryName.textContent = brewInfo.name;
     breweryPhone.textContent = brewInfo.formatted_phone_number;
