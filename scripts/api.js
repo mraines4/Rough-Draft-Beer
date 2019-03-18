@@ -188,29 +188,51 @@ function geoApi(city,state){
 ///////////////////////
 // GOOGLE API BEGINS //
 ///////////////////////
-function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters) { //*** needs to be passed an array of brewery names
-    // debugger;
-    let radius = radiusMeters;
-    console.log(arrayOfStateBreweriesObjects);
-    console.log(radiusMeters);
+// function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters) { //*** needs to be passed an array of brewery names
+function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles) { //*** needs to be passed an array of brewery names
+    let radius = radiusMiles;
     let lat = localCoordinatesObjects["lat"];
     let lng = localCoordinatesObjects["lng"];
     let userLocation = new google.maps.LatLng(lat, lng); //*** going to need to geolocate user
 
     infowindow = new google.maps.InfoWindow();
+    let zoomValue = 0;
+    console.log(`zoom value: ${zoomValue}`);
+    radius = parseInt(radius);
+    if (radius === 50){
+        zoomValue = 9.6;
+    }
+    else if (radius === 40){
+        zoomValue = 9.85;
+    }
+    else if (radius === 30){
+        zoomValue = 10.35;
+    }
+    else if (radius === 20){
+        zoomValue = 10.9;
+    }
+    else if (radius === 10){
+        zoomValue = 11.97;
+
+    }
+
 
     map = new google.maps.Map(
         document.getElementById('map'), {
             center: userLocation, 
-            zoom: 10 // should be based on radius setting
+            
+            // zoom 10:38 miles, zoom 9:76 miles, zoom 8: ~150miles, zoom 1:23000miles
+            zoom : zoomValue 
+
+            // zoom: 1 // should be based on radius setting
         }
     );
     arrayOfStateBreweriesObjects.forEach(function (brewery){ //*** should iterate over each Brewery Name to create a marker and add it to the map
         let name = brewery.name;
-        console.log(name);
-        console.log(radius);
-        console.log(lat);
-        console.log(lng);
+        // console.log(name);
+        // console.log(radius);
+        // console.log(lat);
+        // console.log(lng);
         return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
         .then(function (response){
             return response.json();
@@ -253,9 +275,12 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMe
             // console.log(photoURLPromise);
             // debugger;
             createMarker(brewery1, photoURL1);
+            showCard(mapDiv)
             // return [photoURL, brewery1];
             // return Promise.all([photoURL, brewery1]);
-        })
+        });//.then(function () {
+            //showCard(mapDiv);});
+
         // .then(function (photoURLBreweryArray){
         //     let photoURLPreJSON = (photoURLBreweryArray[0]);
         //     console.log(photoURLPreJSON);
@@ -278,6 +303,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMe
                     // }
                     // map.setCenter(results[0].geometry.location);
         
+        
         });
     }
 //     )
@@ -292,9 +318,9 @@ function createMarker(place, photoURL) {
         position: place.geometry.location,
         icon: '../img/Beermap.png'
     });
+    // showCard(mapDiv);
     
     google.maps.event.addListener(marker, 'mouseover', function() {
-        console.log(place);
         infowindow.setContent(`<strong>${place.name}</strong>`);
         infowindow.open(map, this);
         
@@ -309,9 +335,9 @@ function createMarker(place, photoURL) {
 
     });
     google.maps.event.addListener(marker, 'click', function() {
-        // console.log(brewery);
         makeBrewery(place, photoURL);
-        showResult(place)
+        showCard(resultDiv)
+
     });
 }
 
@@ -345,9 +371,11 @@ async function inputToObject(city = "userLocation", state = "Georgia", radius = 
     const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
     let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
     let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
-    let radiusMeters = radius * 1609.34;
+    // let radiusMeters = radius * 1609.34;
+    let radiusMiles = radius;
 
-    return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMeters];
+    // return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMeters];
+    return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
     // // arrayOfStateBreweriesObjects.forEach(function (breweries){
     // //     // do a thing
     // // });
@@ -496,8 +524,10 @@ function makeBrewery(brewInfo, photoURL) {
     // runningDiv.classList.add('hidden');
     // mapDiv.classList.remove('hidden');
 
-    
 
+    // weatherIcon.setAttribute('src', `https://openweathermap.org/img/w/${brewInfo.weather.icon}.png`);
+    // console.log(brewInfo.geometry.location.lat);
+    getWeather(brewInfo.geometry.location.lat, brewInfo.geometry.location.lng)
     breweryPicture.setAttribute('src', photoURL);
     // debugger;
     breweryName.textContent = brewInfo.name;
@@ -507,16 +537,47 @@ function makeBrewery(brewInfo, photoURL) {
     breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
     breweryWebsite.textContent = brewInfo.website;
     breweryWebsite.setAttribute('href', brewInfo.website);
-    breweryReview.setAttribute('src', `./../img/${brewInfo.rating}pint.png`);
+    breweryReview.setAttribute('src', `./../img/${roundToHalfNumber(brewInfo.rating)}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
     // breweryDistance.textContent = `${brewInfo[1]} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
+
 }
 
-function showResult() {
-    mapDiv.classList.add('hidden');
-    resultDiv.classList.remove('hidden');
-}
 
 /////////////////////////
 // Testing Environment //
 /////////////////////////
+
+
+function getIcon(obj) {
+    return obj.weather[0].icon;
+}
+
+function weatherPic (get) {
+    let imgTag = document.createElement('img');
+    imgTag.classList.add('weatherpng');
+    imgTag.setAttribute('src', `http://openweathermap.org/img/w/${get}.png`);
+    return imgTag;
+}
+
+
+function getWeather(lat, long) {
+    let theWeather;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=1efd23d575e7f6ab1b69c24ba772d747`;
+    // console.log(lat, long);
+    // console.log(url)
+
+    // const url = 'https://api.openweathermap.org/data/2.5/weather?lat=34.3453454&lon=-84.4343&appid=1efd23d575e7f6ab1b69c24ba772d747';
+
+    fetch(url)
+    .then(function(response) { 
+        return response.json() 
+    })
+    .then(function(weatherData) { 
+        // console.log(weatherData);
+        theWeather = weatherData;
+        weatherIcon.textContent = '';
+        weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
+    });
+}
+
