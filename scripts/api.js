@@ -591,7 +591,7 @@ function getWeather(lat, long) {
     .then(function(weatherData) { 
         // console.log(weatherData);
         theWeather = weatherData;
-        weatherIcon.textContent = '';
+        weatherIcon.textContent = 'Weather:';
         weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
     });
 }
