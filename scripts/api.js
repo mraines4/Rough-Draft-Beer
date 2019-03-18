@@ -270,9 +270,9 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMe
             
         //     return;
         // })
-            console.log(photoURL);
-            let brewery1 = photoURLBreweryArray[1];
-            createMarker(brewery1, photoURL);
+            // console.log(photoURL);
+            // let brewery1 = photoURLBreweryArray[1];
+            // createMarker(brewery1, photoURL);
         // })
             // debugger;
                     // }
