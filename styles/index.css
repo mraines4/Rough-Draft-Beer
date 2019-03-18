@@ -276,11 +276,24 @@ select:hover  {
   grid-row-start:2;
   grid-row-end:3;
 }
+.bottomleft {
+  grid-column-start: 2;
+  grid-column-end:3;
+  grid-row-start:4;
+  grid-row-end:5;
+}
 .topright {
   grid-column-start: 4;
   grid-column-end:5;
   grid-row-start:2;
   grid-row-end:3;
+}
+.bottomright {
+  grid-column-start: 4;
+  grid-column-end:5;
+  grid-row-start:4;
+  grid-row-end:5;
+
 }
 .bottom {
   grid-column-start: 2;
@@ -288,7 +301,13 @@ select:hover  {
   grid-row-start:4;
   grid-row-end:5;
   text-align: center;
-
+}
+.topspan {
+  grid-column-start: 2;
+  grid-column-end:5;
+  grid-row-start:2;
+  grid-row-end:3;
+  text-align: center;
 }
 
 .gobutton {
