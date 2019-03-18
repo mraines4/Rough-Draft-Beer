@@ -191,15 +191,12 @@ function geoApi(city,state){
 function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters) { //*** needs to be passed an array of brewery names
     // debugger;
     let radius = radiusMeters;
-    console.log("Hi mom");
     console.log(arrayOfStateBreweriesObjects);
     console.log(radiusMeters);
     let lat = localCoordinatesObjects["lat"];
     let lng = localCoordinatesObjects["lng"];
     let userLocation = new google.maps.LatLng(lat, lng); //*** going to need to geolocate user
 
-// https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}
-    // returns result["candidates"][0]["place_id"] to get place_id
     infowindow = new google.maps.InfoWindow();
 
     map = new google.maps.Map(
@@ -208,17 +205,14 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMe
             zoom: 10 // should be based on radius setting
         }
     );
-    // console.log(breweryName[0]);
     arrayOfStateBreweriesObjects.forEach(function (brewery){ //*** should iterate over each Brewery Name to create a marker and add it to the map
         let name = brewery.name;
         console.log(name);
         console.log(radius);
         console.log(lat);
         console.log(lng);
-        // debugger;
         return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
         .then(function (response){
-            // console.log(response.json());
             return response.json();
         })
         .then(function (response){
@@ -226,7 +220,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMe
             let placeID;
             // debugger;
             if (response.candidates.length < 1){
-                placeID = "ChIJ61IfWmT99IgRwH3hzwm8cug";
+                placeID = "ChIJ61IfWmT99IgRwH3hzwm8cug"; // need a better way of handling this besides hardcoding an Atlanta brewery
             }
             else{
                 placeID = (response["candidates"][0]["place_id"]);
@@ -505,7 +499,7 @@ function makeBrewery(brewInfo, photoURL) {
     
 
     breweryPicture.setAttribute('src', photoURL);
-    debugger;
+    // debugger;
     breweryName.textContent = brewInfo.name;
     breweryPhone.textContent = brewInfo.formatted_phone_number;
     // breweryAddress.textContent = `${brewInfo.location.address1}\n\r${brewInfo.location.city}, ${brewInfo.location.state} ${brewInfo.location.zip_code}`;
@@ -515,7 +509,7 @@ function makeBrewery(brewInfo, photoURL) {
     breweryWebsite.setAttribute('href', brewInfo.website);
     breweryReview.setAttribute('src', `./../img/${brewInfo.rating}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
-    // breweryDistance.textContent = `${brewInfo[1]} miles away`;
+    // breweryDistance.textContent = `${brewInfo[1]} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
 }
 
 function showResult() {
@@ -526,37 +520,3 @@ function showResult() {
 /////////////////////////
 // Testing Environment //
 /////////////////////////
-
-
-
-
-
-
-
-
-// function giveApiInfo() {
-//     // console.log(currentCity.value)
-//     // console.log(currentState.value)
-//     // console.log(currentRadius.value)
-
-//     //// unhide when divs are updated!!!
-//     searchDiv.classList.add('hidden');
-//     runningDiv.classList.remove('hidden');
-
-//     inputToObject(currentCity.value, currentState.value, currentRadius.value).then(function (result){
-//                     /////////////////
-//                     // Cheat Sheet //
-//                     /////////////////
-//         // result[0] is the yelpObject about the brewery
-//         // result[1] is the user distance from the brewery
-//         // result[2] is the brewery website
-//         makeBrewery(result);
-//         let map;
-//         let service;
-//         let infoWindow;
-//         // let breweryName = [result[0].name,"Max Lager's Wood-Fired Grill & Brewery"];
-//         let breweryName = ["Max Lager's Wood-Fired Grill & Brewery"];
-//         console.log(breweryName);
-//         // debugger;
-//         initMap(breweryName);
-//     });
