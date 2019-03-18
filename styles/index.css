@@ -29,6 +29,12 @@ h1 {
   text-align: center;
   color : #FFC24F;
 }
+
+h3 {
+  text-align: right;
+  /* color : #FFC24F; */
+  font-size: 4vh;
+}
 .titlename {
   float: left;
   position: absolute;
@@ -69,9 +75,6 @@ h1 {
   position: absolute;
   top: 100%;
   left:100%;
-  /* bottom:0px;
-  right:0px; */
-  /* transform: translate(0%,29%); */
   transform: translate(-100%,-100%);
   z-index:1;
   width:100%;
@@ -101,8 +104,8 @@ h1 {
   transform: translate(-100%,-100%);
 
 }
-/*the word */
-.aboutorsearch {
+/*the words */
+.aboutorsearch   {
   float:right;
   position: absolute;
 
@@ -112,10 +115,9 @@ h1 {
 
   bottom:0%;
   right: 7%;
-  font-size: 48px;
+  /* font-size: 12px; */
   color: #377872;
   font-weight: bold;
-  position: absolute;
   transform: rotatez(-7deg);
 }
 
@@ -485,8 +487,9 @@ and (min-device-width: 800px) {
   .aboutinfo {
     font-size:5vh;
   }
-  .title, .aboutorsearch {
+  .title  {
     font-size: 8vh;
+    padding-left:16px;
   }
   #map {
     width:79vh;
