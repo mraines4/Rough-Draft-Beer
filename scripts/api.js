@@ -321,7 +321,7 @@ function createMarker(place, photoURL) {
     // showCard(mapDiv);
     
     google.maps.event.addListener(marker, 'mouseover', function() {
-        infowindow.setContent(`<strong>${place.name}</strong>`);
+        infowindow.setContent(`<b>${place.name}</b>`);
         infowindow.open(map, this);
         
         // infowindow.classList.add('testclass');
@@ -532,10 +532,9 @@ function makeBrewery(brewInfo, photoURL) {
     // debugger;
     breweryName.textContent = brewInfo.name;
     breweryPhone.textContent = brewInfo.formatted_phone_number;
-    // breweryAddress.textContent = `${brewInfo.location.address1}\n\r${brewInfo.location.city}, ${brewInfo.location.state} ${brewInfo.location.zip_code}`;
+    // breweryAddress.textContent = `${brewInfo.address_components[0].short_name} ${brewInfo.address_components[1].short_name}\n\r${brewInfo.address_components[2].short_name}, ${brewInfo.address_components[5].short_name} ${brewInfo.address_components[7].short_name}`;
     breweryAddress.textContent = brewInfo.formatted_address;
-    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${breweryAddress.textContent}`)
-    breweryWebsite.textContent = brewInfo.website;
+    breweryAddress.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${brewInfo.formatted_address}`)
     breweryWebsite.setAttribute('href', brewInfo.website);
     breweryReview.setAttribute('src', `./../img/${roundToHalfNumber(brewInfo.rating)}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
@@ -543,6 +542,11 @@ function makeBrewery(brewInfo, photoURL) {
 
 }
 
+// brewInfo.address_components[0].short_name //number
+// brewInfo.address_components[1].short_name //street
+// brewInfo.address_components[2].short_name //city
+// brewInfo.address_components[5].short_name //state
+// brewInfo.address_components[6].short_name //zip
 
 /////////////////////////
 // Testing Environment //
