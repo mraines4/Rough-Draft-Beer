@@ -169,7 +169,7 @@ h3 {
   position: absolute;
   top: 0;
 }
-.cardbackgroundpic img{
+.cardbackgroundpic > img {
   /* position: absolute; */
   /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
   /* background-repeat: no-repeat; */
@@ -314,15 +314,20 @@ select:hover  {
   position: absolute;
   bottom:25%;
   right:25%;
-  font-size: 25px;
   border: 2px solid brown;
   float:right;
-  padding:10px;
+  padding:1%;
   border-radius: 5px;
   /* position: absolute;
   right: 10%; */
-  
+    background-color:transparent;
+    font-size: 5vw;
 }
+.gobutton > img {
+  width: 5vw;
+}
+
+
 .aboutinfo {
   position: absolute;
   top:0;
@@ -524,7 +529,10 @@ and (min-device-width: 800px) {
   }
   #map {
     width:79vh;
-  
+ }
+ .gobutton {
+  font-size: 5vw;
+
  }
 }
  /* Portrait styles */
@@ -567,6 +575,11 @@ and (min-device-width: 800px) {
 #map {
   width:79vh;
 }
+.gobutton {
+  font-size: 5vh;
+
+ }
+
 
 
 }
