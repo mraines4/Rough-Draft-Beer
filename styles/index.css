@@ -264,9 +264,10 @@ h3 {
     left: 2%;
 
   }
+  /* default for portrait  - mobile */
   .inputfields {
-    top: 12%;
-    left: 12%;
+    top: 9vw;
+    left: 7vw;
 
   }
 
@@ -631,7 +632,9 @@ and (min-device-width: 800px) {
 .currentweathericon > img {
   height: 6vw;
 }
-
+.gobutton > img {
+  width: 5vw;
+}
 
 }
 
@@ -662,8 +665,10 @@ and (min-device-width: 800px) {
 }
 .gobutton {
   font-size: 5vh;
-
  }
+ .gobutton > img {
+  width: 5vh;
+}
  .inputfields , .displaydata {
   font-size: 4.3vh;
 
@@ -678,6 +683,11 @@ and (min-device-width: 800px) {
 }
 .currentweathericon > img {
   height: 6vh;
+}
+.inputfields {
+  top: 9vh;
+  left: 7vh;
+
 }
 
 
@@ -703,110 +713,3 @@ and (min-device-width: 800px) {
      } 
 }
 
-/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
-
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2) { 
-
-}
-
-/* Portrait */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) { 
-
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 375px) 
-  and (max-device-width: 667px) 
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) { 
-    /* .maincontainer {
-      top:50px;
-    } */
-}
-
-/* ----------- iPhone 6+, 7+ and 8+ ----------- */
-
-/* Portrait and Landscape */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3) { 
-
-}
-
-/* Portrait */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: portrait) { 
-
-}
-
-/* Landscape */
-@media only screen 
-  and (min-device-width: 414px) 
-  and (max-device-width: 736px) 
-  and (-webkit-min-device-pixel-ratio: 3)
-  and (orientation: landscape) { 
-    /* .maincontainer {
-      top:50px;
-    } */
-
-
-}
-
-/* old stuff for video */
-
-/* video { */
-  /* object-fit: fill; */
-/* } */
-      /* .background-wrapper .full-width-background {
-        background-color: #252525;
-        left: 50%;
-        overflow: hidden;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%,-50%);
-        -ms-transform: translate(-50%,-50%);
-        -webkit-transform: translate(-50%,-50%);
-        transition: none; */
-        /* width: 1200px; */
-        /* object-fit: cover; */
-        /* height: 700px; */
-        /* z-index: -1; */
-      /* } */
-      
-      /* .full-width-background { */
-        /* width:100%;
-        height:100%; */
-        /* min-height: 100vh; */
-        /* overflow: hidden; */
-      /* } */
-      
-      /* .full-width-background video { */
-        /* position: relative; */
-        /* min-width: 100vw; */
-        /* use this for full screen */
-        /* min-height: 120vh; */
-        
-        /* we have to do this for iphones and devices!!! */
-        /* min-height:2200px; */
-        /* overflow: hidden;    */
-        
-        /* width:100% */
-        /* top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%); */
-        /* opacity: 50%; */
-        /* object-fit: cover;     */
-      /* } */
