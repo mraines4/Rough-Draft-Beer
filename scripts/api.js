@@ -335,61 +335,6 @@ async function inputToObject(city = "userLocation", state = "Georgia", radius = 
     let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
     let radiusMiles = radius; //* 1609.34 if you want convert to meters for whatever reason;
     return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
-    
-    // let breweriesDistanceFromCityArray = [];
-    // arrayOfStateBreweriesObjects.forEach(function (brewery) {
-    //     const lat1 = parseFloat(localCoordinatesObjects.lat); // start setting selected city/state's lat and lng
-    //     const lng1 = parseFloat(localCoordinatesObjects.lng);
-    //     // const lat1 = 33.8426621;
-    //     // const lng1 = -84.3731155;
-    //     if (brewery["latitude"]) { // check that they have supplied values for lat/long
-    //         let lat2 = brewery["latitude"];
-    //         let lng2 = brewery["longitude"];
-    //         breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, lat2, lng2))]);
-    //     }
-    //     else { // uh oh, product nearby lat/long by passing the brewery city/state to OpenCage API!
-    //         // let breweryCity = brewery["city"];
-    //         // let breweryState = brewery["state"];
-    //         // geoApi(breweryCity, breweryState) // getting the brewery's lat/long given their city,state
-    //         //     .then(function (breweryCoordinatesObject) {
-    //         //         let lat2 = breweryCoordinatesObject["lat"];
-    //         //         let lng2 = breweryCoordinatesObject["lng"];
-    //         //         breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, lat2, lng2))]);
-    //         //     });
-    //         breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, 33.8486621, -84.3731155))]);
-    //     }
-    // });
-    // // BEGIN FILTERING BY RADIUS
-    // let localBreweries = breweriesDistanceFromCityArray.filter(function (brewery) {
-    //     return brewery[1] <= radius; // compare them to the inputted radius
-    // });
-    // // CREATE AN ARRAY OF ONLY THE NAMES OF LOCAL BREWERIES
-    // let localBreweriesNamesOnlyArray = [];
-    // localBreweries.forEach(function (brewery) {
-    //     localBreweriesNamesOnlyArray.push(brewery[0]);
-    // });
-    // // COMPARE THE NEARBY BREWERIES AGAINST ALL THE BREWERIES IN THE STATE
-    // let localBreweriesArrayofObjects = [];
-    // arrayOfStateBreweriesObjects.forEach(function (breweryObject) {
-    //     if (localBreweriesNamesOnlyArray.includes(breweryObject["name"])) {
-    //         localBreweriesArrayofObjects.push(breweryObject); // array of brewery objects with all their data
-    //     }
-    // });
-    // const localBreweriesArrayofObjects_1 = localBreweriesArrayofObjects;
-    // const randomBreweryObject = (radiusBreweryRandomizer(localBreweriesArrayofObjects_1));
-    // const phone = breweryPhoneNumber(randomBreweryObject);
-    // const yelpInfo = await yelpAPI(phone);
-    // // now we do math to give the resultsArray[1] the distance between the user and the brewery
-    // // const lat1 = parseFloat(localCoordinatesObjects.lat); // start setting selected city/state's lat and lng
-    // // const lng1 = parseFloat(localCoordinatesObjects.lng);
-    // const lat1 = 33.8426621;
-    // const lng1 = -84.3731155;
-    // let lat2 = (yelpInfo.coordinates.latitude);
-    // let lng2 = (yelpInfo.coordinates.longitude);
-    // let distanceFromUserToBrewery = (haversine(lat1, lng1, lat2, lng2));
-    // const breweryWebsite = randomBreweryObject.website_url;
-    // let resultsArray = [yelpInfo, distanceFromUserToBrewery, breweryWebsite];
-    // return resultsArray;
 }
 
 function haversine(lat1, lng1, lat2, lng2){
@@ -525,7 +470,7 @@ function autopopulateLocation(){
         .then(function (cityState){
             cityState;
             const city = cityState[0];
-            const state = cityState[1];// run a Google Places search
+            const state = cityState[1];
             breweryAPI(state)
             .then(function (result){
             result.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
@@ -533,10 +478,6 @@ function autopopulateLocation(){
                 let results;
                 if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
                     console.log("already in storage");
-                    // googleBreweryData = JSON.parse(localStorage.getItem(name));
-                    // results =  googleBreweryData;
-                    // result = results.result;
-                    // initMapPart3(initMapPart2(result, localCoordinatesObjects))
                 }
                 else{ // Generate the promise chain and then store the brewerie's info
                     console.log(`Storing ${name} in storage`);
@@ -564,34 +505,15 @@ function autopopulateLocation(){
                     })
                     .then(function (data){
                         localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
-                        // return data;
                     })
                     .catch(function (error){
                         console.log("There was no Place_ID");
                         console.log(error);
-                    })
-                    // .then(function (response){
-                    //     console.log(response);
-                    //     console.log("PROMISE CHAIN ENACTED, GIRD YOUR LOINS");
-                    //     results = response;
-                    //     result = results.result;
-                    //     initMapPart3(initMapPart2(result, localCoordinatesObjects))
-                    // })
-                    // .catch(function (error){
-                    //     console.log("There was no Place_ID");
-                    //     console.log(error);
-                    // })
-                    ;
+                    });
                 }
             })
             })
-            // const defualtState = document.querySelector('selected')
-            // defualtState.textContent = 'selected!!!!';
-            // const currentState = document.querySelector('[data-inputstate]')
-            // currentState.setAttribute('value', state);
-            // currentState.setAttribute('selected', "");
-            // currentState.textContent = state;
-            // currentCity.appendChild(option);
+
         })
     });
     }
