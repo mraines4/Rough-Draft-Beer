@@ -549,6 +549,9 @@ justify-content: space-around;
 
 }
 
+.breweryreview > img {
+  height: 6vw;
+}
 @media only screen 
 and (max-device-width: 600px) {
   .aboutsearchdiv {
@@ -586,8 +589,11 @@ and (min-device-width: 800px) {
  }
  .gobutton {
   font-size: 5vw;
-
  }
+ .breweryreview > img {
+  height: 6vh;
+}
+
 }
  /* Portrait styles */
  @media screen and (orientation:portrait) {
@@ -612,6 +618,10 @@ and (min-device-width: 800px) {
   width:60vw;
   height:60vw; 
 }
+.breweryreview > img {
+  height: 6vw;
+}
+
 }
 
   .search, .result, .running , .mapall{  
@@ -652,6 +662,9 @@ and (min-device-width: 800px) {
   height:60vh; 
 }
 
+.breweryreview > img {
+  height: 6vh;
+}
 
 
 }
