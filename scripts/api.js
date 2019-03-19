@@ -113,32 +113,12 @@ function getRidOfDumbCharacters(breweriesArray){
     return normalBreweryNames;
 }
 
-/////////////////////
-// YELP API BEGINS //
-/////////////////////
-function yelpAPI(phone){
-    return fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
-    .then(function (response){
-        let result = response.json(); // split this line up so it'd be easier to debug by console log
-        return result; // workable data
-    })
-    .catch(function (error){
-        console.log('ERROR'); // possible landing site for new function
-    })
-    .then(function (data){
-        // console.log(data); // sanity checks
-        // console.log('that was the data');
-        return data;
-    });
-}
-
 /////////////////////////
 // OPENCAGE API BEGINS //
 /////////////////////////
 function geoApi(city,state){
     geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan1
     // geoKey = '9d9748a20c404012b1f456f51a28720b'; //jonathan2
-    // geoKey = 'b575d8c9334048dc86f37eefb94833f4'; //jonathan3
     // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
     // geoKey = '1e1a5ca33b17441e848d7f47354a2236'; //margaret
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
@@ -219,6 +199,14 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) 
             })
             .then(function (response){
                 return response.json();
+            })
+            .then(function (response){
+                if (response.permanently_closed === true){
+                    throw new Error("Too bad, this brewery is permanently closed!");
+                }
+                else{
+                    return response;
+                }
             })
             .then(function (data){
                 localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
@@ -323,120 +311,6 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
     });
 }
 
-
-////////////////////
-// MISC FUNCTIONS //
-////////////////////
-async function inputToObject(city = "userLocation", state = "Georgia", radius = 50){ // default data
-    let userCoordinatesPromise = geoApi(city, state);
-    // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155}; // for avoiding buring OpenCage's API requests
-    let arrayOfStateBreweryObjectsPromise = breweryAPI(state); // fetches all the OpenBreweryDB's records for the state and filters them a bit
-    const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
-    let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
-    let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
-    let radiusMiles = radius; //* 1609.34 if you want convert to meters for whatever reason;
-    return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
-    
-    // let breweriesDistanceFromCityArray = [];
-    // arrayOfStateBreweriesObjects.forEach(function (brewery) {
-    //     const lat1 = parseFloat(localCoordinatesObjects.lat); // start setting selected city/state's lat and lng
-    //     const lng1 = parseFloat(localCoordinatesObjects.lng);
-    //     // const lat1 = 33.8426621;
-    //     // const lng1 = -84.3731155;
-    //     if (brewery["latitude"]) { // check that they have supplied values for lat/long
-    //         let lat2 = brewery["latitude"];
-    //         let lng2 = brewery["longitude"];
-    //         breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, lat2, lng2))]);
-    //     }
-    //     else { // uh oh, product nearby lat/long by passing the brewery city/state to OpenCage API!
-    //         // let breweryCity = brewery["city"];
-    //         // let breweryState = brewery["state"];
-    //         // geoApi(breweryCity, breweryState) // getting the brewery's lat/long given their city,state
-    //         //     .then(function (breweryCoordinatesObject) {
-    //         //         let lat2 = breweryCoordinatesObject["lat"];
-    //         //         let lng2 = breweryCoordinatesObject["lng"];
-    //         //         breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, lat2, lng2))]);
-    //         //     });
-    //         breweriesDistanceFromCityArray.push([brewery.name, (haversine(lat1, lng1, 33.8486621, -84.3731155))]);
-    //     }
-    // });
-    // // BEGIN FILTERING BY RADIUS
-    // let localBreweries = breweriesDistanceFromCityArray.filter(function (brewery) {
-    //     return brewery[1] <= radius; // compare them to the inputted radius
-    // });
-    // // CREATE AN ARRAY OF ONLY THE NAMES OF LOCAL BREWERIES
-    // let localBreweriesNamesOnlyArray = [];
-    // localBreweries.forEach(function (brewery) {
-    //     localBreweriesNamesOnlyArray.push(brewery[0]);
-    // });
-    // // COMPARE THE NEARBY BREWERIES AGAINST ALL THE BREWERIES IN THE STATE
-    // let localBreweriesArrayofObjects = [];
-    // arrayOfStateBreweriesObjects.forEach(function (breweryObject) {
-    //     if (localBreweriesNamesOnlyArray.includes(breweryObject["name"])) {
-    //         localBreweriesArrayofObjects.push(breweryObject); // array of brewery objects with all their data
-    //     }
-    // });
-    // const localBreweriesArrayofObjects_1 = localBreweriesArrayofObjects;
-    // const randomBreweryObject = (radiusBreweryRandomizer(localBreweriesArrayofObjects_1));
-    // const phone = breweryPhoneNumber(randomBreweryObject);
-    // const yelpInfo = await yelpAPI(phone);
-    // // now we do math to give the resultsArray[1] the distance between the user and the brewery
-    // // const lat1 = parseFloat(localCoordinatesObjects.lat); // start setting selected city/state's lat and lng
-    // // const lng1 = parseFloat(localCoordinatesObjects.lng);
-    // const lat1 = 33.8426621;
-    // const lng1 = -84.3731155;
-    // let lat2 = (yelpInfo.coordinates.latitude);
-    // let lng2 = (yelpInfo.coordinates.longitude);
-    // let distanceFromUserToBrewery = (haversine(lat1, lng1, lat2, lng2));
-    // const breweryWebsite = randomBreweryObject.website_url;
-    // let resultsArray = [yelpInfo, distanceFromUserToBrewery, breweryWebsite];
-    // return resultsArray;
-}
-
-function haversine(lat1, lng1, lat2, lng2){
-    Number.prototype.toRad = function() {
-        return this * Math.PI / 180;
-    };
-    const R = 6371; // km 
-    let x1 = lat2-lat1;
-    let dLat = x1.toRad();  
-    let x2 = lng2-lng1;
-    let dLon = x2.toRad();  
-    let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-    Math.cos(lat1.toRad()) * Math.cos(lat2* Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);  
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    let d = (R * c) * 0.62137; // convert to miles
-    return Math.round(d * 10) / 10;
-}
-
-function eventfind (e) {
-    console.log(e)
-}
-
-function getIcon(obj) {
-    return obj.weather[0].icon;
-}
-
-function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 1 phone number to query Yelp
-    let randomNumber = (parseInt(Math.random() * (localBreweries.length))); // get a random number from the length of the array
-    return localBreweries[randomNumber]; // set that random number as the index for the array for the breweries to return a single random brewery
-}
-
-function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
-    // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
-    // If you just got a Syntax or Type Error, don't worry.
-    // This is one of those cases where the database 
-    // didn't have a brewery that the critea and so it fails out
-    // We'll be putting in a Chili's fix soon.
-    if ((brewery.phone).length === 11){
-        return brewery.phone;
-    }
-    else{ 
-    return '1' + (brewery.phone);
-    }
-}
-
 ////////////////////////////////
 // DOM MANIPULATING FUNCTIONS //
 ////////////////////////////////
@@ -465,7 +339,6 @@ function weatherPic (get) {
     return imgTag;
 }
 
-
 function getWeather(lat, long) {
     let theWeather;
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=1efd23d575e7f6ab1b69c24ba772d747`;
@@ -481,7 +354,132 @@ function getWeather(lat, long) {
     });
 }
 
+function autopopulateLocation(){
+    if ("geolocation" in navigator) { // checks if user is sharing location
+    return navigator.geolocation.getCurrentPosition(function(position) {
+        let lat = position.coords.latitude;
+        let lng = position.coords.longitude;
+        geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan1
+        // geoKey = '9d9748a20c404012b1f456f51a28720b'; //jonathan2
+        // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
+        // geoKey = '1e1a5ca33b17441e848d7f47354a2236'; //margaret
+        const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?key=${geoKey}&q=${lat}%2C${lng}`;
+        return fetch(GEO_URL)
+        .then(function (response) {
+            return response.json();
+        })
+        .catch(function (error){
+            console.log(error);
+            return error;
+        })
+        .then(function (geoData) {
+            const city = geoData.results[0].components.city
+            const state = geoData.results[0].components.state
+            const cityState = [city, state];
+            return cityState;
+        })
+        .then(function (cityState){
+            cityState;
+            const city = cityState[0];
+            const state = cityState[1];
+            breweryAPI(state)
+            .then(function (result){
+            result.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
+                let name = brewery.name;
+                let results;
+                if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
+                    console.log("already in storage");
+                }
+                else{ // Generate the promise chain and then store the brewerie's info
+                    console.log(`Storing ${name} in storage`);
+                    return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=ipbias`)
+                    .then(function (response){
+                        return response.json();
+                    })
+                    .then(function (response){
+                        console.log(response);
+                        let placeID;
+                        // debugger;
+                            if (response.candidates.length < 1){
+                                throw new Error("Can't perform Place Details search on this brewery name, no results for name.");
+                            }
+                            else{
+                                placeID = (response["candidates"][0]["place_id"]);
+                            }
+                        return placeID;
+                    })
+                    .then(function (placeID){
+                        return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
+                    })
+                    .then(function (response){
+                        return response.json();
+                    })            
+                    .then(function (response){
+                        if (response.permanently_closed === true){
+                            throw new Error("Too bad, this brewery is permanently closed!");
+                        }
+                        else{
+                            return response;
+                        }
+                    })
+                    .then(function (data){
+                        localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
+                    })
+                    .catch(function (error){
+                        console.log("There was no Place_ID");
+                        console.log(error);
+                    });
+                }
+            })
+            })
 
+        })
+    });
+    }
+    else{
+        console.log(`https://www.youtube.com/watch?v=AubJS7oWaWo`);
+        console.log(`Alright then, keep your secrets! :) `);
+    }
+}
+
+////////////////////
+// MISC FUNCTIONS //
+////////////////////
+async function inputToObject(city = "userLocation", state = "Georgia", radius = 50){ // default data
+    let userCoordinatesPromise = geoApi(city, state);
+    // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155}; // for avoiding buring OpenCage's API requests
+    let arrayOfStateBreweryObjectsPromise = breweryAPI(state); // fetches all the OpenBreweryDB's records for the state and filters them a bit
+    const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
+    let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
+    let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
+    let radiusMiles = radius; //* 1609.34 if you want convert to meters for whatever reason;
+    return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
+}
+
+function haversine(lat1, lng1, lat2, lng2){ // for finding the distance between two sets of coordinates
+    Number.prototype.toRad = function() {
+        return this * Math.PI / 180;
+    };
+    const R = 6371; // km 
+    let x1 = lat2-lat1;
+    let dLat = x1.toRad();  
+    let x2 = lng2-lng1;
+    let dLon = x2.toRad();  
+    let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+    Math.cos(lat1.toRad()) * Math.cos(lat2* Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);  
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    let d = (R * c) * 0.62137; // convert to miles
+    return Math.round(d * 10) / 10;
+}
+
+function getIcon(obj) {
+    return obj.weather[0].icon;
+}
+
+///////////////////////
+// Unused Functions  //
+///////////////////////
 function showMeTheBreweryTypes(breweriesArray){ // quick optional function to look at the different types of breweries
     let breweryTypesArray =[];
     breweriesArray.forEach(function (eachBrewery){
@@ -495,8 +493,47 @@ function showMeTheBreweryTypes(breweriesArray){ // quick optional function to lo
     console.log(breweryTypesArray);
 }
 
+function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 1 phone number to query Yelp
+    let randomNumber = (parseInt(Math.random() * (localBreweries.length))); // get a random number from the length of the array
+    return localBreweries[randomNumber]; // set that random number as the index for the array for the breweries to return a single random brewery
+}
+
+function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
+    // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
+    // If you just got a Syntax or Type Error, don't worry.
+    // This is one of those cases where the database 
+    // didn't have a brewery that the critea and so it fails out
+    // We'll be putting in a Chili's fix soon.
+    if ((brewery.phone).length === 11){
+        return brewery.phone;
+    }
+    else{ 
+    return '1' + (brewery.phone);
+    }
+}
+
+function eventfind (e) {
+    console.log(e)
+}
+
+function yelpAPI(phone){ // Yelp API
+    return fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
+    .then(function (response){
+        let result = response.json(); // split this line up so it'd be easier to debug by console log
+        return result; // workable data
+    })
+    .catch(function (error){
+        console.log('ERROR'); // possible landing site for new function
+    })
+    .then(function (data){
+        // console.log(data); // sanity checks
+        // console.log('that was the data');
+        return data;
+    });
+}
+
 /////////////////////////
 // Testing Environment //
 /////////////////////////
-
+autopopulateLocation();
 
