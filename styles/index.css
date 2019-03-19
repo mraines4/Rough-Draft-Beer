@@ -264,9 +264,10 @@ h3 {
     left: 2%;
 
   }
+  /* default for portrait  - mobile */
   .inputfields {
-    top: 12%;
-    left: 12%;
+    top: 9vw;
+    left: 7vw;
 
   }
 
@@ -682,6 +683,11 @@ and (min-device-width: 800px) {
 }
 .currentweathericon > img {
   height: 6vh;
+}
+.inputfields {
+  top: 9vh;
+  left: 7vh;
+
 }
 
 
