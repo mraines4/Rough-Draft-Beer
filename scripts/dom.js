@@ -295,14 +295,14 @@ function goResearch() {
 // function weatherPic (get) {
 //     let imgTag = document.createElement('img');
 //     imgTag.classList.add('weatherpng');
-//     imgTag.setAttribute('src', `http://openweathermap.org/img/w/${get}.png`);
+//     imgTag.setAttribute('src', `https://openweathermap.org/img/w/${get}.png`);
 //     return imgTag;
 // }
 
 
 // function getWeather() {
 //     let theWeather;
-//     const url = 'https://http://api.openweathermap.org/data/2.5/weather?lat=34.04332&lon=-84.94324&appid=1efd23d575e7f6ab1b69c24ba772d747';
+//     const url = 'https://https://api.openweathermap.org/data/2.5/weather?lat=34.04332&lon=-84.94324&appid=1efd23d575e7f6ab1b69c24ba772d747';
 //     fetch(url)
 //     .then(function(response) { 
 //         return response.json() 

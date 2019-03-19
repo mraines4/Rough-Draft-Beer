@@ -240,7 +240,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) 
             initMapPart3(initMapPart2(result, localCoordinatesObjects))
         }
         else{ // Generate the promise chain and then store the brewery's info
-            return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
+            return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
             .then(function (response){
                 return response.json();
             })
@@ -256,7 +256,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) 
                 return placeID;
             })
             .then(function (placeID){
-                return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
+                return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
             })
             .then(function (response){
                 return response.json();
@@ -309,7 +309,7 @@ function initMapPart3(breweryPhotoURLArrayAndLocalCoordinatesObjectsArray){
     if (breweryPhotoURLArray){
         let photoURL = breweryPhotoURLArray[0];
         brewery1 = breweryPhotoURLArray[1];
-        photoURL1 = `http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
+        photoURL1 = `https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
     }
     else{
         console.log("No photo");
@@ -450,7 +450,7 @@ function autopopulateLocation(){
                     }
                 // Generate the promise chain and then store the brewerie's info
                     console.log(`Storing ${name} in storage`);
-                    return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=ipbias`)
+                    return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=ipbias`)
                     .then(function (response){
                         return response.json();
                     })
@@ -465,7 +465,7 @@ function autopopulateLocation(){
                         return placeID;
                     })
                     .then(function (placeID){
-                        return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
+                        return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
                     })
                     .then(function (response){
                         return response.json();
