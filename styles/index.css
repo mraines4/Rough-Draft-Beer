@@ -375,6 +375,7 @@ select:hover  {
   top:0;
   font-size:5vh;
   margin:15px;
+  padding:2vh;
 }
 .pictureframe {
   position:relative;
@@ -662,6 +663,9 @@ and (min-device-width: 800px) {
 }
 .back, .research, .about {
   font-size: 5vh;
+}
+.aboutinfo {
+  font-size:5vh;
 }
 
 #map {
