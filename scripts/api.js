@@ -106,8 +106,10 @@ function filterOutPlanners(breweriesArray){ // only open/operational breweries, 
 }
 
 function getRidOfDumbCharacters(breweriesArray){
+    let uglyA = String.fromCharCode(131);
+    let uglyO = String.fromCharCode(226);
     let normalBreweryNames = breweriesArray.filter(function (eachBrewery){
-        return (!(eachBrewery.name).includes("Anheuser-Busch Inc â Cartersville"));
+        return (!((eachBrewery.name).includes(uglyA)||(eachBrewery.name).includes(uglyO)));
     });
     return normalBreweryNames;
 }
@@ -182,7 +184,6 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) 
                 return response.json();
             })
             .then(function (response){
-                console.log(response);
                 let placeID;
                 // debugger;
                     if (response.candidates.length < 1){
