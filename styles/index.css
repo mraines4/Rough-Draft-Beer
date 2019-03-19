@@ -526,6 +526,8 @@ justify-content: space-around;
   left: 50% !important;;
   transform: translate(-50%,-50%) !important;; 
   object-fit: contain;
+  border-radius: 10px;
+
 
 }
 /* you have to overwrite all of googles inline styling */
