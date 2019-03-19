@@ -552,6 +552,10 @@ justify-content: space-around;
 .breweryreview > img {
   height: 6vw;
 }
+.currentweathericon > img {
+  height: 6vh;
+}
+
 @media only screen 
 and (max-device-width: 600px) {
   .aboutsearchdiv {
@@ -593,6 +597,9 @@ and (min-device-width: 800px) {
  .breweryreview > img {
   height: 6vh;
 }
+.currentweathericon > img {
+  height: 6vh;
+}
 
 }
  /* Portrait styles */
@@ -621,6 +628,10 @@ and (min-device-width: 800px) {
 .breweryreview > img {
   height: 6vw;
 }
+.currentweathericon > img {
+  height: 6vw;
+}
+
 
 }
 
@@ -665,6 +676,10 @@ and (min-device-width: 800px) {
 .breweryreview > img {
   height: 6vh;
 }
+.currentweathericon > img {
+  height: 6vh;
+}
+
 
 
 }
