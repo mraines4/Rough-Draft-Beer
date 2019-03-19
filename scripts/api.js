@@ -41,9 +41,7 @@ function page4(state){
 async function breweryAPI(state){
     if (localStorage.getItem(state)) {
         breweryData = JSON.parse(localStorage.getItem(state));
-        // fill list of breweries
-        console.log("sending state brewery array from storage out now");
-        console.log(breweryData);
+        console.log("Sending state brewery array from storage out now.");
         return breweryData;
     }
     else { // data doesn't exist in local - get it from API
@@ -55,6 +53,7 @@ async function breweryAPI(state){
         let prom4 = page4(state);
         // // for whatever reason, timeouts below don't work
         // let prom2 = setTimeout(function (){
+        //     console.log("pagination process begun")
         //     page2(state);
         // }, 250);
         // let prom3 = setTimeout(function (){
@@ -177,7 +176,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) 
             result = results.result;
             initMapPart3(initMapPart2(result, localCoordinatesObjects))
         }
-        else{ // Generate the promise chain and then store the brewerie's info
+        else{ // Generate the promise chain and then store the brewery's info
             return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=circle:${radius}@${lat},${lng}`)
             .then(function (response){
                 return response.json();
@@ -264,7 +263,6 @@ function initMapPart3(breweryPhotoURLArrayAndLocalCoordinatesObjectsArray){
 }
 
 function createMarker(place, photoURL, localCoordinatesObjects) {
-    console.log(place);
     let marker = new google.maps.Marker({
         map: map,
         position: place.geometry.location,
@@ -276,31 +274,24 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
         
     });
     google.maps.event.addListener(marker, 'mouseout', function() {
-        console.log(place.name);
         infowindow.close()
     });
     if (photoURL){
-        console.log("we good");
     }
     else{
         photoURL = "";
     }
     google.maps.event.addListener(marker, 'click', function() {
-        if ("geolocation" in navigator) { // checks for user's shared location before using generic city/state
-            return navigator.geolocation.getCurrentPosition(function(position) {
-                let lat1 = position.coords.latitude;
-                let lng1 = position.coords.longitude;
-                let lat2 = place.geometry.location.lat;
-                let lng2 = place.geometry.location.lng;
-                let result = haversine(lat1, lng1, lat2, lng2);
-                makeBrewery(place, photoURL, result);
-                showCard(resultDiv)
-                backButton.classList.remove('hidden');
-            });
+        if (userGeoIP.coords !== undefined){ // checks for user's shared location stored in a global variable before using generic city/state
+            let lat1 = userGeoIP.coords.latitude;
+            let lng1 = userGeoIP.coords.longitude;
+            let lat2 = place.geometry.location.lat;
+            let lng2 = place.geometry.location.lng;
+            let result = haversine(lat1, lng1, lat2, lng2);
+            makeBrewery(place, photoURL, result);
+            showCard(resultDiv);
+            backButton.classList.remove('hidden');
         }
-        // if (false){         // for browser testing, specifically Firefox, delete when pushing Gold Master
-
-        // }
         else{
             let lat1 = localCoordinatesObjects.lat;
             let lng1 = localCoordinatesObjects.lng;
@@ -308,7 +299,7 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
             let lng2 = place.geometry.location.lng;
             let result = haversine(lat1, lng1, lat2, lng2);
             makeBrewery(place, photoURL, result);
-            showCard(resultDiv)
+            showCard(resultDiv);
             backButton.classList.remove('hidden');
         }
     });
@@ -356,10 +347,11 @@ function getWeather(lat, long) {
         weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
     });
 }
-
+let userGeoIP = {};
 function autopopulateLocation(){
     if ("geolocation" in navigator) { // checks if user is sharing location
     return navigator.geolocation.getCurrentPosition(function(position) {
+        userGeoIP = position;
         let lat = position.coords.latitude;
         let lng = position.coords.longitude;
         geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan1
@@ -391,7 +383,7 @@ function autopopulateLocation(){
                 let name = brewery.name;
                 let results;
                 if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
-                    console.log("already in storage");
+                    console.log("Brewery information already in storage.");
                 }
                 else{ // Generate the promise chain and then store the brewerie's info
                     console.log(`Storing ${name} in storage`);
@@ -400,9 +392,7 @@ function autopopulateLocation(){
                         return response.json();
                     })
                     .then(function (response){
-                        console.log(response);
                         let placeID;
-                        // debugger;
                             if (response.candidates.length < 1){
                                 throw new Error("Can't perform Place Details search on this brewery name, no results for name.");
                             }
@@ -448,7 +438,7 @@ function autopopulateLocation(){
 ////////////////////
 // MISC FUNCTIONS //
 ////////////////////
-async function inputToObject(city = "userLocation", state = "Georgia", radius = 50){ // default data
+async function inputToObject(city, state, radius){
     let userCoordinatesPromise = geoApi(city, state);
     // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155}; // for avoiding buring OpenCage's API requests
     let arrayOfStateBreweryObjectsPromise = breweryAPI(state); // fetches all the OpenBreweryDB's records for the state and filters them a bit
@@ -502,11 +492,6 @@ function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 
 }
 
 function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
-    // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
-    // If you just got a Syntax or Type Error, don't worry.
-    // This is one of those cases where the database 
-    // didn't have a brewery that the critea and so it fails out
-    // We'll be putting in a Chili's fix soon.
     if ((brewery.phone).length === 11){
         return brewery.phone;
     }
