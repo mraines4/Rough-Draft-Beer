@@ -113,25 +113,6 @@ function getRidOfDumbCharacters(breweriesArray){
     return normalBreweryNames;
 }
 
-/////////////////////
-// YELP API BEGINS //
-/////////////////////
-function yelpAPI(phone){
-    return fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
-    .then(function (response){
-        let result = response.json(); // split this line up so it'd be easier to debug by console log
-        return result; // workable data
-    })
-    .catch(function (error){
-        console.log('ERROR'); // possible landing site for new function
-    })
-    .then(function (data){
-        // console.log(data); // sanity checks
-        // console.log('that was the data');
-        return data;
-    });
-}
-
 /////////////////////////
 // OPENCAGE API BEGINS //
 /////////////////////////
@@ -330,65 +311,6 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
     });
 }
 
-
-////////////////////
-// MISC FUNCTIONS //
-////////////////////
-async function inputToObject(city = "userLocation", state = "Georgia", radius = 50){ // default data
-    let userCoordinatesPromise = geoApi(city, state);
-    // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155}; // for avoiding buring OpenCage's API requests
-    let arrayOfStateBreweryObjectsPromise = breweryAPI(state); // fetches all the OpenBreweryDB's records for the state and filters them a bit
-    const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
-    let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
-    let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
-    let radiusMiles = radius; //* 1609.34 if you want convert to meters for whatever reason;
-    return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
-}
-
-function haversine(lat1, lng1, lat2, lng2){
-    Number.prototype.toRad = function() {
-        return this * Math.PI / 180;
-    };
-    const R = 6371; // km 
-    let x1 = lat2-lat1;
-    let dLat = x1.toRad();  
-    let x2 = lng2-lng1;
-    let dLon = x2.toRad();  
-    let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-    Math.cos(lat1.toRad()) * Math.cos(lat2* Math.PI / 180) * 
-    Math.sin(dLon/2) * Math.sin(dLon/2);  
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    let d = (R * c) * 0.62137; // convert to miles
-    return Math.round(d * 10) / 10;
-}
-
-function eventfind (e) {
-    console.log(e)
-}
-
-function getIcon(obj) {
-    return obj.weather[0].icon;
-}
-
-function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 1 phone number to query Yelp
-    let randomNumber = (parseInt(Math.random() * (localBreweries.length))); // get a random number from the length of the array
-    return localBreweries[randomNumber]; // set that random number as the index for the array for the breweries to return a single random brewery
-}
-
-function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
-    // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
-    // If you just got a Syntax or Type Error, don't worry.
-    // This is one of those cases where the database 
-    // didn't have a brewery that the critea and so it fails out
-    // We'll be putting in a Chili's fix soon.
-    if ((brewery.phone).length === 11){
-        return brewery.phone;
-    }
-    else{ 
-    return '1' + (brewery.phone);
-    }
-}
-
 ////////////////////////////////
 // DOM MANIPULATING FUNCTIONS //
 ////////////////////////////////
@@ -417,7 +339,6 @@ function weatherPic (get) {
     return imgTag;
 }
 
-
 function getWeather(lat, long) {
     let theWeather;
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=1efd23d575e7f6ab1b69c24ba772d747`;
@@ -432,24 +353,6 @@ function getWeather(lat, long) {
         weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
     });
 }
-
-
-function showMeTheBreweryTypes(breweriesArray){ // quick optional function to look at the different types of breweries
-    let breweryTypesArray =[];
-    breweriesArray.forEach(function (eachBrewery){
-        if (!(breweryTypesArray.includes(eachBrewery["brewery_type"]))){
-            breweryTypesArray.push(eachBrewery["brewery_type"]);
-        }
-        else{
-        }
-    });
-    console.log("breweryTypesArray:");
-    console.log(breweryTypesArray);
-}
-
-/////////////////////////
-// Testing Environment //
-/////////////////////////
 
 function autopopulateLocation(){
     if ("geolocation" in navigator) { // checks if user is sharing location
@@ -539,5 +442,98 @@ function autopopulateLocation(){
     }
 }
 
+////////////////////
+// MISC FUNCTIONS //
+////////////////////
+async function inputToObject(city = "userLocation", state = "Georgia", radius = 50){ // default data
+    let userCoordinatesPromise = geoApi(city, state);
+    // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155}; // for avoiding buring OpenCage's API requests
+    let arrayOfStateBreweryObjectsPromise = breweryAPI(state); // fetches all the OpenBreweryDB's records for the state and filters them a bit
+    const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
+    let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
+    let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
+    let radiusMiles = radius; //* 1609.34 if you want convert to meters for whatever reason;
+    return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
+}
 
+function haversine(lat1, lng1, lat2, lng2){ // for finding the distance between two sets of coordinates
+    Number.prototype.toRad = function() {
+        return this * Math.PI / 180;
+    };
+    const R = 6371; // km 
+    let x1 = lat2-lat1;
+    let dLat = x1.toRad();  
+    let x2 = lng2-lng1;
+    let dLon = x2.toRad();  
+    let a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+    Math.cos(lat1.toRad()) * Math.cos(lat2* Math.PI / 180) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2);  
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    let d = (R * c) * 0.62137; // convert to miles
+    return Math.round(d * 10) / 10;
+}
+
+function getIcon(obj) {
+    return obj.weather[0].icon;
+}
+
+///////////////////////
+// Unused Functions  //
+///////////////////////
+function showMeTheBreweryTypes(breweriesArray){ // quick optional function to look at the different types of breweries
+    let breweryTypesArray =[];
+    breweriesArray.forEach(function (eachBrewery){
+        if (!(breweryTypesArray.includes(eachBrewery["brewery_type"]))){
+            breweryTypesArray.push(eachBrewery["brewery_type"]);
+        }
+        else{
+        }
+    });
+    console.log("breweryTypesArray:");
+    console.log(breweryTypesArray);
+}
+
+function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 1 phone number to query Yelp
+    let randomNumber = (parseInt(Math.random() * (localBreweries.length))); // get a random number from the length of the array
+    return localBreweries[randomNumber]; // set that random number as the index for the array for the breweries to return a single random brewery
+}
+
+function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
+    // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
+    // If you just got a Syntax or Type Error, don't worry.
+    // This is one of those cases where the database 
+    // didn't have a brewery that the critea and so it fails out
+    // We'll be putting in a Chili's fix soon.
+    if ((brewery.phone).length === 11){
+        return brewery.phone;
+    }
+    else{ 
+    return '1' + (brewery.phone);
+    }
+}
+
+function eventfind (e) {
+    console.log(e)
+}
+
+function yelpAPI(phone){ // Yelp API
+    return fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
+    .then(function (response){
+        let result = response.json(); // split this line up so it'd be easier to debug by console log
+        return result; // workable data
+    })
+    .catch(function (error){
+        console.log('ERROR'); // possible landing site for new function
+    })
+    .then(function (data){
+        // console.log(data); // sanity checks
+        // console.log('that was the data');
+        return data;
+    });
+}
+
+/////////////////////////
+// Testing Environment //
+/////////////////////////
 autopopulateLocation();
+
