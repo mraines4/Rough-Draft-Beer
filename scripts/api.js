@@ -53,6 +53,7 @@ async function breweryAPI(state){
         let prom4 = page4(state);
         // // for whatever reason, timeouts below don't work
         // let prom2 = setTimeout(function (){
+        //     console.log("pagination process begun")
         //     page2(state);
         // }, 250);
         // let prom3 = setTimeout(function (){
