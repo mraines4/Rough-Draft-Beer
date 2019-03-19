@@ -353,17 +353,36 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
     }
     google.maps.event.addListener(marker, 'click', function() {
 
-            let userLat = localCoordinatesObjects["lat"];
-            let userLng = localCoordinatesObjects["lng"];
-            let breweryLat = place.geometry.location.lat;
-            let breweryLng = place.geometry.location.lng;
-            let result1 = haversine(userLat, userLng, breweryLat, breweryLng);
-            console.log(result1);
-            debugger;
-
-        makeBrewery(place, photoURL, result1);
-        showCard(resultDiv)
-        backButton.classList.remove('hidden');
+            // let userLat = localCoordinatesObjects["lat"];
+            // let userLng = localCoordinatesObjects["lng"];
+            // let breweryLat = place.geometry.location.lat;
+            // let breweryLng = place.geometry.location.lng;
+            // let result1 = haversine(userLat, userLng, breweryLat, breweryLng);
+            // let result1 = distanceFromBrewery(place, localCoordinatesObjects)
+            // console.log(result1);
+            // debugger;
+        if ("geolocation" in navigator) {
+            return navigator.geolocation.getCurrentPosition(function(position) {
+                let lat1 = position.coords.latitude;
+                let lng1 = position.coords.longitude;
+                let lat2 = place.geometry.location.lat;
+                let lng2 = place.geometry.location.lng;
+                let result = haversine(lat1, lng1, lat2, lng2);
+                makeBrewery(place, photoURL, result);
+                showCard(resultDiv)
+                backButton.classList.remove('hidden');
+            });
+        }
+        else{
+            let lat1 = localCoordinatesObjects.lat;
+            let lng1 = localCoordinatesObjects.lng;
+            let lat2 = place.geometry.location.lat;
+            let lng2 = place.geometry.location.lng;
+            let resultA = haversine(lat1, lng1, lat2, lng2);
+            makeBrewery(place, photoURL, result);
+            showCard(resultDiv)
+            backButton.classList.remove('hidden');
+        }
     });
 }
 
