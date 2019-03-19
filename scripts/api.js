@@ -113,38 +113,12 @@ function getRidOfDumbCharacters(breweriesArray){
     return normalBreweryNames;
 }
 
-function showMeTheBreweryTypes(breweriesArray){ // quick optional function to look at the different types of breweries
-    let breweryTypesArray =[];
-    breweriesArray.forEach(function (eachBrewery){
-        if (!(breweryTypesArray.includes(eachBrewery["brewery_type"]))){
-            breweryTypesArray.push(eachBrewery["brewery_type"]);
-        }
-        else{
-        }
-    });
-    console.log("breweryTypesArray:");
-    console.log(breweryTypesArray);
-    // return breweryTypesArray;
-}
-
 /////////////////////
 // YELP API BEGINS //
 /////////////////////
 function yelpAPI(phone){
     return fetch(`https://my-little-yelp-helper.herokuapp.com/${phone}/cNbPUBoVlPtwEmVX_uxtVyrH6-XkMcFut1Sh45aM-VZlSiAlbzDMGYB06yYF3QnCMfxQAx97dLVwhTiki9JfRFpmT2d32IyE4U3kdJE1j9BZwlrQCQfDrqD3O2OJXHYx`)
     .then(function (response){
-        // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
-        // If you just got a Syntax Error, don't worry.
-        // This is one of those cases where the phone number 
-        // returns 0 businesses from Yelp!
-        // We'll be putting in a Chili's fix soon or
-        // we'll pick a new brewery for you. 
-        // // maybe pass the localBreweries object into this function 
-        // // and have a new function that re-does
-        // // // const randomBreweryObject = (radiusBreweryRandomizer(localBreweriesArrayofObjects_1));
-        // // // const phone = breweryPhoneNumber(randomBreweryObject);
-        // // // const yelpInfo = await yelpAPI(phone);
-        // // which should hopefully pass the `.catch` on another try?
         let result = response.json(); // split this line up so it'd be easier to debug by console log
         return result; // workable data
     })
@@ -162,16 +136,12 @@ function yelpAPI(phone){
 // OPENCAGE API BEGINS //
 /////////////////////////
 function geoApi(city,state){
-
-
-    geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan
-    // geoKey = '9d9748a20c404012b1f456f51a28720b' //jonathan2
-    // geoKey = 'b575d8c9334048dc86f37eefb94833f4' //jonathan3
+    geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan1
+    // geoKey = '9d9748a20c404012b1f456f51a28720b'; //jonathan2
+    // geoKey = 'b575d8c9334048dc86f37eefb94833f4'; //jonathan3
     // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
-    // geoKey = '1e1a5ca33b17441e848d7f47354a2236' //margaret
-
+    // geoKey = '1e1a5ca33b17441e848d7f47354a2236'; //margaret
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
-
     return fetch(GEO_URL)
     .then(function (response) {
         return response.json();
@@ -181,24 +151,22 @@ function geoApi(city,state){
         return error;
     })
     .then(function (geoData) {
-        return geoData.results[0].geometry; // now feed this into a function to come up with a local lat/lng range
+        return geoData.results[0].geometry;
     });
 }
 
 ///////////////////////
 // GOOGLE API BEGINS //
 ///////////////////////
-// function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters) { //*** needs to be passed an array of brewery names
-function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles) { //*** needs to be passed an array of brewery names
-    let radius = radiusMiles;
+function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) { //*** needs to be passed an array of brewery names
     let lat = localCoordinatesObjects["lat"];
     let lng = localCoordinatesObjects["lng"];
 
     let userLocation = new google.maps.LatLng(lat, lng); //*** going to need to geolocate user
 
     infowindow = new google.maps.InfoWindow();
-    let zoomValue = 0;
-    radius = parseInt(radius);
+    let zoomValue;
+    radius = parseInt(radius); // convert from incoming string to number
     if (radius === 50){
         zoomValue = 9.6;
     }
@@ -214,35 +182,19 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
     else if (radius === 10){
         zoomValue = 11.97;
     }
-    
-    // console.log(`zoom value: ${zoomValue}`);
-
     map = new google.maps.Map(
         document.getElementById('map'), {
             center: userLocation, 
             zoom : zoomValue 
         }
     );
-    arrayOfStateBreweriesObjects.forEach(function (brewery){ //*** should iterate over each Brewery Name to create a marker and add it to the map
+    arrayOfStateBreweriesObjects.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
         let name = brewery.name;
         let results;
         if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
             googleBreweryData = JSON.parse(localStorage.getItem(name));
-            // fill list of breweries
-            console.log("sending google brewery data from storage");
-            console.log(googleBreweryData);
             results =  googleBreweryData;
             result = results.result;
-            console.log(localCoordinatesObjects);
-
-            // let userLat = localCoordinatesObjects["lat"];
-            // let userLng = localCoordinatesObjects["lng"];
-            // let breweryLat = result.geometry.location.lat;
-            // let breweryLng = result.geometry.location.lng;
-            // let result1 = haversine(userLat, userLng, breweryLat, breweryLng);
-            // console.log(result1);
-            // debugger;
-
             initMapPart3(initMapPart2(result, localCoordinatesObjects))
         }
         else{ // Generate the promise chain and then store the brewerie's info
@@ -255,9 +207,7 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
                 let placeID;
                 // debugger;
                     if (response.candidates.length < 1){
-                        // placeID = "ChIJ61IfWmT99IgRwH3hzwm8cug"; // need a better way of handling this besides hardcoding an Atlanta brewery
-                        throw new Error("Owwie");
-
+                        throw new Error("Can't perform Place Details search on this brewery name, no results for name.");
                     }
                     else{
                         placeID = (response["candidates"][0]["place_id"]);
@@ -284,7 +234,6 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMi
             .catch(function (error){
                 console.log("There was no Place_ID");
                 console.log(error);
-                // debugger;
             })
         }
     })
@@ -317,7 +266,7 @@ function initMapPart3(breweryPhotoURLArrayAndLocalCoordinatesObjectsArray){
         console.log("No photo");
     }
     if (brewery1 === undefined){
-        console.log("Didn't find what you were looking for.");
+        console.log("Brewery Object was undefined.");
     }
     else{
         createMarker(brewery1, photoURL1, localCoordinatesObjects);
@@ -325,9 +274,6 @@ function initMapPart3(breweryPhotoURLArrayAndLocalCoordinatesObjectsArray){
         researchButton.classList.remove('hidden');
     }
 }
-
-
-
 
 function createMarker(place, photoURL, localCoordinatesObjects) {
     console.log(place);
@@ -352,16 +298,7 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
         photoURL = "";
     }
     google.maps.event.addListener(marker, 'click', function() {
-
-            // let userLat = localCoordinatesObjects["lat"];
-            // let userLng = localCoordinatesObjects["lng"];
-            // let breweryLat = place.geometry.location.lat;
-            // let breweryLng = place.geometry.location.lng;
-            // let result1 = haversine(userLat, userLng, breweryLat, breweryLng);
-            // let result1 = distanceFromBrewery(place, localCoordinatesObjects)
-            // console.log(result1);
-            // debugger;
-        if ("geolocation" in navigator) {
+        if ("geolocation" in navigator) { // checks for user's shared location before using generic city/state
             return navigator.geolocation.getCurrentPosition(function(position) {
                 let lat1 = position.coords.latitude;
                 let lng1 = position.coords.longitude;
@@ -390,25 +327,6 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
 ////////////////////
 // MISC FUNCTIONS //
 ////////////////////
-function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 1 phone number to query Yelp
-    let randomNumber = (parseInt(Math.random() * (localBreweries.length))); // get a random number from the length of the array
-    return localBreweries[randomNumber]; // set that random number as the index for the array for the breweries to return a single random brewery
-}
-
-function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
-    // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
-    // If you just got a Syntax or Type Error, don't worry.
-    // This is one of those cases where the database 
-    // didn't have a brewery that the critea and so it fails out
-    // We'll be putting in a Chili's fix soon.
-    if ((brewery.phone).length === 11){
-        return brewery.phone;
-    }
-    else{ 
-    return '1' + (brewery.phone);
-    }
-}
-
 async function inputToObject(city = "userLocation", state = "Georgia", radius = 50){ // default data
     let userCoordinatesPromise = geoApi(city, state);
     // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155}; // for avoiding buring OpenCage's API requests
@@ -496,12 +414,33 @@ function eventfind (e) {
     console.log(e)
 }
 
-function makeBrewery(brewInfo, photoURL, result1) {
-    //// unhide when divs are updated!!!
-    // runningDiv.classList.add('hidden');
-    // mapDiv.classList.remove('hidden');
-    // weatherIcon.setAttribute('src', `https://openweathermap.org/img/w/${brewInfo.weather.icon}.png`);
-    // console.log(brewInfo.geometry.location.lat);
+function getIcon(obj) {
+    return obj.weather[0].icon;
+}
+
+function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 1 phone number to query Yelp
+    let randomNumber = (parseInt(Math.random() * (localBreweries.length))); // get a random number from the length of the array
+    return localBreweries[randomNumber]; // set that random number as the index for the array for the breweries to return a single random brewery
+}
+
+function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or close enough
+    // ARE YOU DEBUGGING IN BROWSER RIGHT NOW?
+    // If you just got a Syntax or Type Error, don't worry.
+    // This is one of those cases where the database 
+    // didn't have a brewery that the critea and so it fails out
+    // We'll be putting in a Chili's fix soon.
+    if ((brewery.phone).length === 11){
+        return brewery.phone;
+    }
+    else{ 
+    return '1' + (brewery.phone);
+    }
+}
+
+////////////////////////////////
+// DOM MANIPULATING FUNCTIONS //
+////////////////////////////////
+function makeBrewery(brewInfo, photoURL, dynamicBreweryDistance) {
     getWeather(brewInfo.geometry.location.lat, brewInfo.geometry.location.lng)
     if (photoURL){
         breweryPicture.setAttribute('src', photoURL);
@@ -509,36 +448,14 @@ function makeBrewery(brewInfo, photoURL, result1) {
     else{
         breweryPicture.setAttribute('src', `./../img/nopicturebeer.jpg`);
     }
-    // debugger;
     breweryName.textContent = brewInfo.name;
     breweryPhone.textContent = brewInfo.formatted_phone_number;
-    // breweryAddress.textContent = `${brewInfo.address_components[0].short_name} ${brewInfo.address_components[1].short_name}\n\r${brewInfo.address_components[2].short_name}, ${brewInfo.address_components[5].short_name} ${brewInfo.address_components[7].short_name}`;
     breweryAddress.textContent = `${splitAddress(brewInfo.formatted_address)[0]}\n\r${splitAddress(brewInfo.formatted_address)[1]}`;
     breweryAddressTag.setAttribute('href', `https://www.google.com/maps?saddr=My+Location&daddr=${brewInfo.formatted_address}`)
     breweryWebsite.setAttribute('href', brewInfo.website);
     breweryReview.setAttribute('src', `./../img/${roundToHalfNumber(brewInfo.rating)}pint.png`);
     breweryHours.textContent = closedOrNot(brewInfo.opening_hours.open_now);
-    // let breweryDistanceFromUser = distanceFromBrewery(brewInfo, localCoordinatesObjects)
-    // console.log(breweryDistanceFromUser);
-    // debugger;
-    // breweryDistance.textContent = `${breweryDistanceFromUser} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
-    breweryDistance.textContent = `${result1} miles away`; // distance calculation may be made but this is pending reworking the calculation from the user's ipGeoLocation
-
-}
-
-// brewInfo.address_components[0].short_name //number
-// brewInfo.address_components[1].short_name //street
-// brewInfo.address_components[2].short_name //city
-// brewInfo.address_components[5].short_name //state
-// brewInfo.address_components[6].short_name //zip
-
-/////////////////////////
-// Testing Environment //
-/////////////////////////
-
-
-function getIcon(obj) {
-    return obj.weather[0].icon;
+    breweryDistance.textContent = `${dynamicBreweryDistance} miles away`; // value changes depending on where the user provied the browser access to location
 }
 
 function weatherPic (get) {
@@ -552,11 +469,6 @@ function weatherPic (get) {
 function getWeather(lat, long) {
     let theWeather;
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=1efd23d575e7f6ab1b69c24ba772d747`;
-    // console.log(lat, long);
-    // console.log(url)
-
-    // const url = 'https://api.openweathermap.org/data/2.5/weather?lat=34.3453454&lon=-84.4343&appid=1efd23d575e7f6ab1b69c24ba772d747';
-
     fetch(url)
     .then(function(response) { 
         return response.json() 
@@ -569,46 +481,22 @@ function getWeather(lat, long) {
     });
 }
 
-function geoIPCheck(){
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            do_something(position.coords.latitude, position.coords.longitude);
-        });
-    }
-    else{
-        console.log("You're pretty private.")
-    }
+
+function showMeTheBreweryTypes(breweriesArray){ // quick optional function to look at the different types of breweries
+    let breweryTypesArray =[];
+    breweriesArray.forEach(function (eachBrewery){
+        if (!(breweryTypesArray.includes(eachBrewery["brewery_type"]))){
+            breweryTypesArray.push(eachBrewery["brewery_type"]);
+        }
+        else{
+        }
+    });
+    console.log("breweryTypesArray:");
+    console.log(breweryTypesArray);
 }
 
-function do_something(lat, lng){
-    console.log(`Here's your latitude: ${lat}`);
-    console.log(`Here's your longitude: ${lng}`);
-}
+/////////////////////////
+// Testing Environment //
+/////////////////////////
 
-geoIPCheck();
-
-function distanceFromBrewery(brewInfo, localCoordinatesObjects){
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            let userLat = position.coords.latitude;
-            let userLng = position.coords.longitude;
-            let breweryLat = brewInfo.geometry.location.lat;
-            let breweryLng = brewInfo.geometry.location.lng;
-            console.log(`${userLat},${breweryLat}`);
-            let result = haversine(userLat, userLng, breweryLat, breweryLng);
-            // debugger;
-            return result;
-        });
-    }
-    else{
-        let userLat = localCoordinatesObjects["lat"];
-        let userLng = localCoordinatesObjects["lng"];
-        let breweryLat = brewInfo.geometry.location.lat;
-        let breweryLng = brewInfo.geometry.location.lng;
-        console.log(`${userLat},${breweryLat}`);
-        let result = haversine(userLat, userLng, breweryLat, breweryLng);
-        // debugger;
-        return result;
-    }
-}
 
