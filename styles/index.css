@@ -365,6 +365,10 @@ select:hover  {
   width: 5vw;
 }
 
+.gobutton:hover {
+  background-color: #d6d0ba;
+
+}
 
 .aboutinfo {
   position: absolute;
