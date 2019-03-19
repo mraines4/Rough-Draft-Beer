@@ -1,95 +1,156 @@
 //////////////////////////////
 // OPENBREWERYDB API BEGINS //
 //////////////////////////////
-function page1(state){
-    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=1&per_page=50`)
-    .then(function (response){
-        return response.json(); // workable data
-    })
-    .then(function (data){
-        return data;
-        });
-}
-function page2(state){
-    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=2&per_page=50`)
-    .then(function (response){
-        return response.json(); // workable data
-    })
-    .then(function (data){
-        return data;
-        });
-}
-function page3(state){
-    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=3&per_page=50`)
-    .then(function (response){
-        return response.json(); // workable data
-    })
-    .then(function (data){
-        return data;
-        });
-}
-function page4(state){
-    return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=4&per_page=50`)
-    .then(function (response){
-        return response.json(); // workable data
-    })
-    .then(function (data){
-        return data;
-        });
+// function page1(state){
+//     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=1&per_page=50`)
+//     .then(function (response){
+//         return response.json(); // workable data
+//     })
+//     .then(function (data){
+//         return data;
+//         });
+// }
+// function page2(state){
+//     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=2&per_page=50`)
+//     .then(function (response){
+//         return response.json(); // workable data
+//     })
+//     .then(function (data){
+//         return data;
+//         });
+// }
+// function page3(state){
+//     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=3&per_page=50`)
+//     .then(function (response){
+//         return response.json(); // workable data
+//     })
+//     .then(function (data){
+//         return data;
+//         });
+// }
+// function page4(state){
+//     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=4&per_page=50`)
+//     .then(function (response){
+//         return response.json(); // workable data
+//     })
+//     .then(function (data){
+//         return data;
+//         });
+// }
+
+let allCharactersArray = [];
+
+function urlForPage(state, pageNumber) {
+    return `https://api.openbrewerydb.org/breweries?by_state=${state}&page=${pageNumber}&per_page=50`;
+    // return `https://my-little-cors-proxy.herokuapp.com/https://anapioficeandfire.com/api/characters/?page=${pageNumber}&pageSize=50`;
 }
 
-async function breweryAPI(state){
-    if (localStorage.getItem(state)) {
+function retrievePageOfCharacters(state, pageNumber) {
+    return fetch(urlForPage(state, pageNumber))
+    .then(function (response) {      // #2 And then process the response so we can get data out of it
+        return response.json(); 
+    })
+    
+    .then(function (response){
+        accumulateCharacters(state, response)
+    })
+}
+
+function accumulateCharacters(state, theActualData) { // #3 Receive the actual data and do something useful.
+    allCharactersArray = [
+        ...allCharactersArray,
+        ...theActualData
+    ];
+    storeCharacters(state, allCharactersArray);
+}
+
+function storeCharacters(state, arrayOfCharacters) {
+    // convert the array to a JSON string
+    const jsonCharacters = JSON.stringify(arrayOfCharacters);
+    console.log(`saving ${arrayOfCharacters.length} characters`);
+    // set that string in localStorage
+    console.log(arrayOfCharacters);
+    localStorage.setItem(state, jsonCharacters);
+}
+
+function breweryAPI(state){
+    if (!(localStorage.getItem(state))) { // puts state breweries in local storage
+        let promiseArray = [];
+        for (let pageNumber=0; pageNumber<6; pageNumber++) {
+            let delay = pageNumber * 500;
+        
+            // setTimeout(function () {
+                console.log("Sent a timeout!");
+                promiseArray.push(retrievePageOfCharacters(state, pageNumber))
+            // }, delay);
+        }
+        return Promise.all(promiseArray)
+        .then(function (results){
+            return breweryAPI2(state);
+        });
+    }
+    else{
+        return breweryAPI2(state);
+    }
+}
+
+function breweryAPI2(state){
+    let thePromise = new Promise(function (resolve, reject){
         breweryData = JSON.parse(localStorage.getItem(state));
         console.log("Sending state brewery array from storage out now.");
-        return breweryData;
-    }
-    else { // data doesn't exist in local - get it from API
-
-        // stagger the fetches // Whelp, we tried to...
-        let prom1 = page1(state);
-        let prom2 = page2(state);
-        let prom3 = page3(state);
-        let prom4 = page4(state);
-        // // for whatever reason, timeouts below don't work
-        // let prom2 = setTimeout(function (){
-        //     console.log("pagination process begun")
-        //     page2(state);
-        // }, 250);
-        // let prom3 = setTimeout(function (){
-        //     page3(state);
-        // }, 500);
-        // let prom4 = setTimeout(function (){
-        //     page4(state);
-        // }, 750);
-
-        return arrayOfArraysOfObjects = await Promise.all([prom1, prom2, prom3, prom4])// wait for them to come back;
-        .then(function (arrayOfArraysOfObjects){ 
-        let array1 = arrayOfArraysOfObjects[0];
-        let array2 = arrayOfArraysOfObjects[1];
-        let array3 = arrayOfArraysOfObjects[2];
-        let array4 = arrayOfArraysOfObjects[3];
-        let arrayOfObjects = [
-            ...array1,
-            ...array2,
-            ...array3,
-            ...array4,
-        ];
-        const data = (arrayOfObjects);
-        let cleanedStateDB = getRidOfDumbCharacters(filterOutPhoneyPhones(filterOutPlanners(data))); // start calling functions
+        let cleanedStateDB = getRidOfDumbCharacters(filterOutPhoneyPhones(filterOutPlanners(breweryData))); // start calling functions
         const results = cleanedStateDB;
-        return results;
-        })
-        .then(function (data){
-            localStorage.setItem(state,JSON.stringify(data));// write it to local storage
-            return data;
-        })
-        .then(function (data){
-            // showMeTheBreweryTypes(data);
-            return data; // once more, for good luck
-        });
-    }
+        resolve(results);
+    });
+    return thePromise;
 }
+
+
+
+        // // stagger the fetches // Whelp, we tried to...
+        // let prom1 = page1(state);
+        // let prom2 = page2(state);
+        // let prom3 = page3(state);
+        // let prom4 = page4(state);
+        // // // for whatever reason, timeouts below don't work
+        // // let prom2 = setTimeout(function (){
+        // //     console.log("pagination process begun")
+        // //     page2(state);
+        // // }, 250);
+        // // let prom3 = setTimeout(function (){
+        // //     page3(state);
+        // // }, 500);
+        // // let prom4 = setTimeout(function (){
+        // //     page4(state);
+        // // }, 750);
+
+        // return arrayOfArraysOfObjects = await Promise.all([prom1, prom2, prom3, prom4])// wait for them to come back;
+        // .then(function (arrayOfArraysOfObjects){ 
+        // let array1 = arrayOfArraysOfObjects[0];
+        // let array2 = arrayOfArraysOfObjects[1];
+        // let array3 = arrayOfArraysOfObjects[2];
+        // let array4 = arrayOfArraysOfObjects[3];
+        // let arrayOfObjects = [
+        //     ...array1,
+        //     ...array2,
+        //     ...array3,
+        //     ...array4,
+        // ];
+        // const data = (arrayOfObjects);
+//         let cleanedStateDB = getRidOfDumbCharacters(filterOutPhoneyPhones(filterOutPlanners(data))); // start calling functions
+//         const results = cleanedStateDB;
+//         return results;
+//         })
+//         .then(function (data){
+//             localStorage.setItem(state,JSON.stringify(data));// write it to local storage
+//             return data;
+//         })
+//         .then(function (data){
+//             // showMeTheBreweryTypes(data);
+//             return data; // once more, for good luck
+//         });
+//     }
+// }
 
 function filterOutPhoneyPhones(breweriesArray){
     let goodPhones = breweriesArray.filter(function (eachBrewery){
@@ -348,45 +409,46 @@ function getWeather(lat, long) {
         weatherIcon.appendChild(weatherPic(getIcon(theWeather)))
     });
 }
+
 let userGeoIP = {};
 function autopopulateLocation(){
     if ("geolocation" in navigator) { // checks if user is sharing location
-    return navigator.geolocation.getCurrentPosition(function(position) {
-        userGeoIP = position;
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
-        geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan1
-        // geoKey = '9d9748a20c404012b1f456f51a28720b'; //jonathan2
-        // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
-        // geoKey = '1e1a5ca33b17441e848d7f47354a2236'; //margaret
-        const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?key=${geoKey}&q=${lat}%2C${lng}`;
-        return fetch(GEO_URL)
-        .then(function (response) {
-            return response.json();
-        })
-        .catch(function (error){
-            console.log(error);
-            return error;
-        })
-        .then(function (geoData) {
-            const city = geoData.results[0].components.city
-            const state = geoData.results[0].components.state
-            const cityState = [city, state];
-            return cityState;
-        })
-        .then(function (cityState){
-            cityState;
-            const city = cityState[0];
-            const state = cityState[1];
-            breweryAPI(state)
+        return navigator.geolocation.getCurrentPosition(function(position) {
+            userGeoIP = position;
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+            geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan1
+            // geoKey = '9d9748a20c404012b1f456f51a28720b'; //jonathan2
+            // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
+            // geoKey = '1e1a5ca33b17441e848d7f47354a2236'; //margaret
+            const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?key=${geoKey}&q=${lat}%2C${lng}`;
+            return fetch(GEO_URL)
+            .then(function (response) {
+                return response.json();
+            })
+            .catch(function (error){
+                console.log(error);
+                return error;
+            })
+            .then(function (geoData) {
+                const city = geoData.results[0].components.city
+                const state = geoData.results[0].components.state
+                const cityState = [city, state];
+                return cityState;
+            })
+            .then(function (cityState){
+                cityState;
+                const city = cityState[0];
+                const state = cityState[1];
+                return breweryAPI(state);
+            })
             .then(function (result){
-            result.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
-                let name = brewery.name;
-                let results;
-                if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
-                    console.log("Brewery information already in storage.");
-                }
-                else{ // Generate the promise chain and then store the brewerie's info
+                result.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
+                    let name = brewery.name;
+                    if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
+                        console.log(`${name} was in storage`);
+                    }
+                // Generate the promise chain and then store the brewerie's info
                     console.log(`Storing ${name} in storage`);
                     return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=ipbias`)
                     .then(function (response){
@@ -423,18 +485,16 @@ function autopopulateLocation(){
                         console.log("There was no Place_ID");
                         console.log(error);
                     });
-                }
+                })
             })
-            })
-
         })
-    });
     }
     else{
         console.log(`https://www.youtube.com/watch?v=AubJS7oWaWo`);
         console.log(`Alright then, keep your secrets! :) `);
     }
 }
+
 
 ////////////////////
 // MISC FUNCTIONS //

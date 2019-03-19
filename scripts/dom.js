@@ -151,7 +151,7 @@ let arr = [];             //new storage
 str = address.split(',');     //split by spaces
 arr.push(str.shift());    //add the number
 arr.push(str.join(''));
-console.log(arr)
+// console.log(arr)
 return arr;
 }
 
