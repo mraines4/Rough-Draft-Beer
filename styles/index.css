@@ -66,6 +66,7 @@ h3 {
   font-size: 8vh;
   color: #377872;
   font-weight: bold;
+  padding-left:16px;
   position: absolute;
   transform: rotatez(-7deg);
   z-index: 2;
@@ -107,37 +108,52 @@ h3 {
 
 }
 /*the words */
-.aboutorsearch   {
+/* .aboutorsearch   {
   /* float:right; */
-  position: absolute;
+  /* position: absolute;
   display:flex;
   align-self: baseline;
   justify-content: space-around;
-  width:60vw;
+  width:60vw; */
   /* height:60vh; */
   /* z-index:6; */
-  top: 100%;
+  /* top: 100%;
   left:100%;
-  transform: translate(-100%,-100%);
+  transform: translate(-100%,-100%); */
 
   /* bottom:0%;
   right: 7%; */
   /* font-size: 12px; */
-  color: #377872;
-  font-weight: bold;
+  /* color: #377872; */
+  /* font-weight: bold; */
 
+/* } */ 
+
+.newnavname {
+  color:  #377872;;
+  font-size:5vw;
+  z-index:10;
+  position: absolute;
+  top: 100%;
+  left:100%;
+  transform: translate(-100%,-100%);
+  padding-bottom:2%;
+}
+.back, .about, .research {
+/* .newback , .newabout, .newsearch{ */
+  margin:0px;
+  float:right;
+  padding-right:2vw;
+  transform: rotatez(-7deg);
+
+   
 }
 .back, .research , .about  {
-  position: relative;
+  /* position: relative; */
   /* vertical-align: bottom; */
   /* top:0; */
-  transform: rotatez(-7deg);
-  align-self: flex-end;
-  z-index:6;
-  
 
 }
-
 
 
 .maincontainer {
@@ -586,7 +602,7 @@ and (min-device-width: 800px) {
     width:79vw;
   
  }
-.titlename, .aboutsearchdiv, .aboutorsearch, .aboutpictureframe {
+.titlename, .aboutsearchdiv, .aboutpictureframe {
   width:60vw;
   height:60vw; 
 }
@@ -607,7 +623,7 @@ and (min-device-width: 800px) {
    /* works for landscapes */
   font-size:3.8vh;  
 }
-.title, .aboutorsearch {
+.title {
   font-size: 8vh;
 }
 .back, .research, .about {
@@ -625,7 +641,7 @@ and (min-device-width: 800px) {
   font-size: 4.3vh;
 
 }
-.titlename, .aboutsearchdiv, .aboutorsearch, .aboutpictureframe {
+.titlename, .aboutsearchdiv, .aboutpictureframe {
   width:60vh;
   height:60vh; 
 }
