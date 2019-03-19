@@ -298,12 +298,15 @@ function createMarker(place, photoURL, localCoordinatesObjects) {
                 backButton.classList.remove('hidden');
             });
         }
+        // if (false){         // for browser testing, specifically Firefox, delete when pushing Gold Master
+
+        // }
         else{
             let lat1 = localCoordinatesObjects.lat;
             let lng1 = localCoordinatesObjects.lng;
             let lat2 = place.geometry.location.lat;
             let lng2 = place.geometry.location.lng;
-            let resultA = haversine(lat1, lng1, lat2, lng2);
+            let result = haversine(lat1, lng1, lat2, lng2);
             makeBrewery(place, photoURL, result);
             showCard(resultDiv)
             backButton.classList.remove('hidden');
