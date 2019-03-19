@@ -410,20 +410,14 @@ function breweryPhoneNumber(brewery){ // Checks for valid phone numbers, or clos
 }
 
 async function inputToObject(city = "userLocation", state = "Georgia", radius = 50){ // default data
-    // let userCoordinatesPromise = geoApi(city, state);
-    let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155};
+    let userCoordinatesPromise = geoApi(city, state);
+    // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155}; // for avoiding buring OpenCage's API requests
     let arrayOfStateBreweryObjectsPromise = breweryAPI(state); // fetches all the OpenBreweryDB's records for the state and filters them a bit
     const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
     let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
     let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
-    // let radiusMeters = radius * 1609.34;
-    let radiusMiles = radius;
-
-    // return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMeters];
+    let radiusMiles = radius; //* 1609.34 if you want convert to meters for whatever reason;
     return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
-    // // arrayOfStateBreweriesObjects.forEach(function (breweries){
-    // //     // do a thing
-    // // });
     
     // let breweriesDistanceFromCityArray = [];
     // arrayOfStateBreweriesObjects.forEach(function (brewery) {
@@ -486,7 +480,6 @@ function haversine(lat1, lng1, lat2, lng2){
         return this * Math.PI / 180;
     };
     const R = 6371; // km 
-    //has a problem with the .toRad() method below.
     let x1 = lat2-lat1;
     let dLat = x1.toRad();  
     let x2 = lng2-lng1;
@@ -496,12 +489,7 @@ function haversine(lat1, lng1, lat2, lng2){
     Math.sin(dLon/2) * Math.sin(dLon/2);  
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     let d = (R * c) * 0.62137; // convert to miles
-    // debugger;
     return Math.round(d * 10) / 10;
-    // console.log(d);
-    // console.log(typeof d);
-    // // debugger;
-    // return d;
 }
 
 function eventfind (e) {
