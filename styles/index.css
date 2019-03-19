@@ -467,6 +467,7 @@ img {
   #bar:checked ~ .barlabel {
     background-color:#d1b97f
   }
+
   .breweryaddress, .breweryhours {
     white-space: pre-line;
   }
