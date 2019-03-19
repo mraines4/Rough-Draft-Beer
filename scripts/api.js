@@ -329,7 +329,7 @@ function makeBrewery(brewInfo, photoURL, dynamicBreweryDistance) {
 function weatherPic (get) {
     let imgTag = document.createElement('img');
     imgTag.classList.add('weatherpng');
-    imgTag.setAttribute('src', `http://openweathermap.org/img/w/${get}.png`);
+    imgTag.setAttribute('src', `../img/${get}.png`);
     return imgTag;
 }
 
