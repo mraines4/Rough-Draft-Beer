@@ -138,7 +138,6 @@ function yelpAPI(phone){
 function geoApi(city,state){
     geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan1
     // geoKey = '9d9748a20c404012b1f456f51a28720b'; //jonathan2
-    // geoKey = 'b575d8c9334048dc86f37eefb94833f4'; //jonathan3
     // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
     // geoKey = '1e1a5ca33b17441e848d7f47354a2236'; //margaret
     const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?q=${city},${state},US&key=${geoKey}`;
@@ -499,4 +498,108 @@ function showMeTheBreweryTypes(breweriesArray){ // quick optional function to lo
 // Testing Environment //
 /////////////////////////
 
+function autopopulateLocation(){
+    if ("geolocation" in navigator) { // checks if user is sharing location
+    return navigator.geolocation.getCurrentPosition(function(position) {
+        let lat = position.coords.latitude;
+        let lng = position.coords.longitude;
+        geoKey = '9940fdfbec3c42328da75e23977d75a9'; //jonathan1
+        // geoKey = '9d9748a20c404012b1f456f51a28720b'; //jonathan2
+        // geoKey = '10fd1a444a7245d9aef8755338cd29af'; //matt
+        // geoKey = '1e1a5ca33b17441e848d7f47354a2236'; //margaret
+        const GEO_URL = `https://api.opencagedata.com/geocode/v1/json?key=${geoKey}&q=${lat}%2C${lng}`;
+        return fetch(GEO_URL)
+        .then(function (response) {
+            return response.json();
+        })
+        .catch(function (error){
+            console.log(error);
+            return error;
+        })
+        .then(function (geoData) {
+            const city = geoData.results[0].components.city
+            const state = geoData.results[0].components.state
+            const cityState = [city, state];
+            return cityState;
+        })
+        .then(function (cityState){
+            cityState;
+            const city = cityState[0];
+            const state = cityState[1];// run a Google Places search
+            breweryAPI(state)
+            .then(function (result){
+            result.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
+                let name = brewery.name;
+                let results;
+                if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
+                    console.log("already in storage");
+                    // googleBreweryData = JSON.parse(localStorage.getItem(name));
+                    // results =  googleBreweryData;
+                    // result = results.result;
+                    // initMapPart3(initMapPart2(result, localCoordinatesObjects))
+                }
+                else{ // Generate the promise chain and then store the brewerie's info
+                    console.log(`Storing ${name} in storage`);
+                    return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=ipbias`)
+                    .then(function (response){
+                        return response.json();
+                    })
+                    .then(function (response){
+                        console.log(response);
+                        let placeID;
+                        // debugger;
+                            if (response.candidates.length < 1){
+                                throw new Error("Can't perform Place Details search on this brewery name, no results for name.");
+                            }
+                            else{
+                                placeID = (response["candidates"][0]["place_id"]);
+                            }
+                        return placeID;
+                    })
+                    .then(function (placeID){
+                        return fetch(`http://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
+                    })
+                    .then(function (response){
+                        return response.json();
+                    })
+                    .then(function (data){
+                        localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
+                        // return data;
+                    })
+                    .catch(function (error){
+                        console.log("There was no Place_ID");
+                        console.log(error);
+                    })
+                    // .then(function (response){
+                    //     console.log(response);
+                    //     console.log("PROMISE CHAIN ENACTED, GIRD YOUR LOINS");
+                    //     results = response;
+                    //     result = results.result;
+                    //     initMapPart3(initMapPart2(result, localCoordinatesObjects))
+                    // })
+                    // .catch(function (error){
+                    //     console.log("There was no Place_ID");
+                    //     console.log(error);
+                    // })
+                    ;
+                }
+            })
+            })
+            // const defualtState = document.querySelector('selected')
+            // defualtState.textContent = 'selected!!!!';
+            // const currentState = document.querySelector('[data-inputstate]')
+            // currentState.setAttribute('value', state);
+            // currentState.setAttribute('selected', "");
+            // currentState.textContent = state;
+            // currentCity.appendChild(option);
+        })
+    });
+    }
+    else{
+        console.log(`https://www.youtube.com/watch?v=AubJS7oWaWo`);
+        console.log(`Alright then, keep your secrets! :) `);
+    }
+}
 
+
+autopopulateLocation();
