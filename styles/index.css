@@ -708,12 +708,23 @@ and (min-device-width: 800px) {
       background-size: 1500px 1500px;
      } 
 }
+/*
+@media only screen 
+  and (min-device-width: 834px) 
+  and (max-device-width: 1112px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+    body {
+      background-size: 1200px 1200px;
+     } 
+}
+*/
 @media only screen 
   and (min-device-width: 1024px) 
   and (max-device-width: 1366px)
   and (-webkit-min-device-pixel-ratio: 2) {
     body {
-      background-size: 1366px 1366px;
+      background-size: 1367px 1367px;
      } 
 }
+
 
