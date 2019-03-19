@@ -219,6 +219,14 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) 
             .then(function (response){
                 return response.json();
             })
+            .then(function (response){
+                if (response.permanently_closed === true){
+                    throw new Error("Too bad, this brewery is permanently closed!");
+                }
+                else{
+                    return response;
+                }
+            })
             .then(function (data){
                 localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
                 return data;
@@ -502,6 +510,14 @@ function autopopulateLocation(){
                     })
                     .then(function (response){
                         return response.json();
+                    })            
+                    .then(function (response){
+                        if (response.permanently_closed === true){
+                            throw new Error("Too bad, this brewery is permanently closed!");
+                        }
+                        else{
+                            return response;
+                        }
                     })
                     .then(function (data){
                         localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
