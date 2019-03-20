@@ -40,6 +40,9 @@ h3 {
   /* color : #FFC24F; */
   font-size: 4vh;
 }
+a, a:visited, a:hover, a:link, a:active {
+  color:black;
+}
 .titlename {
   float: left;
   position: absolute;
