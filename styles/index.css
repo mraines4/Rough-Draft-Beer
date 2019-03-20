@@ -2,6 +2,8 @@
 /* paul irish border box styling */
 html {
     box-sizing: border-box;
+    overflow: hidden;  
+
   }
 
 *, *:before, *:after {
@@ -11,7 +13,8 @@ body {
 
     /* background-image: url("../img/lightwoodplank.jpg"); */
     /* background-image: url("../img/table-slant.jpg"); */
-    background-image: url("../img/woodtable.jpg");
+    /* background-image: url("../img/woodtable.jpg"); */
+    background-image: url("../img/woodtabledarkstraight.jpg");
     background-repeat: no-repeat;
     max-width: 100vw;
     max-height: 100vh;  
@@ -37,6 +40,14 @@ h3 {
   /* color : #FFC24F; */
   font-size: 4vh;
 }
+a, a:visited,  a:link, a:active {
+  color:black;
+}
+a:hover {
+
+  color:#C46233;
+}
+
 .titlename {
   float: left;
   position: absolute;
@@ -164,6 +175,8 @@ h3 {
   left:50%;
   transform: translate(-50%,-50%); 
   z-index: 1;
+  /* overflow: hidden;   */
+
 
 }
 /* took running out b/c its not on a napkin */
@@ -257,6 +270,7 @@ h3 {
     position: absolute;
     /* transform: translate(-50%,-50%); */
     font-size: 4.3vw;
+    overflow: hidden;
 
   }
   .displaydata {
@@ -267,7 +281,7 @@ h3 {
   /* default for portrait  - mobile */
   .inputfields {
     top: 9vw;
-    left: 7vw;
+    left: 4vw;
 
   }
 
@@ -373,9 +387,11 @@ select:hover  {
 .aboutinfo {
   position: absolute;
   top:0;
-  font-size:5vh;
-  margin:15px;
-  padding:2vh;
+  font-size:4.5vh;
+  /* margin:2vh; */
+  padding:3vh;
+  margin:2vh;
+
 }
 .pictureframe {
   position:relative;
@@ -588,7 +604,11 @@ and (min-device-width: 800px) {
     /* font-size:3.8vh;  */
   }
   .aboutinfo {
-    font-size:5vh;
+    font-size:4.5vh;
+    padding:3vh;
+    margin:2vh;
+
+
   }
   .title  {
     font-size: 8vh;
@@ -614,7 +634,11 @@ and (min-device-width: 800px) {
     width:90vw;
   }
   .aboutinfo {
-    font-size:5vw;
+    font-size:4.5vw;
+    padding:3vw;
+    margin:2vw;
+
+
   }
   .title  {
     font-size: 8vw;
@@ -665,7 +689,10 @@ and (min-device-width: 800px) {
   font-size: 5vh;
 }
 .aboutinfo {
-  font-size:5vh;
+  font-size:4.5vh;
+  padding:3vh;
+  margin:2vh;
+
 }
 
 #map {
@@ -694,7 +721,7 @@ and (min-device-width: 800px) {
 }
 .inputfields {
   top: 9vh;
-  left: 7vh;
+  left: 4vh;
 
 }
 
