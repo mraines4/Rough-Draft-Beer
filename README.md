@@ -1,6 +1,6 @@
 # Rough Draft Beer - Front End Project
 
-[rough-draft.beer](https://rough-draft.beer "Live Site")
+[rough-draft.beer - Live Site](https://rough-draft.beer "Live Site")
 
 ![Home Page](./read-me-assets/top-image.png)
 
