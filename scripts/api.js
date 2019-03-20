@@ -30,9 +30,9 @@ function accumulateCharacters(state, theActualData) { // #3 Receive the actual d
 function storeCharacters(state, arrayOfCharacters) {
     // convert the array to a JSON string
     const jsonCharacters = JSON.stringify(arrayOfCharacters);
-    console.log(`saving ${arrayOfCharacters.length} characters`);
+    // console.log(`saving ${arrayOfCharacters.length} characters`);
     // set that string in localStorage
-    console.log(arrayOfCharacters);
+    // console.log(arrayOfCharacters);
     localStorage.setItem(state, jsonCharacters);
 }
 
@@ -54,7 +54,7 @@ function breweryAPI(state){
             let delay = pageNumber * 50;
         
             // setTimeout(function () {
-                console.log("Sent a timeout!");
+                // console.log("Sent a timeout!");
                 promiseArray.push(retrievePageOfCharacters(state, pageNumber))
             // }, delay);
         }
@@ -71,7 +71,7 @@ function breweryAPI(state){
 function breweryAPI2(state){
     let thePromise = new Promise(function (resolve, reject){
         breweryData = JSON.parse(localStorage.getItem(state));
-        console.log("Sending state brewery array from storage out now.");
+        // console.log("Sending state brewery array from storage out now.");
         let cleanedStateDB = getRidOfDumbCharacters(filterOutPhoneyPhones(filterOutPlanners(breweryData))); // start calling functions
         const results = cleanedStateDB;
         resolve(results);
@@ -116,7 +116,7 @@ function geoApi(city,state){
         return response.json();
     })
     .catch(function (error){
-        console.log(error);
+        // console.log(error);
         return error;
     })
     .then(function (geoData) {
@@ -172,14 +172,14 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius =
             return 0
         }
     });
-    console.log(arrayOfStateBreweriesObjects);
+    // console.log(arrayOfStateBreweriesObjects);
     const index = arrayOfStateBreweriesObjects.findIndex(brewery => brewery.city === city); // split the list at the index of the first city matching object
     const first = arrayOfStateBreweriesObjects.slice(0, index);
     const second = arrayOfStateBreweriesObjects.slice(index);
     const arrayOfStateBreweriesObjects1 = second.concat(first); // add the first half of the list to the end
-    console.log(arrayOfStateBreweriesObjects1);
+    // console.log(arrayOfStateBreweriesObjects1);
+    arrayOfStateBreweriesObjects1.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
     //^^//^^//
-    arrayOfStateBreweriesObjects.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
         let name = brewery.name;
         let results;
         if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
@@ -227,22 +227,22 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius =
                 return data;
             })
             .then(function (response){
-                console.log(response);
-                console.log("PROMISE CHAIN ENACTED, GIRD YOUR LOINS");
+                // console.log(response);
+                // console.log("PROMISE CHAIN ENACTED, GIRD YOUR LOINS");
                 results = response;
                 result = results.result;
                 initMapPart3(initMapPart2(result, localCoordinatesObjects))
             })
             .catch(function (error){
-                console.log("There was no Place_ID");
-                console.log(error);
+                // console.log("There was no Place_ID");
+                // console.log(error);
             })
         }
     })
 }
 
 function initMapPart2(eachBrewery,localCoordinatesObjects){
-    console.log(eachBrewery);
+    // console.log(eachBrewery);
     if (eachBrewery.photos){
         let photoURL = eachBrewery.photos[0].photo_reference;
         let breweryPhotoURLArray = [photoURL,eachBrewery];
@@ -265,10 +265,10 @@ function initMapPart3(breweryPhotoURLArrayAndLocalCoordinatesObjectsArray){
         photoURL1 = `https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&photoreference=${photoURL}&maxwidth=400`;
     }
     else{
-        console.log("No photo");
+        // console.log("No photo");
     }
     if (brewery1 === undefined){
-        console.log("Brewery Object was undefined.");
+        // console.log("Brewery Object was undefined.");
     }
     else{
         createMarker(brewery1, photoURL1, localCoordinatesObjects);
@@ -380,7 +380,7 @@ function autopopulateLocation(){
                 return response.json();
             })
             .catch(function (error){
-                console.log(error);
+                // console.log(error);
                 return error;
             })
             .then(function (geoData) {
@@ -399,11 +399,11 @@ function autopopulateLocation(){
                 result.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
                     let name = brewery.name;
                     if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
-                        console.log(`${name} was in storage`);
+                        // console.log(`${name} was in storage`);
                     }
                     else{ // forgot the else, it was storing things twice. DOH!
                     // Generate the promise chain and then store the brewerie's info
-                        console.log(`Storing ${name} in storage`);
+                        // console.log(`Storing ${name} in storage`);
                         return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=ipbias`)
                         .then(function (response){
                             return response.json();
@@ -436,18 +436,16 @@ function autopopulateLocation(){
                             localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
                         })
                         .catch(function (error){
-                            console.log("There was no Place_ID");
-                            console.log(error);
+                            // console.log("There was no Place_ID");
+                            // console.log(error);
                         });
                     }
                 })
             })
         })
     }
-    else{
-        console.log(`https://www.youtube.com/watch?v=AubJS7oWaWo`);
-        console.log(`Alright then, keep your secrets! :) `);
-    }
+    console.log(`https://www.youtube.com/watch?v=AubJS7oWaWo`);
+    console.log(`Alright then, keep your secrets! :) `);
 }
 
 
@@ -514,8 +512,8 @@ function showMeTheBreweryTypes(breweriesArray){ // quick optional function to lo
         else{
         }
     });
-    console.log("breweryTypesArray:");
-    console.log(breweryTypesArray);
+    // console.log("breweryTypesArray:");
+    // console.log(breweryTypesArray);
 }
 
 function radiusBreweryRandomizer(localBreweries){ // randomizer to pull out the 1 phone number to query Yelp

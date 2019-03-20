@@ -99,7 +99,7 @@ function giveApiInfo() {
     inputToObject(currentCity.value, currentState.value, currentRadius.value)
     .then(function (result){
 
-        debugger;
+        // debugger;
         let map;
         let service;
         let infoWindow;
@@ -111,8 +111,8 @@ function giveApiInfo() {
         // // ^^^ are all the breweries in the state from OpenBreweryDB
         // let radiusMeters = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[2];
         let radiusMiles = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[2];
-        console.log(localCoordinatesObjects);
-        console.log(arrayOfStateBreweriesObjects);
+        // console.log(localCoordinatesObjects);
+        // console.log(arrayOfStateBreweriesObjects);
         //vv//vv//
         let city = (currentCity.value); // add user defined 'city' to arguments passing into `initMap` function
         let state = (currentState.value); // add user defined 'state' to arguments passing into `initMap` function
