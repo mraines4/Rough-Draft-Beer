@@ -127,7 +127,7 @@ function geoApi(city,state){
 ///////////////////////
 // GOOGLE API BEGINS //
 ///////////////////////
-function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius = 50, state) { // radius has defaulted value in case browser allows user to "go" before a radius is chosen so that Zoom level won't panic
+function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius = 50, city, state) { // radius has defaulted value in case browser allows user to "go" before a radius is chosen so that Zoom level won't panic
     let lat = localCoordinatesObjects["lat"];
     let lng = localCoordinatesObjects["lng"];
 
@@ -157,6 +157,28 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius =
             zoom : zoomValue 
         }
     );
+    //vv//vv//
+    // Sorting the brewery list and prioritize the earlier creation of markers that are in the city the user requested
+
+    arrayOfStateBreweriesObjects.sort(function (a, b){ // sort breweries alphabetically by city
+        let nameA=a.city.toLowerCase(), nameB=b.city.toLowerCase();
+        if (nameA < nameB){ //sort string ascending
+            return -1 
+        }
+        if (nameA > nameB){
+            return 1
+        }
+        else{
+            return 0
+        }
+    });
+    console.log(arrayOfStateBreweriesObjects);
+    const index = arrayOfStateBreweriesObjects.findIndex(brewery => brewery.city === city); // split the list at the index of the first city matching object
+    const first = arrayOfStateBreweriesObjects.slice(0, index);
+    const second = arrayOfStateBreweriesObjects.slice(index);
+    const arrayOfStateBreweriesObjects1 = second.concat(first); // add the first half of the list to the end
+    console.log(arrayOfStateBreweriesObjects1);
+    //^^//^^//
     arrayOfStateBreweriesObjects.forEach(function (brewery){ //iterates over each Brewery Name to create a marker and add it to the map, either from Local Storage or from a fetch
         let name = brewery.name;
         let results;

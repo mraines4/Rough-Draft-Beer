@@ -99,7 +99,7 @@ function giveApiInfo() {
     inputToObject(currentCity.value, currentState.value, currentRadius.value)
     .then(function (result){
 
-
+        debugger;
         let map;
         let service;
         let infoWindow;
@@ -114,8 +114,9 @@ function giveApiInfo() {
         console.log(localCoordinatesObjects);
         console.log(arrayOfStateBreweriesObjects);
         //vv//vv//
+        let city = (currentCity.value); // add user defined 'city' to arguments passing into `initMap` function
         let state = (currentState.value); // add user defined 'state' to arguments passing into `initMap` function
-        initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles, state);
+        initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles, city, state);
         //^^//^^//
         // debugger;
         // runningDiv.classList.add('hidden');
