@@ -74,14 +74,19 @@
 * Matt Raines
     * Contributions:
         * Concept, DOM Manipulation, Weather API Implementation
+    
     [GitHub Profile](https://github.com/mraines4)
+
 * Jonathan Ray
     * Contributions:
         * Concept, Open Cage/Google/OpenBrewery API integration, Distance Formulation, Geolocation Implementation
+    
     [GitHub Profile](https://github.com/ray-jonathan)
+
 * Margaret ONeill
     * Contributions:
         * Concept, Layout, Responsive Design, Distance Formulation
+    
     [GitHub Profile](https://github.com/MAOneill)
 
 ## Screenshots
