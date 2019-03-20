@@ -46,9 +46,7 @@
     Additionally, mobile devices handled the overflow differently than desktop devices.
 
     The custom graphics - napkins, coasters, and the table were fun assets to photograph and edit in photoshop and illustrator.  The water rings were custom brushes that Margaret had created years ago and they worked perfectly in this project.  Tiny assets like the beer mug and favicons were fun extras.
-    ```
-    code snippet
-    ```
+
 * Having the application load the cities in the drop down menu based on the state selected was a challenge early on. We handled this by pulling in all of the states and corresponding cities into a JSON file, bypassing an unneccessary extra API call.
 
     We then manipulated the DOM to listen for when the state selection had changed. At that time we appended under the city element all the corresponding cities for the seleted state. Putting all the cities in a JSON file made it so the cities populating was instantaneous
