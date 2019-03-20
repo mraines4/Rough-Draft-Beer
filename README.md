@@ -49,7 +49,7 @@
 
 * Having the application load the cities in the drop down menu based on the state selected was a challenge early on. We handled this by pulling in all of the states and corresponding cities into a JSON file, bypassing an unneccessary extra API call.
 
-    We then manipulated the DOM to listen for when the state selection had changed. At that time we appended under the city element all the corresponding cities for the seleted state. Putting all the cities in a JSON file made it so the cities populating was instantaneous
+    We then manipulated the DOM to listen for when the state selection had changed, we would then appended under the city element all the corresponding cities for the seleted state. Putting all the cities in a JSON file made it so the cities populating was instantaneous
 
 
 * Learning to anticipate broken, incomplete, or poorly formatted information from APIs was a significant challenge. Realizing that OpenBreweyDB’s API did not reliably contain the information we wanted, our initial approach involved using each business’s phone number to look up a fuller database of details from the Yelp Fusion API. However, due to inconsistencies within the OpenBreweryDB’s supplied phone numbers, our approach had to evolve to take advantage of fuzzy name matching possible (and reliably consistent) with Google Maps  API’s Places Detail Search. Integration with the Google Maps platform was surprisingly easy and robust, solving a lot of the initial difficulties in working incomplete data.
