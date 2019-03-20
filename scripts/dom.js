@@ -113,9 +113,10 @@ function giveApiInfo() {
         let radiusMiles = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[2];
         console.log(localCoordinatesObjects);
         console.log(arrayOfStateBreweriesObjects);
-        // debugger;
-        // initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMeters);
-        initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles);
+        //vv//vv//
+        let state = (currentState.value); // add user defined 'state' to arguments passing into `initMap` function
+        initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radiusMiles, state);
+        //^^//^^//
         // debugger;
         // runningDiv.classList.add('hidden');
         // mapDiv.classList.remove('hidden');

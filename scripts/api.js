@@ -1,43 +1,6 @@
 //////////////////////////////
 // OPENBREWERYDB API BEGINS //
 //////////////////////////////
-// function page1(state){
-//     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=1&per_page=50`)
-//     .then(function (response){
-//         return response.json(); // workable data
-//     })
-//     .then(function (data){
-//         return data;
-//         });
-// }
-// function page2(state){
-//     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=2&per_page=50`)
-//     .then(function (response){
-//         return response.json(); // workable data
-//     })
-//     .then(function (data){
-//         return data;
-//         });
-// }
-// function page3(state){
-//     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=3&per_page=50`)
-//     .then(function (response){
-//         return response.json(); // workable data
-//     })
-//     .then(function (data){
-//         return data;
-//         });
-// }
-// function page4(state){
-//     return fetch(`https://api.openbrewerydb.org/breweries?by_state=${state}&page=4&per_page=50`)
-//     .then(function (response){
-//         return response.json(); // workable data
-//     })
-//     .then(function (data){
-//         return data;
-//         });
-// }
-
 let allCharactersArray = [];
 
 function urlForPage(state, pageNumber) {
@@ -76,8 +39,19 @@ function storeCharacters(state, arrayOfCharacters) {
 function breweryAPI(state){
     if (!(localStorage.getItem(state))) { // puts state breweries in local storage
         let promiseArray = [];
-        for (let pageNumber=0; pageNumber<6; pageNumber++) {
-            let delay = pageNumber * 500;
+        //vv//vv//
+        let max = 12; // Handling states with a huge number of breweries
+        if (state === "California"){ // California has over 900 breweries!
+            max = 20;
+        }
+        else{
+            max = 12;
+        }
+        //^^//^^//
+
+
+        for (let pageNumber=0; pageNumber<max; pageNumber++) {
+            let delay = pageNumber * 50;
         
             // setTimeout(function () {
                 console.log("Sent a timeout!");
@@ -104,53 +78,6 @@ function breweryAPI2(state){
     });
     return thePromise;
 }
-
-
-
-        // // stagger the fetches // Whelp, we tried to...
-        // let prom1 = page1(state);
-        // let prom2 = page2(state);
-        // let prom3 = page3(state);
-        // let prom4 = page4(state);
-        // // // for whatever reason, timeouts below don't work
-        // // let prom2 = setTimeout(function (){
-        // //     console.log("pagination process begun")
-        // //     page2(state);
-        // // }, 250);
-        // // let prom3 = setTimeout(function (){
-        // //     page3(state);
-        // // }, 500);
-        // // let prom4 = setTimeout(function (){
-        // //     page4(state);
-        // // }, 750);
-
-        // return arrayOfArraysOfObjects = await Promise.all([prom1, prom2, prom3, prom4])// wait for them to come back;
-        // .then(function (arrayOfArraysOfObjects){ 
-        // let array1 = arrayOfArraysOfObjects[0];
-        // let array2 = arrayOfArraysOfObjects[1];
-        // let array3 = arrayOfArraysOfObjects[2];
-        // let array4 = arrayOfArraysOfObjects[3];
-        // let arrayOfObjects = [
-        //     ...array1,
-        //     ...array2,
-        //     ...array3,
-        //     ...array4,
-        // ];
-        // const data = (arrayOfObjects);
-//         let cleanedStateDB = getRidOfDumbCharacters(filterOutPhoneyPhones(filterOutPlanners(data))); // start calling functions
-//         const results = cleanedStateDB;
-//         return results;
-//         })
-//         .then(function (data){
-//             localStorage.setItem(state,JSON.stringify(data));// write it to local storage
-//             return data;
-//         })
-//         .then(function (data){
-//             // showMeTheBreweryTypes(data);
-//             return data; // once more, for good luck
-//         });
-//     }
-// }
 
 function filterOutPhoneyPhones(breweriesArray){
     let goodPhones = breweriesArray.filter(function (eachBrewery){
@@ -200,7 +127,7 @@ function geoApi(city,state){
 ///////////////////////
 // GOOGLE API BEGINS //
 ///////////////////////
-function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) { //*** needs to be passed an array of brewery names
+function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius = 50, state) { // radius has defaulted value in case browser allows user to "go" before a radius is chosen so that Zoom level won't panic
     let lat = localCoordinatesObjects["lat"];
     let lng = localCoordinatesObjects["lng"];
 
@@ -246,7 +173,6 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) 
             })
             .then(function (response){
                 let placeID;
-                // debugger;
                     if (response.candidates.length < 1){
                         throw new Error("Can't perform Place Details search on this brewery name, no results for name.");
                     }
@@ -265,6 +191,11 @@ function initMap(localCoordinatesObjects, arrayOfStateBreweriesObjects, radius) 
                 if (response.permanently_closed === true){
                     throw new Error("Too bad, this brewery is permanently closed!");
                 }
+                //vv//vv//
+                else if (!( ((response.result.address_components[3].long_name.includes(state))||response.result.address_components[4].long_name.includes(state))||(response.result.address_components[5].long_name.includes(state))||(response.result.address_components[6].long_name.includes(state)) )){ // checks if the Google Details search found a brewery out of state and chucks it out if so
+                    throw new Error("Bad Google, you think this brewery is out of state!");
+                }
+                //^^//^^//
                 else{
                     return response;
                 }
@@ -448,43 +379,45 @@ function autopopulateLocation(){
                     if (localStorage.getItem(name)) { // Check localStorage for this brewery's info
                         console.log(`${name} was in storage`);
                     }
-                // Generate the promise chain and then store the brewerie's info
-                    console.log(`Storing ${name} in storage`);
-                    return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=ipbias`)
-                    .then(function (response){
-                        return response.json();
-                    })
-                    .then(function (response){
-                        let placeID;
-                            if (response.candidates.length < 1){
-                                throw new Error("Can't perform Place Details search on this brewery name, no results for name.");
+                    else{ // forgot the else, it was storing things twice. DOH!
+                    // Generate the promise chain and then store the brewerie's info
+                        console.log(`Storing ${name} in storage`);
+                        return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&input=${name}&inputtype=textquery&locationbias=ipbias`)
+                        .then(function (response){
+                            return response.json();
+                        })
+                        .then(function (response){
+                            let placeID;
+                                if (response.candidates.length < 1){
+                                    throw new Error("Can't perform Place Details search on this brewery name, no results for name.");
+                                }
+                                else{
+                                    placeID = (response["candidates"][0]["place_id"]);
+                                }
+                            return placeID;
+                        })
+                        .then(function (placeID){
+                            return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
+                        })
+                        .then(function (response){
+                            return response.json();
+                        })            
+                        .then(function (response){
+                            if (response.permanently_closed === true){
+                                throw new Error("Too bad, this brewery is permanently closed!");
                             }
                             else{
-                                placeID = (response["candidates"][0]["place_id"]);
+                                return response;
                             }
-                        return placeID;
-                    })
-                    .then(function (placeID){
-                        return fetch(`https://my-little-cors-proxy.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyApHYZEvDSvxo93xtENN27q30mCGb29rsI&placeid=${placeID}`);
-                    })
-                    .then(function (response){
-                        return response.json();
-                    })            
-                    .then(function (response){
-                        if (response.permanently_closed === true){
-                            throw new Error("Too bad, this brewery is permanently closed!");
-                        }
-                        else{
-                            return response;
-                        }
-                    })
-                    .then(function (data){
-                        localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
-                    })
-                    .catch(function (error){
-                        console.log("There was no Place_ID");
-                        console.log(error);
-                    });
+                        })
+                        .then(function (data){
+                            localStorage.setItem(brewery.name,JSON.stringify(data));// write it to local storage
+                        })
+                        .catch(function (error){
+                            console.log("There was no Place_ID");
+                            console.log(error);
+                        });
+                    }
                 })
             })
         })
@@ -503,18 +436,27 @@ async function inputToObject(city, state, radius){
     let userCoordinatesPromise = geoApi(city, state);
     // let userCoordinatesPromise = {lat:33.8426621, lng: -84.3731155}; // for avoiding buring OpenCage's API requests
     let arrayOfStateBreweryObjectsPromise = breweryAPI(state); // fetches all the OpenBreweryDB's records for the state and filters them a bit
-    // // 
-    // breweryAPI(state)
-    // .then(function (result){
-    // //    response = clean brewerydb info 
-    // })
+
+    //vv//vv//
+    allCharactersArray = []; // Have to reset what was in the accumulating array before running `breweryAPI` again, otherwise thi was causing the bug where subsequent state look ups were adding all previous state results in, cutting down on local storage space
+    //^^//^^//
 
 
-    const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
+    // const arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects = await Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]);
+    // let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
+    // let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
+    // let radiusMiles = radius; //* 1609.34 if you want convert to meters for whatever reason;
+    // return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
+
+    //vv//vv//
+    return Promise.all([userCoordinatesPromise, arrayOfStateBreweryObjectsPromise]) // rewritten for legibility 
+    .then(function (arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects){
     let localCoordinatesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[0];
     let arrayOfStateBreweriesObjects = arrayOfLocalCoordinatesObjectsAndArrayOfStatBreweriesObjects[1];
     let radiusMiles = radius; //* 1609.34 if you want convert to meters for whatever reason;
     return [localCoordinatesObjects,arrayOfStateBreweriesObjects,radiusMiles];
+    });
+    //^^//^^//
 }
 
 function haversine(lat1, lng1, lat2, lng2){ // for finding the distance between two sets of coordinates
