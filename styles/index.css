@@ -265,6 +265,7 @@ a, a:visited, a:hover, a:link, a:active {
     position: absolute;
     /* transform: translate(-50%,-50%); */
     font-size: 4.3vw;
+    overflow: hidden;
 
   }
   .displaydata {
