@@ -378,7 +378,7 @@ select:hover  {
 .aboutinfo {
   position: absolute;
   top:0;
-  font-size:5vh;
+  font-size:4.5vh;
   margin:15px;
   padding:2vh;
 }
@@ -593,7 +593,7 @@ and (min-device-width: 800px) {
     /* font-size:3.8vh;  */
   }
   .aboutinfo {
-    font-size:5vh;
+    font-size:4.5vh;
   }
   .title  {
     font-size: 8vh;
@@ -619,7 +619,7 @@ and (min-device-width: 800px) {
     width:90vw;
   }
   .aboutinfo {
-    font-size:5vw;
+    font-size:4.5vw;
   }
   .title  {
     font-size: 8vw;
@@ -670,7 +670,7 @@ and (min-device-width: 800px) {
   font-size: 5vh;
 }
 .aboutinfo {
-  font-size:5vh;
+  font-size:4.5vh;
 }
 
 #map {
