@@ -275,7 +275,7 @@ a, a:visited, a:hover, a:link, a:active {
   /* default for portrait  - mobile */
   .inputfields {
     top: 9vw;
-    left: 7vw;
+    left: 4vw;
 
   }
 
@@ -715,7 +715,7 @@ and (min-device-width: 800px) {
 }
 .inputfields {
   top: 9vh;
-  left: 7vh;
+  left: 4vh;
 
 }
 
