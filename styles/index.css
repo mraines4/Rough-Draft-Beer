@@ -379,8 +379,10 @@ select:hover  {
   position: absolute;
   top:0;
   font-size:4.5vh;
-  margin:15px;
-  padding:2vh;
+  /* margin:2vh; */
+  padding:3vh;
+  margin:2vh;
+
 }
 .pictureframe {
   position:relative;
@@ -594,6 +596,10 @@ and (min-device-width: 800px) {
   }
   .aboutinfo {
     font-size:4.5vh;
+    padding:3vh;
+    margin:2vh;
+
+
   }
   .title  {
     font-size: 8vh;
@@ -620,6 +626,10 @@ and (min-device-width: 800px) {
   }
   .aboutinfo {
     font-size:4.5vw;
+    padding:3vw;
+    margin:2vw;
+
+
   }
   .title  {
     font-size: 8vw;
@@ -671,6 +681,9 @@ and (min-device-width: 800px) {
 }
 .aboutinfo {
   font-size:4.5vh;
+  padding:3vh;
+  margin:2vh;
+
 }
 
 #map {
