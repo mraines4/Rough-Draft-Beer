@@ -2,6 +2,8 @@
 /* paul irish border box styling */
 html {
     box-sizing: border-box;
+    overflow: hidden;  
+
   }
 
 *, *:before, *:after {
@@ -164,6 +166,8 @@ h3 {
   left:50%;
   transform: translate(-50%,-50%); 
   z-index: 1;
+  overflow: hidden;  
+
 
 }
 /* took running out b/c its not on a napkin */
