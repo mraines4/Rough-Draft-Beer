@@ -37,7 +37,7 @@
 ## Technologies
 * HTML
 * CSS
-* Javascript
+* JavaScript
 * Google Places API
 * OpenBreweryDB API
 * OpenWeatherMap API
