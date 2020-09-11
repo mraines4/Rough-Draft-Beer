@@ -11,9 +11,6 @@ html {
 }
 body {
 
-    /* background-image: url("../img/lightwoodplank.jpg"); */
-    /* background-image: url("../img/table-slant.jpg"); */
-    /* background-image: url("../img/woodtable.jpg"); */
     background-image: url("../img/woodtabledarkstraight.jpg");
     background-repeat: no-repeat;
     max-width: 100vw;
@@ -37,7 +34,6 @@ h1 {
 
 h3 {
   text-align: right;
-  /* color : #FFC24F; */
   font-size: 4vh;
 }
 a, a:visited,  a:link, a:active {
@@ -54,9 +50,7 @@ a:hover {
   top:0px;
   left:0px;
   width:60vw;
-  height:60vw;  /* it is square
-  /* height:100%; */
-  /* transform: translate(0%,-29%); */
+  height:60vw;  
 
 }
 .titlecoaster {
@@ -72,7 +66,6 @@ a:hover {
 .title {
   float:left;
   position: absolute;
-  /* top:29%; */
   left: 2%;
   font-size: 8vh;
   color: #377872;
@@ -84,7 +77,6 @@ a:hover {
 }
 
 .aboutsearchdiv {
-  /* float: right; */
   display:flex;
 
   position: absolute;
@@ -98,7 +90,6 @@ a:hover {
   position: absolute;
   
   width:60vw;
-  /* padding-top: 100%; */
   height:60vw;
   top: 100%;
   left:100%;
@@ -118,27 +109,6 @@ a:hover {
   transform: translate(-100%,-100%);
 
 }
-/*the words */
-/* .aboutorsearch   {
-  /* float:right; */
-  /* position: absolute;
-  display:flex;
-  align-self: baseline;
-  justify-content: space-around;
-  width:60vw; */
-  /* height:60vh; */
-  /* z-index:6; */
-  /* top: 100%;
-  left:100%;
-  transform: translate(-100%,-100%); */
-
-  /* bottom:0%;
-  right: 7%; */
-  /* font-size: 12px; */
-  /* color: #377872; */
-  /* font-weight: bold; */
-
-/* } */ 
 
 .newnavname {
   color:  #377872;;
@@ -151,65 +121,35 @@ a:hover {
   padding-bottom:2%;
 }
 .back, .about, .research {
-/* .newback , .newabout, .newsearch{ */
   margin:0px;
   float:right;
   padding-right:2vw;
   transform: rotatez(-7deg);
-
-   
+  
 }
-.back, .research , .about  {
-  /* position: relative; */
-  /* vertical-align: bottom; */
-  /* top:0; */
-
-}
-
 
 .maincontainer {
   display:flex;
   position: absolute;
-  /* border: 2px solid red; */
   top:50%; 
   left:50%;
   transform: translate(-50%,-50%); 
   z-index: 1;
-  /* overflow: hidden;   */
-
 
 }
-/* took running out b/c its not on a napkin */
 .running {
   
   top:20vh;
 }
 .search, .result , .mapall, .aboutdetail {
 
-  /* this rotates the napkin - and all the text */
   transform: rotatez(-4deg);
-  /* this does a tilt - so napkin appears flat on slanted table */
-  /* transform: perspective(324px) rotatex(7deg); */
-
-/* works for landscapes */
-  /* font-size:4vh;   */
-  /* works for portrait */
-  /* font-size:3.8vw;   */
 
 }
 
 .cardpictureframe {
-  /* width:90vh; */
   width:90vw;
-  padding-top: 100%;  /*forces square */
-  /* position: absolute; */
-  /* top: 0;
-  left: 50%; */
-  /* top: 50%;
-  right: 50%;*/
-  /* transform: translate(0,-50%);   */
-  /* border: 2px solid green; */
-
+  padding-top: 100%;  
 
 }
 .cardbackgroundpic {
@@ -217,58 +157,22 @@ a:hover {
   top: 0;
 }
 .cardbackgroundpic > img {
-  /* position: absolute; */
-  /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
-  /* background-repeat: no-repeat; */
   width:100%;
   height:100%;
   object-fit: cover;
-  /* top: 50%; */
-  /* right: 50%; */
-  /* transform: translate(-50%,-50%);  */
-  /* border: 2px solid purple; */
-  position: relative;  /* DOES THIS BREAK ANYTHING ELSE */
+  position: relative;  /
 
 }
       .search {
-    /* width:300px; */
-    /* height:300px; */
-    /* border: 2px solid red; */
-    /* background-color: #119e6a; */
-    /* background-color: #377872; */
     padding:10px;
     border-radius:10%;
   }
-/*
-  .search:hover {
-    opacity: 1;
-    z-index: 3;
-  }
-  */
   
-  .result {
-    /* top:30vh;
-    right: 20%; */
-    /* background-color: #119e6a;
-    background-color: #377872; */
-
-    /* width :400px; */
-    /* height: 500px; */
-    /* border: 2px solid purple; */
-    /* padding: 10px; */
-    /* border-radius:5%; */
-    /*keep here?*/
-    /* line-height: 1.7em;   */
-
-  }
   
   .inputfields , .displaydata {
-    /* border: 3px solid blue; */
-    /* margin:30px; */
     width: 100%; /* of container*/
     height: 100%; /* of container */
     position: absolute;
-    /* transform: translate(-50%,-50%); */
     font-size: 4.3vw;
     overflow: hidden;
 
@@ -311,7 +215,6 @@ select:hover  {
   height:85%;
   grid-template-columns: 4% 43% 2% 43% 4%;
   grid-template-rows: 4% 43% 2% 43% 4%;
-  /* max-height: 100vh; */
   
   grid-auto-rows: minmax(100%, 100%);
   grid-auto-columns: minmax(100%, 100%);
@@ -321,6 +224,8 @@ select:hover  {
   it should actuall be based the 3.8vh setting and then rescaled */
   font-size:130%;  
 }
+
+/* the different quadrants of the grid */
 .topleft {
   grid-column-start: 2;
   grid-column-end:3;
@@ -366,11 +271,8 @@ select:hover  {
   bottom:25%;
   left:5%;
   border: 2px solid #377872;
-  /* float:left; */
   padding:1%;
   border-radius: 5px;
-  /* position: absolute;
-  right: 10%; */
     background-color:transparent;
     font-size: 5vw;
     z-index:3;   /* always want this on top */
@@ -388,7 +290,6 @@ select:hover  {
   position: absolute;
   top:0;
   font-size:4.5vh;
-  /* margin:2vh; */
   padding:3vh;
   margin:2vh;
 
@@ -398,8 +299,6 @@ select:hover  {
   margin:auto;
   width: 100%;
   padding-top:100%
-  /* height: 100%; */
-  /* object-fit: cover; */
 }
 .pictureframe > img {
   position: absolute;
@@ -412,10 +311,6 @@ select:hover  {
 }
 .brewerypicture {
   position: relative;
-}
-
-img {
-  /* width:100%; */
 }
 
   .hidden {
@@ -433,10 +328,7 @@ img {
     padding:3px 5px 3px 5px;
     margin:5px;
   }
-.inputtype * {
-  /* margin:50px; */
 
-}
 .displaygif {
   display:flex;
   position: absolute;
@@ -449,7 +341,6 @@ img {
   
 }
 .gifpictureframe {
-    /* width:90vh; */
     position: absolute;
     top:10%;
     width:75%;
@@ -467,10 +358,6 @@ img {
   width:100%;
   height:100%;
   object-fit:cover;
-  /* left:50%;
-  transform: translate(-50%,20%); */
-  /* width:100px; */
-  /* height: 50%; */
   border-radius: 5px;
 }
 .transparent {
@@ -495,22 +382,7 @@ img {
   }
 .currentweathericon {
   float:left;
-}
-  .weatherpng {
-    /* width:20px; */
-  }
-  /* change this for larger screens */
-  
-  
-/*
-  h3 {
-    position:absolute;
-    top:0%;
-    z-index:5;
- 
-  }
-  */
-  
+}  
 
 .back:hover ,.research:hover ,.about:hover {
   color:#C46233;
@@ -530,18 +402,10 @@ justify-content: space-around;
 }
 
 .mapbackgroundpic img{
-  /* position: absolute; */
-  /* background-image: url("/img/napkinwatermarkdropshadowsq.png"); */
-  /* background-repeat: no-repeat; */
   width:100%;
   height:100%;
   object-fit: cover;
-  /* top: 50%; */
-  /* right: 50%; */
-  /* transform: translate(-50%,-50%);  */
-  /* border: 2px solid purple; */
-  position: relative;  /* DOES THIS BREAK ANYTHING ELSE */
-
+  position: relative;  
 }
 /* map is essentially a picture frame */
 #map {
@@ -556,18 +420,9 @@ justify-content: space-around;
 
 
 }
-/* you have to overwrite all of googles inline styling */
 #map > * {
-  /* width:80vh !important; */
-  /* height:80vh !important; */
   position: absolute !important;;
-    /* top: 50% !important; */
-    /* top:0px; */
-  /* right: 50% !important;; */
-  /* transform: translate(-7%,-51%) !important;;  */
   overflow: hidden;  /* must have this */
-  /* object-fit: cover; */
-
 
 }
 
@@ -578,18 +433,7 @@ justify-content: space-around;
   height: 6vh;
 }
 
-@media only screen 
-and (max-device-width: 600px) {
-  .aboutsearchdiv {
-    /* position: fixed;
-    left: 375px;
-    top: 680px;
-    transform: translate(-100%,-100%); */
 
-   
-
-}
-}
   /* when the width is larger than the height - the cards should be 90% of the height*/
   /* when the height is larger than the width - the cards should be 90% of the width */
 @media only screen 
@@ -599,15 +443,10 @@ and (min-device-width: 800px) {
   }
   .maincontainer {
   }
-  .search, .result, .running , .mapall{  
-     /* works for landscapes */
-    /* font-size:3.8vh;  */
-  }
   .aboutinfo {
     font-size:4.5vh;
     padding:3vh;
     margin:2vh;
-
 
   }
   .title  {
@@ -666,11 +505,6 @@ and (min-device-width: 800px) {
 }
 
 }
-
-  .search, .result, .running , .mapall{  
-     /* works for portrait */
-    /* font-size:3.8vw;  */
-  }
 
 
 /* Landscape */
@@ -739,16 +573,7 @@ and (min-device-width: 800px) {
       background-size: 1500px 1500px;
      } 
 }
-/*
-@media only screen 
-  and (min-device-width: 834px) 
-  and (max-device-width: 1112px)
-  and (-webkit-min-device-pixel-ratio: 2) {
-    body {
-      background-size: 1200px 1200px;
-     } 
-}
-*/
+
 @media only screen 
   and (min-device-width: 1024px) 
   and (max-device-width: 1366px)
